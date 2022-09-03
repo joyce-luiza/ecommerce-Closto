@@ -4,20 +4,33 @@ class Facade {
     controllers = new Map();
     strategies = new Map();
 
-    async save(entityType, entityInfo) {
-        return await UserController.save(entityInfo);
+    constructor() {
+        this.controllers.set('/users', UserController);
     }
 
-    async consult(entityType, entityInfo) {
-        return { ok: true };
+    async save(entityType, entityInfo) {
+        const entityController = this.controllers.get(entityType);
+        return entityController.save(entityInfo);
+    }
+
+    async index(entityType, entityInfo) {
+        const entityController = this.controllers.get(entityType);
+        return entityController.index(entityInfo);
+    }
+
+    async show(entityType, entityInfo) {
+        const entityController = this.controllers.get(entityType);
+        return entityController.show(entityInfo);
     }
 
     async update(entityType, entityInfo) {
-        return { ok: true };
+        const entityController = this.controllers.get(entityType);
+        return entityController.update(entityInfo);
     }
 
     delete(entityType, entityInfo) {
-        return { ok: true };
+        const entityController = this.controllers.get(entityType);
+        return entityController.delete(entityInfo);
     }
 }
 
