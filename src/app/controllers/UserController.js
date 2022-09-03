@@ -1,3 +1,5 @@
+import User from "../models/User";
+
 class UserController {
     async show(entityInfo) {
         return { ok: true };
@@ -8,7 +10,7 @@ class UserController {
     }
 
     async save(entityInfo) {
-        return { ok: true };
+        return await User.create(entityInfo);
     }
 
     async update(entityInfo) {
