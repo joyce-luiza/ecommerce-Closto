@@ -1,12 +1,8 @@
 import User from "../models/User";
 
 class UserController {
-    async show(entityInfo) {
-        return { ok: true };
-    }
-
     async index(entityInfo) {
-        return { ok: true };
+        return await User.findByPk(entityInfo.user_id);
     }
 
     async save(entityInfo) {
@@ -14,11 +10,11 @@ class UserController {
     }
 
     async update(entityInfo) {
-        return { ok: true };
+        return await (await User.findByPk(entityInfo.user_id)).update(entityInfo)
     }
 
     async delete(entityInfo) {
-        return { ok: true };
+        return await (await User.findByPk(entityInfo.user_id)).destroy();
     }
 }
 
