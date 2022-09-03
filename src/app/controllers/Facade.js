@@ -1,20 +1,22 @@
+import UserController from "./UserController";
+
 class Facade {
     controllers = new Map();
     strategies = new Map();
 
-    async save(EntityType, EntityInfo) {
+    async save(entityType, entityInfo) {
+        return await UserController.save(entityInfo);
+    }
+
+    async consult(entityType, entityInfo) {
         return { ok: true };
     }
 
-    async consult(EntityType, EntityInfo) {
+    async update(entityType, entityInfo) {
         return { ok: true };
     }
 
-    async update(EntityType, EntityInfo) {
-        return { ok: true };
-    }
-
-    delete(EntityType, EntityInfo) {
+    delete(entityType, entityInfo) {
         return { ok: true };
     }
 }
