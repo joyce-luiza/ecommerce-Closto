@@ -1,9 +1,8 @@
-import { Router } from 'express';
+import { Router } from "express";
+import SaveCommand from "./commands/SaveCommand";
 
 const routes = Router();
 
-routes.get('/teste', (req, res) => {
-    return res.json({ status: 'ok'});
-});
+routes.post("/users", SaveCommand);
 
 export default routes;
