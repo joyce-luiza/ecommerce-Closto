@@ -1,8 +1,8 @@
 import Card from "../models/Card";
 
-class CardController  {
+class CardController {
     async show(entityInfo) {
-        return await Card.findAll({where: { user_id: entityInfo.user_id }});
+        return await Card.findAll({ where: { user_id: entityInfo.user_id } });
     }
 
     async save(entityInfo) {

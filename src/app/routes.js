@@ -22,4 +22,9 @@ routes.patch("/user/cards", UpdateCommand);
 routes.get("/user/cards", ConsultCommand);
 routes.delete("/user/cards", DeleteCommand);
 
+routes.post("/user/addresses", SaveCommand);
+routes.patch("/user/addresses", UpdateCommand);
+routes.get("/user/addresses", ConsultCommand);
+routes.delete("/user/addresses", DeleteCommand);
+
 export default routes;
