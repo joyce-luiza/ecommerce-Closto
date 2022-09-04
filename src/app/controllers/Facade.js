@@ -1,4 +1,5 @@
 import UserController from "./UserController";
+import SessionController from "./SessionController";
 
 import ValidatePassword from "../strategies/ValidatePassword";
 
@@ -7,9 +8,10 @@ class Facade {
     strategies = new Map();
 
     constructor() {
-        this.controllers.set('/users', UserController);
+        this.controllers.set("/users", UserController);
+        this.controllers.set("/session", SessionController);
 
-        this.strategies.set('/users', [ValidatePassword]);
+        this.strategies.set("/users", [ValidatePassword]);
     }
 
     async save(entityType, entityInfo) {
@@ -18,15 +20,19 @@ class Facade {
 
         const errors = [];
 
-        if(entityStrategies){
-            for (let index = 0; index < Object.keys(entityStrategies).length; index++) {
+        if (entityStrategies) {
+            for (
+                let index = 0;
+                index < Object.keys(entityStrategies).length;
+                index++
+            ) {
                 let validation = await entityStrategies[index](entityInfo);
 
-                if(validation != null) errors.push(validation);
+                if (validation != null) errors.push(validation);
             }
         }
 
-        if(errors.length > 0) {
+        if (errors.length > 0) {
             return errors;
         }
 
@@ -49,15 +55,19 @@ class Facade {
 
         const errors = [];
 
-        if(entityStrategies){
-            for (let index = 0; index < Object.keys(entityStrategies).length; index++) {
+        if (entityStrategies) {
+            for (
+                let index = 0;
+                index < Object.keys(entityStrategies).length;
+                index++
+            ) {
                 let validation = await entityStrategies[index](entityInfo);
 
-                if(validation != null) errors.push(validation);
+                if (validation != null) errors.push(validation);
             }
         }
 
-        if(errors.length > 0) {
+        if (errors.length > 0) {
             return errors;
         }
 
