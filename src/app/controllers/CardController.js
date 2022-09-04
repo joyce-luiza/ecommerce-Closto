@@ -1,23 +1,20 @@
 import Card from "../models/Card";
 
 class CardController  {
-    index(EntityInfo) {
-        const status = EntityInfo;
-        return status;
+    async show(entityInfo) {
+        return await Card.findAll({where: { user_id: entityInfo.user_id }});
     }
 
-    async save(EntityInfo) {
-        return await Card.create(EntityInfo);
+    async save(entityInfo) {
+        return await Card.create(entityInfo);
     }
 
-    update(EntityInfo) {
-        const status = EntityInfo;
-        return status;
+    async update(entityInfo) {
+        return await (await Card.findByPk(entityInfo.id)).update(entityInfo);
     }
 
-    delete(EntityInfo) {
-        const status = EntityInfo;
-        return status;
+    async delete(entityInfo) {
+        return await (await Card.findByPk(entityInfo.id)).destroy();
     }
 }
 
