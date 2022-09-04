@@ -2,6 +2,7 @@ import UserController from "./UserController";
 import SessionController from "./SessionController";
 
 import ValidatePassword from "../strategies/ValidatePassword";
+import CardController from "./CardController";
 
 class Facade {
     controllers = new Map();
@@ -10,6 +11,7 @@ class Facade {
     constructor() {
         this.controllers.set("/users", UserController);
         this.controllers.set("/session", SessionController);
+        this.controllers.set("/user/cards", CardController);
 
         this.strategies.set("/users", [ValidatePassword]);
     }

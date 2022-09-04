@@ -16,4 +16,6 @@ routes.get("/users", IndexCommand);
 routes.patch("/users", UpdateCommand);
 routes.delete("/users", DeleteCommand);
 
+routes.post("/user/cards", SaveCommand);
+
 export default routes;
