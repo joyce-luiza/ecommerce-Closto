@@ -1,9 +1,12 @@
 import UserController from "./UserController";
 import SessionController from "./SessionController";
+import CardController from "./CardController";
+import AddressController from "./AddressController";
 
 import ValidatePassword from "../strategies/ValidatePassword";
-import CardController from "./CardController";
-import AddressControllers from "./AddressControllers";
+import ValidateEmail from "../strategies/ValidateEmail";
+import ValidateEmailExistence from "../strategies/ValidateEmailExistence";
+import ValidateAddressExistence from "../strategies/ValidateAddressExistence";
 
 class Facade {
     controllers = new Map();
@@ -13,9 +16,11 @@ class Facade {
         this.controllers.set("/users", UserController);
         this.controllers.set("/session", SessionController);
         this.controllers.set("/user/cards", CardController);
-        this.controllers.set("/user/addresses", AddressControllers);
+        this.controllers.set("/user/addresses", AddressController);
 
-        this.strategies.set("/users", [ValidatePassword]);
+        this.strategies.set("/users", [ValidatePassword, ValidateEmail]);
+        this.strategies.set("/session", [ValidateEmailExistence]);
+        this.strategies.set("/user/addresses", [ValidateAddressExistence]);
     }
 
     async save(entityType, entityInfo) {
@@ -45,12 +50,12 @@ class Facade {
 
     async index(entityType, entityInfo) {
         const entityController = this.controllers.get(entityType);
-        return entityController.index(entityInfo);
+        return await entityController.index(entityInfo);
     }
 
     async show(entityType, entityInfo) {
         const entityController = this.controllers.get(entityType);
-        return entityController.show(entityInfo);
+        return await entityController.show(entityInfo);
     }
 
     async update(entityType, entityInfo) {
