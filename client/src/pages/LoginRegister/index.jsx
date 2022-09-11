@@ -1,18 +1,66 @@
 import '../../styles/LoginRegisterStyle.css';
 
 import Form from '../../components/Form';
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import Axios from "axios";
 
 function LoginRegister() {
+    const [userEmail, setUserEmail] = useState("");
+    const [userPassword, setUserPassword] = useState("");
+    const [userConfirmPassword, setUserConfirmPassword] = useState("");
+    const [userCpf, setUserCpf] = useState("");
+    const [userPhoneNumber, setUserPhoneNumber] = useState("");
+    const [userFirstName, setUserFirstName] = useState("");
+    const [userLastName, setUserLastName] = useState("");
+    const [userBirthDate, setUserBirthDate] = useState("");
+    const [userGenre, setUserGenre] = useState("");
+
+    const navigate = useNavigate();
+
+    async function handleLogin() {
+      await Axios.post("http://localhost:3333/session", {
+        email: userEmail,
+        password: userPassword,
+      })
+        .then((res) => {
+          localStorage.setItem("session", res.data.token);
+          navigate("/profile");
+        })
+        .catch((err) => {
+          console.log(err.response.data);
+        });
+    }
+
+    async function handleRegistry() {
+        await Axios.post("http://localhost:3333/users", {
+            firstName: userFirstName,
+            lastName: userLastName,
+            birthDate: userBirthDate,
+            cpf: userCpf,
+            email: userEmail,
+            password: userPassword,
+            phoneNumber: userPhoneNumber,
+            genre: userGenre
+            })
+        .then((res) => {
+            handleLogin();
+        })
+        .catch((err) => {
+            console.log(err.response.data);
+        });
+    }
+
     return (
         <div className='form-container'>
             <Form title="login">
                 <label className="form-label" htmlFor="loginEmail" >E-mail</label>
-                <input className="form-input" type="text" name="loginEmail" id="loginEmail" />
+                <input className="form-input" type="text" name="loginEmail" id="loginEmail" onChange={(e) => setUserEmail(e.target.value)}/>
 
                 <label className="form-label" htmlFor="loginPassword" >Senha</label>
-                <input className="form-input" type="password" name="loginPassword" id="loginPassword" />
+                <input className="form-input" type="password" name="loginPassword" id="loginPassword" onChange={(e) => setUserPassword(e.target.value)}/>
 
-                <button className="form-btn" type="submit">Entrar</button>
+                <button className="form-btn" type="submit" onClick={handleLogin}>Entrar</button>
 
                 <p className="form-confirmText">
                     <a href="">
@@ -24,17 +72,17 @@ function LoginRegister() {
             <hr className='div-loginRegister'/>
 
             <Form title="Cadastro">
-            <label className="form-label" htmlFor="firstName" >Nome</label>
-                <input className="form-input" type="text" name="firstName" id="firstName"/>
+                <label className="form-label" htmlFor="firstName" >Nome</label>
+                <input className="form-input" type="text" name="firstName" id="firstName" onChange={(e) => setUserFirstName(e.target.value)}/>
 
                 <label className="form-label" htmlFor="lastName" >Sobrenome</label>
-                <input className="form-input" type="text" name="lastName" id="lastName"/>
+                <input className="form-input" type="text" name="lastName" id="lastName" onChange={(e) => setUserLastName(e.target.value)}/>
 
                 <label className="form-label" htmlFor="registerEmail" >E-mail</label>
-                <input className="form-input" type="text" name="registerEmail" id="registerEmail"/>
+                <input className="form-input" type="text" name="registerEmail" id="registerEmail" onChange={(e) => setUserEmail(e.target.value)}/>
 
                 <label className="form-label" htmlFor="cpf" >CPF</label>
-                <input className="form-input" type="text"  placeholder="000.000.000-00" name="cpf" id="cpf"/>
+                <input className="form-input" type="text"  placeholder="000.000.000-00" name="cpf" id="cpf" onChange={(e) => setUserCpf(e.target.value)}/>
 
                 <label className="form-label" htmlFor="genre" >Sexo</label>
                 <select className="form-select" name="genre" id="genre">
@@ -44,22 +92,22 @@ function LoginRegister() {
 
 
                 <label className="form-label" htmlFor="birthDate" >Data de nascimento</label>
-                <input className="form-input" type="date" name="birthDate" id="birthDate"/>
+                <input className="form-input" type="date" name="birthDate" id="birthDate" onChange={(e) => setUserBirthDate(e.target.value)}/>
 
                 <label className="form-label" htmlFor="phoneNumber" >Celular</label>
-                <input className="form-input" type="text" placeholder="(00) 00000-0000" name="phoneNumber" id="phoneNumber"/>
+                <input className="form-input" type="text" placeholder="(00) 00000-0000" name="phoneNumber" id="phoneNumber" onChange={(e) => setUserPhoneNumber(e.target.value)}/>
 
                 <label className="form-label" htmlFor="registerPassword" >Senha</label>
-                <input className="form-input" type="password" name="registerPassword" id="registerPassword"/>
+                <input className="form-input" type="password" name="registerPassword" id="registerPassword" onChange={(e) => setUserPassword(e.target.value)}/>
 
                 <label className="form-label" htmlFor="confirmPassword" >Confirmar Senha</label>
-                <input className="form-input" type="password" name="confirmPassword" id="confirmPassword"/>
+                <input className="form-input" type="password" name="confirmPassword" id="confirmPassword" onChange={(e) => setUserConfirmPassword(e.target.value)}/>
 
                 <p className="form-confirmText">
                     Ao criar uma conta, você concorda com nossas <a href="">políticas de privacidade.</a>
                 </p>
 
-                <button className="form-btn" type="submit">Criar Conta</button>
+                <button className="form-btn" type="submit" onClick={handleRegistry}>Criar Conta</button>
             </Form>
         </div>
     )
