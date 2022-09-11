@@ -1,0 +1,327 @@
+.user-container {
+    width: 100%;
+    height: 100%;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    margin-top: 72px;
+}
+
+.user-container .user-options {
+    min-width: 15%;
+    height: 100%;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    background-color: #e2e2e2;
+    padding: 1rem;
+}
+
+.user-container .user-content {
+    width: 60%;
+}
+
+.user-container .user-content .form {
+    padding: 0;
+}
+
+.user-container .user-options .user-info {
+    width: 100%;
+    height: 50%;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.user-container .user-options .user-info .user-name {
+    text-transform: uppercase;
+    margin-bottom: 5%;
+    font-weight: bold;
+}
+
+.user-container .user-options .user-info .user-description {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.user-container .user-options .user-info .user-photo {
+    width: 160px;
+    height: 160px;
+
+    border-radius: 160px;
+
+    margin-bottom: 1.5rem;
+}
+
+.div-user-info {
+    width: 90%;
+    height: 1px;
+
+    margin: 5% 0;
+
+    background-color: black;
+}
+
+.user-menu {
+    width: 90%;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.user-menu .menu {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    margin-bottom: 5%;
+}
+.user-menu .menu .menu-title {
+    font-style: normal;
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 24px;
+
+    text-transform: uppercase;
+
+    margin-bottom: 16px;
+}
+
+.user-menu .menu .menu-item {
+    background-color: transparent;
+    border: none;
+    text-align: start;
+    text-decoration: none;
+    color: black;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 16px;
+
+    margin-bottom: 16px;
+
+    cursor: pointer;
+}
+
+@media screen and (min-width: 400px) and (max-width: 768px) {
+    .user-container {
+        width: 100%;
+        height: 100%;
+
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        margin-top: 0px;
+    }
+
+    .user-container .user-options {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+
+        background-color: #e2e2e2;
+        padding: 1rem;
+    }
+
+    .user-container .user-content {
+        width: 100%;
+    }
+
+    .user-container .user-options .user-info {
+        width: 30%;
+
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .user-container .user-options .user-info .user-name {
+        text-transform: uppercase;
+        margin-bottom: 2%;
+    }
+
+    .user-container .user-options .user-info .user-description {
+        font-size: 12px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .user-container .user-options .user-info .user-photo {
+        width: 120px;
+        height: 120px;
+
+        border-radius: 120px;
+
+        margin-bottom: 1rem;
+    }
+
+    .div-user-info {
+        display: none;
+    }
+
+    .user-menu {
+        width: 60%;
+
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: flex-start;
+    }
+
+    .user-menu .menu {
+        width: 100%;
+
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: flex-start;
+
+        margin-left: 0%;
+    }
+
+    .user-menu .menu .menu-title {
+        font-style: normal;
+        font-weight: 400;
+        font-size: 16px;
+        line-height: 24px;
+
+        text-transform: uppercase;
+
+        margin-bottom: 8px;
+    }
+
+    .user-menu .menu .menu-item {
+        background-color: transparent;
+        border: none;
+
+        text-align: start;
+        text-decoration: none;
+        color: black;
+        font-style: normal;
+        font-weight: 400;
+        font-size: 12px;
+        line-height: 16px;
+
+        margin-bottom: 8px;
+
+        cursor: pointer;
+    }
+}
+
+@media screen and (max-width: 400px) {
+    .user-container {
+        width: 100%;
+        height: 100%;
+
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        margin-top: 0px;
+    }
+
+    .user-container .user-options {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+
+        background-color: #e2e2e2;
+        padding: 0.5rem;
+    }
+
+    .user-container .user-content {
+        width: 100%;
+    }
+
+    .user-container .user-options .user-info {
+        width: 40%;
+
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .user-container .user-options .user-info .user-name {
+        text-transform: uppercase;
+        margin-bottom: 2%;
+    }
+
+    .user-container .user-options .user-info .user-description {
+        font-size: 12px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .user-container .user-options .user-info .user-photo {
+        width: 120px;
+        height: 120px;
+
+        border-radius: 120px;
+
+        margin-bottom: 1rem;
+    }
+
+    .div-user-info {
+        display: none;
+    }
+
+    .user-menu {
+        width: 40%;
+
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: flex-start;
+    }
+
+    .user-menu .menu {
+        width: 100%;
+
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: flex-start;
+
+        margin-left: 0%;
+    }
+
+    .user-menu .menu .menu-title {
+        font-style: normal;
+        font-weight: 400;
+        font-size: 14px;
+        line-height: 24px;
+
+        text-transform: uppercase;
+
+        margin-bottom: 8px;
+    }
+
+    .user-menu .menu .menu-item {
+        background-color: transparent;
+        border: none;
+
+        text-align: start;
+        text-decoration: none;
+        color: black;
+        font-style: normal;
+        font-weight: 400;
+        font-size: 10px;
+        line-height: 16px;
+
+        margin-bottom: 8px;
+
+        cursor: pointer;
+    }
+}
