@@ -96,7 +96,7 @@ function LoginRegister() {
                 <input className="form-input" type="text"  placeholder="000.000.000-00" name="cpf" id="cpf" onChange={(e) => setUserCpf(e.target.value)}/>
 
                 <label className="form-label" htmlFor="genre" >Sexo</label>
-                <select className="form-select" name="genre" id="genre">
+                <select className="form-select" name="genre" id="genre" onChange={(e) => setUserGenre(e.target.value)}>
                     <option value="masculino">Masculino</option>
                     <option value="feminino">Feminino</option>
                 </select>
@@ -136,7 +136,7 @@ function LoginRegister() {
                     Ao criar uma conta, você concorda com nossas <a href="">políticas de privacidade.</a>
                 </p>
 
-                <button className="form-btn" type="submit" onClick={handleRegistry}>Criar Conta</button>
+                <button className="form-btn" type="submit" onClick={handleRegistry} id="registerBtn">Criar Conta</button>
             </Form>
         </div>
     )

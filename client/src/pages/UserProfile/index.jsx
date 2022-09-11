@@ -13,6 +13,7 @@ import { useEffect, useState } from "react";
 function UserProfile() {
 
     const [user, setUser] = useState({});
+    const [updatedUser, setUpdatedUser] = useState({});
     const [content, setContent] = useState("");
 
     const [password, setPassword] = useState();
@@ -24,8 +25,24 @@ function UserProfile() {
         return;
     }
 
+    function handleUser() {
+        Axios.patch("http://localhost:3333/users",
+            updatedUser,
+        {
+            headers: {
+                Authorization: "Bearer " + localStorage.getItem("session"),
+            },
+        })
+        .then((res) => {
+            console.log(res.data);
+        })
+        .catch((error) => {
+            console.log(error);
+        });
+    }
+
     function handlePassword() {
-        if(password === confirmPassword) {
+        if(passwordValid) {
             Axios.patch("http://localhost:3333/users", {
                 password: password
             },
@@ -41,13 +58,10 @@ function UserProfile() {
                 console.log(error);
             });
         }
-        else {
-            console.log("As senhas não são iguais")
-        }
     }
 
-    function getInfo(){
-        Axios
+    async function getInfo(){
+        await Axios
         .get("http://localhost:3333/users", {
             headers: {
             Authorization: "Bearer " + localStorage.getItem("session"),
@@ -59,11 +73,11 @@ function UserProfile() {
         .catch((error) => {
             console.log(error);
         });
+
     }
 
     useEffect(() => {
       getInfo();
-      console.log(user);
     }, [])
 
     return (
@@ -147,6 +161,7 @@ function UserProfile() {
                             name="firstName"
                             id="firstName"
                             defaultValue={user.firstName}
+                            onChange={(e) => setUpdatedUser((prevState => ({ ...prevState, firstName: e.target.value })))}
                         />
 
                         <label className="form-label" htmlFor="lastName">
@@ -158,6 +173,7 @@ function UserProfile() {
                             name="lastName"
                             id="lastName"
                             defaultValue={user.lastName}
+                            onChange={(e) => setUpdatedUser((prevState => ({ ...prevState, lastName: e.target.value })))}
                         />
 
                         <label className="form-label" htmlFor="registerEmail">
@@ -169,6 +185,7 @@ function UserProfile() {
                             name="registerEmail"
                             id="registerEmail"
                             defaultValue={user.email}
+                            onChange={(e) => setUpdatedUser((prevState => ({ ...prevState, email: e.target.value })))}
                         />
 
                         <label className="form-label" htmlFor="phoneNumber" >
@@ -180,15 +197,22 @@ function UserProfile() {
                             name="phoneNumber"
                             id="phoneNumber"
                             defaultValue={user.phoneNumber}
+                            onChange={(e) => setUpdatedUser((prevState => ({ ...prevState, phoneNumber: e.target.value })))}
                         />
 
 
                         <label className="form-label" htmlFor="genre">
                             Sexo
                         </label>
-                        <select className="form-select" name="genre" id="genre">
-                            <option value="masculino">Masculino</option>
-                            <option value="feminino">Feminino</option>
+                        <select
+                            className="form-select"
+                            name="genre"
+                            id="genre"
+                            defaultValue={user.genre}
+                            onChange={(e) => setUpdatedUser((prevState => ({ ...prevState, genre: e.target.value })))}
+                        >
+                            <option value="Masculino">Masculino</option>
+                            <option value="Feminino">Feminino</option>
                         </select>
 
                         <label className="form-label" htmlFor="cpf">
@@ -213,12 +237,13 @@ function UserProfile() {
                             name="birthDate"
                             id="birthDate"
                             defaultValue={user.birthDate}
+                            onChange={(e) => setUpdatedUser((prevState => ({ ...prevState, birthDate: e.target.value })))}
                         />
 
-                        <button className="form-btn" type="submit">
+                        <button className="form-btn" type="submit" onClick={() => handleUser()}>
                             Salvar Alterações
                         </button>
-                        <button className="form-btn" type="submit" onClick={() => handleContent("Alterar Senha")}>
+                        <button className="form-btn" onClick={() => handleContent("Alterar Senha")}>
                             Alterar Senha
                         </button>
                     </Form>
