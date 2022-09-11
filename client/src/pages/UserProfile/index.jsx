@@ -14,9 +14,34 @@ function UserProfile() {
     const [user, setUser] = useState({})
     const [content, setContent] = useState("");
 
+    const [password, setPassword] = useState()
+    const [confirmpassword, setConfirmPassword] = useState()
+
     function handleContent(content) {
         setContent(content);
         return;
+    }
+
+    function handlePassword() {
+        if(password === confirmpassword) {
+            Axios.patch("http://localhost:3333/users", {
+                password: password
+            },
+            {
+                headers: {
+                    Authorization: "Bearer " + localStorage.getItem("session"),
+                },
+            })
+            .then((res) => {
+               console.log(res.data);
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+        }
+        else {
+            console.log("As senhas não são iguais")
+        }
     }
 
     function getInfo(){
@@ -191,7 +216,7 @@ function UserProfile() {
                         <button className="form-btn" type="submit">
                             Salvar Alterações
                         </button>
-                        <button className="form-btn" type="submit">
+                        <button className="form-btn" type="submit" onClick={() => handleContent("Alterar Senha")}>
                             Alterar Senha
                         </button>
                     </Form>
@@ -325,6 +350,25 @@ function UserProfile() {
                             btn="Ver detalhes"
                         />
                     </ItemList>
+                </section>
+            )}
+            {content === "Alterar Senha" && (
+                <section className="user-content">
+                    <Form title="Alterar Senha">
+                        <label className="form-label" htmlFor="registerPassword" >Nova senha</label>
+                        <input className="form-input" type="password" name="registerPassword" id="registerPassword" onChange={(e) => setPassword(e.target.value)}/>
+
+                        <label className="form-label" htmlFor="confirmPassword" >Confirmar nova senha</label>
+                        <input className="form-input" type="password" name="confirmPassword" id="confirmPassword" onChange={(e) => setConfirmPassword(e.target.value)}/>
+
+                        <button className="form-btn" type="submit"  onClick={() => handlePassword()}>
+                            Alterar Senha
+                        </button>
+
+                        <button className="form-btn" type="submit" onClick={() => handleContent("")}>
+                            Voltar
+                        </button>
+                    </Form>
                 </section>
             )}
         </div>

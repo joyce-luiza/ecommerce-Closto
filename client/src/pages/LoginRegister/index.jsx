@@ -24,11 +24,15 @@ function LoginRegister() {
         password: userPassword,
       })
         .then((res) => {
-          localStorage.setItem("session", res.data.token);
-          navigate("/profile");
+            if(res.data[0] || res.data.session ){
+                console.log("Erro Login")
+                return;
+            }
+            localStorage.setItem("session", res.data.token);
+            navigate("/profile");
         })
         .catch((err) => {
-          console.log(err.response.data);
+          console.log(err);
         });
     }
 
