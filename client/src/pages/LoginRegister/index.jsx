@@ -5,6 +5,8 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Axios from "axios";
 
+import PasswordChecklist from "react-password-checklist";
+
 function LoginRegister() {
     const [userEmail, setUserEmail] = useState("");
     const [userPassword, setUserPassword] = useState("");
@@ -15,6 +17,8 @@ function LoginRegister() {
     const [userLastName, setUserLastName] = useState("");
     const [userBirthDate, setUserBirthDate] = useState("");
     const [userGenre, setUserGenre] = useState("");
+
+    const [passwordValid, setPasswordValid] = useState(false);
 
     const navigate = useNavigate();
 
@@ -37,7 +41,9 @@ function LoginRegister() {
     }
 
     async function handleRegistry() {
-        await Axios.post("http://localhost:3333/users", {
+        passwordValid &&
+        (
+            await Axios.post("http://localhost:3333/users", {
             firstName: userFirstName,
             lastName: userLastName,
             birthDate: userBirthDate,
@@ -52,7 +58,8 @@ function LoginRegister() {
         })
         .catch((err) => {
             console.log(err.response.data);
-        });
+        })
+        )
     }
 
     return (
@@ -106,6 +113,24 @@ function LoginRegister() {
 
                 <label className="form-label" htmlFor="confirmPassword" >Confirmar Senha</label>
                 <input className="form-input" type="password" name="confirmPassword" id="confirmPassword" onChange={(e) => setUserConfirmPassword(e.target.value)}/>
+
+                <PasswordChecklist
+                    rules={[
+                        "minLength",
+                        "specialChar",
+                        "number",
+                        "capital",
+                        "match",
+                    ]}
+                    minLength={8}
+                    value={userPassword}
+                    valueAgain={userConfirmPassword}
+                    onChange={(isValid) => {
+                        if (isValid) {
+                            setPasswordValid(true);
+                        }
+                    }}
+                />
 
                 <p className="form-confirmText">
                     Ao criar uma conta, você concorda com nossas <a href="">políticas de privacidade.</a>

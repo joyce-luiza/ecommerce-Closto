@@ -6,16 +6,18 @@ import Address from "../../components/Address";
 import Order from "../../components/Order";
 import ItemList from "../../components/ItemList";
 import Axios from 'axios';
+import PasswordChecklist from "react-password-checklist";
 
 import { useEffect, useState } from "react";
 
 function UserProfile() {
 
-    const [user, setUser] = useState({})
+    const [user, setUser] = useState({});
     const [content, setContent] = useState("");
 
-    const [password, setPassword] = useState()
-    const [confirmpassword, setConfirmPassword] = useState()
+    const [password, setPassword] = useState();
+    const [confirmPassword, setConfirmPassword] = useState();
+    const [passwordValid, setPasswordValid] = useState(false);
 
     function handleContent(content) {
         setContent(content);
@@ -23,7 +25,7 @@ function UserProfile() {
     }
 
     function handlePassword() {
-        if(password === confirmpassword) {
+        if(password === confirmPassword) {
             Axios.patch("http://localhost:3333/users", {
                 password: password
             },
@@ -361,6 +363,26 @@ function UserProfile() {
                         <label className="form-label" htmlFor="confirmPassword" >Confirmar nova senha</label>
                         <input className="form-input" type="password" name="confirmPassword" id="confirmPassword" onChange={(e) => setConfirmPassword(e.target.value)}/>
 
+                        { password && (
+                            <PasswordChecklist
+                                rules={[
+                                    "minLength",
+                                    "specialChar",
+                                    "number",
+                                    "capital",
+                                    "match",
+                                ]}
+                                minLength={8}
+                                value={password}
+                                valueAgain={confirmPassword}
+                                onChange={(isValid) => {
+                                    if (isValid) {
+                                        setPasswordValid(true);
+                                    }
+                                }}
+                            />
+                        )}
+
                         <button className="form-btn" type="submit"  onClick={() => handlePassword()}>
                             Alterar Senha
                         </button>
@@ -368,7 +390,9 @@ function UserProfile() {
                         <button className="form-btn" type="submit" onClick={() => handleContent("")}>
                             Voltar
                         </button>
+
                     </Form>
+
                 </section>
             )}
         </div>
