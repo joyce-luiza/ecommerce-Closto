@@ -1,0 +1,223 @@
+.pedido-container {
+    width: 100%;
+    height: 80px;
+    background-color: #e2e2e2;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 18px 24px 32px 24px;
+    margin-top: 48px;
+}
+
+.pedido-container .pedido-number span {
+    height: 50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.pedido-container .pedido-info span {
+    height: 50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.pedido-container .title {
+    font-style: normal;
+    font-size: 14px;
+    line-height: 100%;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.pedido-container .parameter {
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 100%;
+    color: #000000;
+}
+
+.pedido-container .btn-pedido {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.pedido-container .btn-pedido button {
+    height: 40px;
+    padding: 5px;
+    font-size: 12px;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+    background-color: #000000;
+    color: #ffffff;
+
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.pedido-container .btn-pedido button:hover {
+    color: #000000;
+    background-color: transparent;
+}
+
+@media screen and (max-width: 1000px) {
+    .pedido-container {
+        width: 100%;
+        height: 80px;
+        background-color: #e2e2e2;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        padding: 12px 24px 12px 24px;
+        margin-top: 32px;
+    }
+
+    .pedido-container .title {
+        font-size: 14px;
+    }
+
+    .pedido-container .parameter {
+        font-size: 14px;
+    }
+
+    .pedido-container .btn-pedido button {
+        font-size: 10px;
+    }
+}
+
+@media screen and (min-width: 768px) and (max-width: 870px) {
+    .pedido-container {
+        width: 100%;
+        height: 80px;
+        background-color: #e2e2e2;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        padding: 12px 24px 12px 24px;
+        margin-top: 32px;
+    }
+
+    .pedido-container .pedido-number span {
+        height: 40%;
+    }
+
+    .pedido-container .pedido-info span {
+        height: 40%;
+    }
+
+    .pedido-container .title {
+        font-size: 12px;
+    }
+
+    .pedido-container .parameter {
+        font-size: 12px;
+    }
+
+    .pedido-container .btn-pedido button {
+        font-size: 10px;
+    }
+
+    .pedido-container .btn-pedido button {
+        height: 40%;
+    }
+}
+
+@media screen and (min-width: 600px) and (max-width: 768px) {
+    .pedido-container {
+        width: 100%;
+        height: 80px;
+        background-color: #e2e2e2;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        padding: 12px 24px 12px 24px;
+        margin-top: 12px;
+    }
+
+    .pedido-container .pedido-number span {
+        height: 20px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: flex-start;
+    }
+
+    .pedido-container .pedido-info span {
+        height: 20px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+
+    .pedido-container .title {
+        font-size: 12px;
+    }
+
+    .pedido-container .parameter {
+        font-size: 12px;
+    }
+
+    .pedido-container .btn-pedido {
+        height: 65%;
+    }
+
+    .pedido-container .btn-pedido button {
+        font-size: 10px;
+    }
+}
+
+@media screen and (max-width: 600px) {
+    .pedido-container {
+        width: 100%;
+        height: 80px;
+        background-color: #e2e2e2;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
+        align-items: center;
+        padding: 5px 0px 0px 0px;
+        margin-top: 12px;
+    }
+
+    .pedido-container .pedido-number span {
+        height: 20px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: flex-start;
+    }
+
+    .pedido-container .pedido-info span {
+        height: 50%;
+
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+
+    .pedido-container .title {
+        font-size: 12px;
+    }
+
+    .pedido-container .parameter {
+        font-size: 12px;
+    }
+
+    .pedido-container .btn-pedido {
+        width: 40%;
+        height: 65%;
+    }
+
+    .pedido-container .btn-pedido button {
+        font-size: 10px;
+    }
+
+    .pedido-container .pedido-info {
+        display: none;
+    }
+}

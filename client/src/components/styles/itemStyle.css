@@ -1,0 +1,129 @@
+.item-container {
+    width: 187px;
+    height: 360px;
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    align-items: center;
+    margin-top: 48px;
+    padding-right: 24px;
+}
+
+.item-container .item-image {
+    width: 187px;
+    height: 272px;
+    object-fit: cover;
+    transition: all 0.5s;
+}
+
+.item-container .item-info {
+    width: 100%;
+    height: 22%;
+    display: flex;
+    flex-direction: column;
+    margin-top: 8px;
+}
+
+.item-container .item-info span {
+    margin-top: 8px;
+}
+
+.item-container .item-info .item-name {
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 24px;
+}
+
+.item-container .item-info .item-price {
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 24px;
+}
+
+@media screen and (min-width: 600px) and (max-width: 768px) {
+    .item-container {
+        width: 40%;
+        height: 360px;
+        display: flex;
+        flex-direction: column;
+        justify-content: start;
+        align-items: flex-start;
+        margin-top: 0px;
+        padding-right: 0px;
+    }
+
+    .item-container .item-image {
+        width: 100%;
+        height: 72%;
+        object-fit: cover;
+    }
+
+    .item-container .item-info {
+        width: 100%;
+        height: 22%;
+        display: flex;
+        flex-direction: column;
+        margin-top: 8px;
+    }
+
+    .item-container .item-info span {
+        margin-top: 8px;
+    }
+
+    .item-container .item-info .item-name {
+        font-weight: 400;
+        font-size: 14px;
+        line-height: 24px;
+    }
+
+    .item-container .item-info .item-price {
+        font-style: normal;
+        font-weight: 400;
+        font-size: 16px;
+        line-height: 24px;
+    }
+}
+
+@media screen and (max-width: 600px) {
+    .item-container {
+        width: 40%;
+        height: 360px;
+        display: flex;
+        flex-direction: column;
+        justify-content: start;
+        align-items: flex-start;
+        margin-top: 0px;
+    }
+
+    .item-container .item-image {
+        width: 136px;
+        height: 224px;
+        object-fit: cover;
+    }
+
+    .item-container .item-info {
+        width: 100%;
+        height: 22%;
+        display: flex;
+        flex-direction: column;
+        margin-top: 8px;
+    }
+
+    .item-container .item-info span {
+        margin-top: 8px;
+    }
+
+    .item-container .item-info .item-name {
+        font-weight: 400;
+        font-size: 14px;
+        line-height: 24px;
+    }
+
+    .item-container .item-info .item-price {
+        font-style: normal;
+        font-weight: 400;
+        font-size: 16px;
+        line-height: 24px;
+    }
+}

@@ -26,7 +26,6 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-
 }
 
 .form .form-children .form-label {
@@ -39,14 +38,17 @@
     align-items: flex-start;
 }
 
-.form .form-children .form-input, .form-btn, .form-select {
+.form .form-children .form-input,
+.form-btn,
+.form-select {
     margin-bottom: 5%;
     height: 2.5rem;
     width: 70%;
     border: none;
 }
 
-.form .form-children .form-input, .form-select {
+.form .form-children .form-input,
+.form-select {
     background-color: #e2e2e2;
     border-bottom: 1px solid black;
     outline: none;
@@ -70,7 +72,7 @@
     flex-direction: column;
     align-items: center;
 
-    color:#888888;
+    color: #888888;
     font-size: 16px;
     margin-bottom: 5%;
 }
@@ -114,7 +116,6 @@
         flex-direction: column;
         align-items: center;
         justify-content: center;
-
     }
 
     .form .form-children .form-label {
@@ -127,14 +128,17 @@
         align-items: flex-start;
     }
 
-    .form .form-children .form-input, .form-btn, .form-select {
+    .form .form-children .form-input,
+    .form-btn,
+    .form-select {
         margin-bottom: 5%;
         height: 2.5rem;
         width: 80%;
         border: none;
     }
 
-    .form .form-children .form-input, .form-select {
+    .form .form-children .form-input,
+    .form-select {
         background-color: #e2e2e2;
         border-bottom: 1px solid black;
         outline: none;
@@ -158,7 +162,7 @@
         flex-direction: column;
         align-items: center;
 
-        color:#888888;
+        color: #888888;
         font-size: 12px;
         margin-bottom: 5%;
     }
