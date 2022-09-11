@@ -5,16 +5,39 @@ import Item from "../../components/Item";
 import Address from "../../components/Address";
 import Order from "../../components/Order";
 import ItemList from "../../components/ItemList";
+import Axios from 'axios';
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 function UserProfile() {
+
+    const [user, setUser] = useState({})
     const [content, setContent] = useState("");
 
     function handleContent(content) {
         setContent(content);
         return;
     }
+
+    function getInfo(){
+        Axios
+        .get("http://localhost:3333/users", {
+            headers: {
+            Authorization: "Bearer " + localStorage.getItem("session"),
+            },
+        })
+        .then((res) => {
+            setUser(res.data);
+        })
+        .catch((error) => {
+            console.log(error);
+        });
+    }
+
+    useEffect(() => {
+      getInfo();
+      console.log(user);
+    }, [])
 
     return (
         <div className="user-container">
@@ -27,8 +50,8 @@ function UserProfile() {
                     />
 
                     <div className="user-description">
-                        <p className="user-name">OLÁ, user.name</p>
-                        <a>useremail@gmail.com</a>
+                        <p className="user-name">OLÁ, {user.firstName}</p>
+                        <a>{user.email}</a>
                     </div>
                 </div>
 
@@ -88,14 +111,26 @@ function UserProfile() {
             {content === "" && (
                 <section className="user-content">
                     <Form title="Dados cadastrais">
-                        <label className="form-label" htmlFor="fullname">
-                            Nome completo
+                        <label className="form-label" htmlFor="firstName">
+                            Nome
                         </label>
                         <input
                             className="form-input"
                             type="text"
-                            name="fullname"
-                            id="fullname"
+                            name="firstName"
+                            id="firstName"
+                            defaultValue={user.firstName}
+                        />
+
+                        <label className="form-label" htmlFor="lastName">
+                            Sobrenome
+                        </label>
+                        <input
+                            className="form-input"
+                            type="text"
+                            name="lastName"
+                            id="lastName"
+                            defaultValue={user.lastName}
                         />
 
                         <label className="form-label" htmlFor="registerEmail">
@@ -106,12 +141,25 @@ function UserProfile() {
                             type="text"
                             name="registerEmail"
                             id="registerEmail"
+                            defaultValue={user.email}
                         />
 
-                        <label className="form-label" htmlFor="sex">
+                        <label className="form-label" htmlFor="phoneNumber" >
+                            Celular
+                        </label>
+                        <input
+                            className="form-input"
+                            type="text"
+                            name="phoneNumber"
+                            id="phoneNumber"
+                            defaultValue={user.phoneNumber}
+                        />
+
+
+                        <label className="form-label" htmlFor="genre">
                             Sexo
                         </label>
-                        <select className="form-select" name="sex" id="sex">
+                        <select className="form-select" name="genre" id="genre">
                             <option value="masculino">Masculino</option>
                             <option value="feminino">Feminino</option>
                         </select>
@@ -125,6 +173,8 @@ function UserProfile() {
                             placeholder="000.000.000-00"
                             name="cpf"
                             id="cpf"
+                            defaultValue={user.cpf}
+                            disabled
                         />
 
                         <label className="form-label" htmlFor="birthDate">
@@ -135,6 +185,7 @@ function UserProfile() {
                             type="date"
                             name="birthDate"
                             id="birthDate"
+                            defaultValue={user.birthDate}
                         />
 
                         <button className="form-btn" type="submit">
