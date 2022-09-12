@@ -30,12 +30,13 @@ function LoginRegister() {
             toast.error("Não foi possível realizar o login!", {
                 className: "LoginError",
                 position: "top-center",
-                autoClose: 5000,
+                autoClose: 2000,
                 hideProgressBar: false,
                 closeOnClick: true,
                 pauseOnHover: true,
                 draggable: true,
                 progress: undefined,
+                theme: "colored"
             });
 
         await Axios.post("http://localhost:3333/session", {
@@ -60,24 +61,26 @@ function LoginRegister() {
             toast.success("Conta criada com sucesso!", {
                 className: "RegisterSuccess",
                 position: "top-center",
-                autoClose: 5000,
+                autoClose: 2000,
                 hideProgressBar: false,
                 closeOnClick: true,
                 pauseOnHover: true,
                 draggable: true,
                 progress: undefined,
+                theme: "colored"
             });
 
         const errorRegister = () =>
             toast.error("Não foi possível criar a conta!", {
                 className: "RegisterError",
                 position: "top-center",
-                autoClose: 5000,
+                autoClose: 2000,
                 hideProgressBar: false,
                 closeOnClick: true,
                 pauseOnHover: true,
                 draggable: true,
                 progress: undefined,
+                theme: "colored"
             });
 
         passwordValid &&
