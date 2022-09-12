@@ -1,9 +1,12 @@
 import '../../styles/LoginRegisterStyle.css';
 
 import Form from '../../components/Form';
+
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Axios from "axios";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 import PasswordChecklist from "react-password-checklist";
 
@@ -23,13 +26,24 @@ function LoginRegister() {
     const navigate = useNavigate();
 
     async function handleLogin() {
+        const errorLogin = () => toast.error('Não foi possível realizar o login!', {
+            className: 'LoginError',
+            position: "top-center",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+        });
+
       await Axios.post("http://localhost:3333/session", {
         email: userEmail,
         password: userPassword,
       })
         .then((res) => {
             if(res.data[0] || res.data.session ){
-                console.log("Erro Login")
+                errorLogin();
                 return;
             }
             localStorage.setItem("session", res.data.token);
@@ -41,29 +55,64 @@ function LoginRegister() {
     }
 
     async function handleRegistry() {
+
+        const successRegister = () => toast.success('Conta criada com sucesso!', {
+            position: "top-center",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+        });
+
+        const errorRegister = () => toast.error('Não foi possível criar a conta!', {
+            position: "top-center",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+        });
+
         passwordValid &&
         (
             await Axios.post("http://localhost:3333/users", {
-            firstName: userFirstName,
-            lastName: userLastName,
-            birthDate: userBirthDate,
-            cpf: userCpf,
-            email: userEmail,
-            password: userPassword,
-            phoneNumber: userPhoneNumber,
-            genre: userGenre
+                firstName: userFirstName,
+                lastName: userLastName,
+                birthDate: userBirthDate,
+                cpf: userCpf,
+                email: userEmail,
+                password: userPassword,
+                phoneNumber: userPhoneNumber,
+                genre: userGenre
+                })
+            .then((res) => {
+                if(res.data[0]){
+                    errorRegister();
+                    return;
+                }
+                successRegister();
             })
-        .then((res) => {
-            handleLogin();
-        })
-        .catch((err) => {
-            console.log(err.response.data);
-        })
+            .catch((err) => {
+                console.log(err.response.data);
+            })
         )
     }
 
     return (
         <div className='form-container'>
+            <ToastContainer
+                position="top-center"
+                autoClose={5000}
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick
+                rtl={false}
+                draggable
+            />
+
             <Form title="login">
                 <label className="form-label" htmlFor="loginEmail" >E-mail</label>
                 <input className="form-input" type="text" name="loginEmail" id="loginEmail" onChange={(e) => setUserEmail(e.target.value)}/>
