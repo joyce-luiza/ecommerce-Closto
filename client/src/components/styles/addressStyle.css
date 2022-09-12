@@ -1,4 +1,4 @@
-.endereco-container {
+.address-container {
     width: 398px;
     background-color: #e2e2e2;
 
@@ -8,12 +8,12 @@
     margin: 48px 24px 12px 0;
 }
 
-.endereco-container .endereco-title_Desc {
+.address-container .address-title_Desc {
     width: 100%;
     height: 48px;
 }
 
-.endereco-container .endereco-title {
+.address-container .address-title {
     width: 100%;
     height: 24px;
 
@@ -28,11 +28,11 @@
     align-items: center;
 }
 
-.endereco-container .endereco-desc {
+.address-container .address-desc {
     margin: 8px 0;
 }
 
-.endereco-container .endereco-info {
+.address-container .address-info {
     margin-bottom: 32px;
 
     display: flex;
@@ -41,11 +41,11 @@
     align-items: flex-start;
 }
 
-.endereco-container .endereco-info span {
+.address-container .address-info span {
     margin-top: 24px;
 }
 
-.endereco-container .btn-endereco {
+.address-container .btn-address {
     width: 100%;
 
     display: flex;
@@ -53,7 +53,7 @@
     justify-content: space-between;
 }
 
-.endereco-container .btn-endereco button {
+.address-container .btn-address button {
     height: 40px;
     border: 2px solid #000000;
 
@@ -66,88 +66,88 @@
     transition: all 0.2s;
 }
 
-.endereco-container .btn-endereco .toPrincipal {
+.address-container .btn-address .toPrincipal {
     width: 50%;
     background-color: transparent;
 }
 
-.endereco-container .btn-endereco .toEdit {
+.address-container .btn-address .toEdit {
     color: #ffffff;
     background-color: #000000;
     width: 40%;
 }
 
-.endereco-container .btn-endereco .toPrincipal:hover {
+.address-container .btn-address .toPrincipal:hover {
     color: #ffffff;
     background-color: #000000;
 }
 
-.endereco-container .btn-endereco .toEdit:hover {
+.address-container .btn-address .toEdit:hover {
     color: #000000;
     background-color: transparent;
 }
 
 @media screen and (min-width: 704px) and (max-width: 768px) {
-    .endereco-container {
+    .address-container {
         width: 40%;
         margin: 0px 0px 12px 0;
     }
 
-    .endereco-container .endereco-title_Desc {
+    .address-container .address-title_Desc {
         width: 100%;
         height: 48px;
     }
 
-    .endereco-container .endereco-title {
+    .address-container .address-title {
         font-size: 20px;
     }
 
-    .endereco-container .endereco-desc {
+    .address-container .address-desc {
         font-size: 12px;
     }
 
-    .endereco-container .endereco-info {
+    .address-container .address-info {
         margin-bottom: 24px;
         font-size: 14px;
     }
 
-    .endereco-container .endereco-info span {
+    .address-container .address-info span {
         margin-top: 12px;
     }
 
-    .endereco-container .btn-endereco button {
+    .address-container .btn-address button {
         font-size: 12px;
     }
 }
 
 @media screen and (max-width: 600px) {
-    .endereco-container {
+    .address-container {
         margin: 0px 0px 24px 0;
     }
 
-    .endereco-container .endereco-title_Desc {
+    .address-container .address-title_Desc {
         width: 100%;
         height: 48px;
     }
 
-    .endereco-container .endereco-title {
+    .address-container .address-title {
         font-size: 20px;
     }
 
-    .endereco-container .endereco-desc {
+    .address-container .address-desc {
         font-size: 12px;
     }
 
-    .endereco-container .endereco-info {
+    .address-container .address-info {
         margin-bottom: 24px;
         font-size: 14px;
     }
 
-    .endereco-container .endereco-info span {
+    .address-container .address-info span {
         margin-top: 12px;
     }
 
-    .endereco-container .btn-endereco button {
+    .address-container .btn-address button {
         font-size: 12px;
     }
 }

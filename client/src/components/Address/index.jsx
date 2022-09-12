@@ -2,18 +2,23 @@ import "../styles/addressStyle.css";
 
 export default function Address({
     title,
-    rua,
-    numero,
-    cidade,
-    estado,
-    complemento,
+    type,
+    publicPlace,
+    publicPlaceType,
+    residenceType,
+    neighborhood,
+    number,
+    city,
+    state,
+    country,
+    note,
     cep,
-    principal,
+    isPrincipal,
 }) {
     return (
-        <section className="endereco-container">
-            <div className="endereco-title_Desc">
-                <div className="endereco-title">
+        <section className="address-container">
+            <div className="address-title_Desc">
+                <div className="address-title">
                     <a>{title}</a>
                     <img
                         src="https://via.placeholder.com/24x24"
@@ -21,23 +26,29 @@ export default function Address({
                     />
                 </div>
 
-                <div className="endereco-desc">
-                    <span className="endereco-isPrincipal">{principal}</span>
-                </div>
+                { isPrincipal === true &&
+                    <div className="address-desc">
+                        <span className="address-isPrincipal">Endereço principal ★</span>
+                    </div>
+                }
+
             </div>
 
-            <div className="endereco-info">
+            <div className="address-info">
                 <span>
-                    {rua}, {numero}
+                    Tipo: {residenceType} • {type}
                 </span>
                 <span>
-                    {cidade} - {estado}
+                    {publicPlaceType} {publicPlace} • {neighborhood} • {number}
+                </span>
+                <span>
+                    {city} • {state} • {country}
                 </span>
                 <span>CEP: {cep}</span>
-                <span>{complemento}</span>
+                <span>{note}</span>
             </div>
 
-            <div className="btn-endereco">
+            <div className="btn-address">
                 <button className="toPrincipal">Tornar principal</button>
                 <button className="toEdit">Editar</button>
             </div>

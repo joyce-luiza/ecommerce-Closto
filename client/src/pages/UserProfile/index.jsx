@@ -25,6 +25,8 @@ function UserProfile() {
     const [confirmPassword, setConfirmPassword] = useState();
     const [passwordValid, setPasswordValid] = useState(false);
 
+    const [userAddresses, setUserAddresses] = useState([]);
+
     const navigate = useNavigate();
 
     function handleContent(content) {
@@ -171,12 +173,24 @@ function UserProfile() {
                 Authorization: "Bearer " + localStorage.getItem("session"),
             },
         })
-            .then((res) => {
-                setUser(res.data);
-            })
-            .catch((error) => {
-                console.log(error);
-            });
+        .then((res) => {
+            setUser(res.data);
+        })
+        .catch((error) => {
+            console.log(error);
+        });
+
+        await Axios.get("http://localhost:3333/user/addresses", {
+            headers: {
+                Authorization: "Bearer " + localStorage.getItem("session"),
+            },
+        })
+        .then((res) => {
+            setUserAddresses(res.data);
+        })
+        .catch((error) => {
+            console.log(error);
+        });
     }
 
     useEffect(() => {
@@ -428,43 +442,26 @@ function UserProfile() {
             {content === "Endereços" && (
                 <section className="user-content">
                     <ItemList title="Endereços">
-                        <Address
-                            title="Minha casa"
-                            rua="Rua Maria Bertolina de Oliveira"
-                            numero="25"
-                            cidade="Mogi das Cruzes"
-                            estado="SP"
-                            cep="08738460"
-                            complemento="Sobrado Amarelo"
-                            principal="Endereço principal"
-                        />
-                        <Address
-                            title="Minha casa"
-                            rua="Rua Maria Bertolina de Oliveira"
-                            numero="25"
-                            cidade="Mogi das Cruzes"
-                            estado="SP"
-                            cep="08738460"
-                            complemento="Sobrado Amarelo"
-                        />
-                        <Address
-                            title="Minha casa"
-                            rua="Rua Maria Bertolina de Oliveira"
-                            numero="25"
-                            cidade="Mogi das Cruzes"
-                            estado="SP"
-                            cep="08738460"
-                            complemento="Sobrado Amarelo"
-                        />
-                        <Address
-                            title="Minha casa"
-                            rua="Rua Maria Bertolina de Oliveira"
-                            numero="25"
-                            cidade="Mogi das Cruzes"
-                            estado="SP"
-                            cep="08738460"
-                            complemento="Sobrado Amarelo"
-                        />
+                        { userAddresses.map((address) => {
+                                return (
+                                    <Address
+                                        title={address.title}
+                                        type={address.type}
+                                        publicPlace={address.publicPlace}
+                                        publicPlaceType={address.publicPlaceType}
+                                        number={address.number}
+                                        neighborhood={address.neighborhood}
+                                        city={address.city}
+                                        state={address.state}
+                                        country={address.country}
+                                        cep={address.cep}
+                                        note={address.note}
+                                        residenceType={address.residenceType}
+                                        isPrincipal={address.isPrincipal}
+                                    />
+                                )
+                            })
+                        }
                     </ItemList>
                 </section>
             )}
