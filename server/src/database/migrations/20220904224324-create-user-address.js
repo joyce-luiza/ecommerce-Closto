@@ -16,6 +16,10 @@ module.exports = {
                 onDelete: "CASCADE",
                 allowNull: false,
             },
+            title: {
+                type: Sequelize.STRING,
+                allowNull: false,
+            },
             type: {
                 type: Sequelize.STRING,
                 allowNull: false,
@@ -60,6 +64,10 @@ module.exports = {
             },
             note: {
                 type: Sequelize.STRING,
+                allowNull: true,
+            },
+            isPrincipal: {
+                type: Sequelize.BOOLEAN,
                 allowNull: true,
             },
             createdAt: {

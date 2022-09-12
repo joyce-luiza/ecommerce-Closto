@@ -4,6 +4,7 @@ class Address extends Model {
     static init(sequelize) {
         super.init(
             {
+                title: Sequelize.STRING,
                 type: Sequelize.STRING,
                 residenceType: Sequelize.STRING,
                 cep: Sequelize.STRING(8),
@@ -15,6 +16,7 @@ class Address extends Model {
                 state: Sequelize.STRING,
                 country: Sequelize.STRING,
                 note: Sequelize.STRING,
+                isPrincipal: Sequelize.BOOLEAN,
             },
             {
                 sequelize,

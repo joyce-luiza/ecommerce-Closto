@@ -5,6 +5,7 @@ class ValidateAddressExistence {
     async process(info) {
         const {
             user_id,
+            title,
             type,
             residenceType,
             cep,
@@ -15,12 +16,14 @@ class ValidateAddressExistence {
             city,
             state,
             country,
-            note
+            note,
+            isPrincipal
         } = info;
 
         const address = await Address.findOne({
         where: {
             user_id,
+            title,
             type,
             residenceType,
             cep,
@@ -31,7 +34,8 @@ class ValidateAddressExistence {
             city,
             state,
             country,
-            note
+            note,
+            isPrincipal
         }});
 
         if(address && address.type === info.type && address.user_id === info.user_id){
