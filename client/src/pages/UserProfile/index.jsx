@@ -9,10 +9,12 @@ import Axios from "axios";
 import PasswordChecklist from "react-password-checklist";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { confirmAlert } from "react-confirm-alert";
+import "react-confirm-alert/src/react-confirm-alert.css";
 
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import bcrypt from 'bcryptjs';
+import bcrypt from "bcryptjs";
 
 function UserProfile() {
     const [user, setUser] = useState({});
@@ -41,7 +43,7 @@ function UserProfile() {
                 pauseOnHover: true,
                 draggable: true,
                 progress: undefined,
-                theme: "colored"
+                theme: "colored",
             });
         Axios.patch("http://localhost:3333/users", updatedUser, {
             headers: {
@@ -57,23 +59,24 @@ function UserProfile() {
             });
     }
 
+    const confirmDeleteUser = () => {
+        confirmAlert({
+            title: "Delete your account?",
+            message: "Are you sure you want to delete your account?.",
+            buttons: [
+                {
+                    label: "Yes",
+                    onClick: () => handleDeleteUser(),
+                },
+                {
+                    label: "No",
+                    onClick: () => onclose,
+                },
+            ],
+        });
+    };
+
     function handleDeleteUser() {
-        const confirmBox = window.confirm("Deseja realmente excluir sua conta?");
-
-        const cancelDelete = () => {
-            toast.info("Exclusão de cadastro cancelada", {
-                className: "cancelDelete",
-                position: "top-right",
-                autoClose: 3000,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-                theme: "colored"
-            });
-        }
-
         const successDelete = () =>
             toast.success("Conta excluída com sucesso!", {
                 className: "DeleteSuccess",
@@ -84,15 +87,14 @@ function UserProfile() {
                 pauseOnHover: true,
                 draggable: true,
                 progress: undefined,
-                theme: "colored"
+                theme: "colored",
             });
 
-        if(confirmBox){
-            Axios.delete("http://localhost:3333/users",{
-                headers: {
-                    Authorization: "Bearer " + localStorage.getItem("session"),
-                },
-            })
+        Axios.delete("http://localhost:3333/users", {
+            headers: {
+                Authorization: "Bearer " + localStorage.getItem("session"),
+            },
+        })
             .then((res) => {
                 localStorage.removeItem("session");
                 successDelete();
@@ -104,9 +106,6 @@ function UserProfile() {
             .catch((error) => {
                 console.log(error);
             });
-        } else {
-            cancelDelete();
-        }
     }
 
     async function handlePassword() {
@@ -120,7 +119,7 @@ function UserProfile() {
                 pauseOnHover: true,
                 draggable: true,
                 progress: undefined,
-                theme: "colored"
+                theme: "colored",
             });
 
         const errorUpdateError = () =>
@@ -133,10 +132,13 @@ function UserProfile() {
                 pauseOnHover: true,
                 draggable: true,
                 progress: undefined,
-                theme: "colored"
+                theme: "colored",
             });
 
-        if (passwordValid && !(bcrypt.compareSync(password, user.password_hash))) {
+        if (
+            passwordValid &&
+            !bcrypt.compareSync(password, user.password_hash)
+        ) {
             Axios.patch(
                 "http://localhost:3333/users",
                 {
@@ -153,7 +155,7 @@ function UserProfile() {
                     successUpdateSuccess();
                     setPassword();
                     setConfirmPassword();
-                    setContent('');
+                    setContent("");
                 })
                 .catch((error) => {
                     console.log(error);
@@ -397,7 +399,7 @@ function UserProfile() {
                         <button
                             id="deleteUser"
                             className="form-secondatyBtn"
-                            onClick={() => handleDeleteUser()}
+                            onClick={() => confirmDeleteUser()}
                         >
                             Excluir conta
                         </button>

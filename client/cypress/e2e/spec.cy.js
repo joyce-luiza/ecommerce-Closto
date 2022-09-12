@@ -117,6 +117,25 @@ describe("User CRUD", () => {
         cy.get("#submitPassword").click();
         cy.get(".UpdateSuccess");
         cy.wait(5500);
-        cy.get("#backBtn").click();
+    });
+    it("allows users to delete their account", () => {
+        // Login
+        cy.get(".form").contains("login");
+        cy.get("#loginEmail")
+            .type("lilobmoises@gmail.com")
+            .should("have.value", "lilobmoises@gmail.com");
+        cy.get("#loginPassword")
+            .type("Senha#12345")
+            .should("have.value", "Senha#12345");
+        cy.get("#loginBtn").click();
+        cy.wait(2000);
+        // Delete
+        cy.get(".form").contains("Dados cadastrais");
+        cy.get("#deleteUser").click();
+        cy.wait(1000);
+        cy.get(".react-confirm-alert-body");
+        cy.wait(1000);
+        cy.contains("Yes").click();
+        cy.wait(1000);
     });
 });
