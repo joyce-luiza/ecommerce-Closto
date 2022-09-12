@@ -11,6 +11,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 function UserProfile() {
     const [user, setUser] = useState({});
@@ -20,6 +21,8 @@ function UserProfile() {
     const [password, setPassword] = useState();
     const [confirmPassword, setConfirmPassword] = useState();
     const [passwordValid, setPasswordValid] = useState(false);
+
+    const navigate = useNavigate();
 
     function handleContent(content) {
         setContent(content);
@@ -37,6 +40,7 @@ function UserProfile() {
                 pauseOnHover: true,
                 draggable: true,
                 progress: undefined,
+                theme: "colored"
             });
         Axios.patch("http://localhost:3333/users", updatedUser, {
             headers: {
@@ -52,6 +56,41 @@ function UserProfile() {
             });
     }
 
+    function handleDeleteUser() {
+        const confirmBox = window.confirm("Deseja realmente excluir sua conta?");
+
+        const successDelete = () =>
+            toast.success("Conta excluída com sucesso!", {
+                className: "DeleteSuccess",
+                position: "top-center",
+                autoClose: 3000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "colored"
+            });
+
+        if(confirmBox){
+            Axios.delete("http://localhost:3333/users",{
+                headers: {
+                    Authorization: "Bearer " + localStorage.getItem("session"),
+                },
+            })
+            .then((res) => {
+                localStorage.removeItem("session");
+                successDelete();
+                setTimeout(() => {
+                    navigate("/");
+                }, 5000);
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+        }
+    }
+
     function handlePassword() {
         const successUpdateSuccess = () =>
             toast.success("Senha alterada com sucesso!", {
@@ -63,8 +102,23 @@ function UserProfile() {
                 pauseOnHover: true,
                 draggable: true,
                 progress: undefined,
+                theme: "colored"
+            });
+
+        const errorUpdateError = () =>
+            toast.error("Não foi possível alterar a senha!", {
+                className: "UpdateError",
+                position: "top-center",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "colored"
             });
         if (passwordValid) {
+            console.log(passwordValid)
             Axios.patch(
                 "http://localhost:3333/users",
                 {
@@ -79,11 +133,15 @@ function UserProfile() {
             )
                 .then((res) => {
                     successUpdateSuccess();
+                    setPassword();
+                    setConfirmPassword();
                     console.log(res.data);
                 })
                 .catch((error) => {
                     console.log(error);
                 });
+        } else {
+            errorUpdateError();
         }
     }
 
@@ -318,6 +376,13 @@ function UserProfile() {
                         >
                             Alterar Senha
                         </button>
+                        <button
+                            id="deleteUser"
+                            className="form-secondatyBtn"
+                            onClick={() => handleDeleteUser()}
+                        >
+                            Excluir conta
+                        </button>
                     </Form>
                 </section>
             )}
@@ -492,9 +557,8 @@ function UserProfile() {
                                 value={password}
                                 valueAgain={confirmPassword}
                                 onChange={(isValid) => {
-                                    if (isValid) {
-                                        setPasswordValid(true);
-                                    }
+                                    console.log(isValid);
+                                    setPasswordValid(isValid);
                                 }}
                             />
                         )}

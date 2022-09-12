@@ -40,6 +40,7 @@
 
 .form .form-children .form-input,
 .form-btn,
+.form-secondatyBtn,
 .form-select {
     margin-bottom: 5%;
     height: 2.5rem;
@@ -57,6 +58,17 @@
 .form .form-children .form-btn {
     color: #ffffff;
     background-color: #000000;
+
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+
+    cursor: pointer;
+}
+.form .form-children .form-secondatyBtn {
+    color: #000000;
+    background-color: none;
+    border: 2px solid #000000;
 
     font-weight: bold;
     text-transform: uppercase;
