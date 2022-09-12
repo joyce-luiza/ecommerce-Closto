@@ -9,7 +9,7 @@ class SessionController {
 
         const user = await User.findOne({ where: { email: email } });
 
-        if (!(await user.checkPassword(password))) {
+        if (!password || !(await user.checkPassword(password))) {
             return { session: "Incorrect password." };
         }
 

@@ -7,6 +7,7 @@ import ValidatePassword from "../strategies/ValidatePassword";
 import ValidateEmail from "../strategies/ValidateEmail";
 import ValidateEmailExistence from "../strategies/ValidateEmailExistence";
 import ValidateAddressExistence from "../strategies/ValidateAddressExistence";
+import ValidatePrincipalAddress from "../strategies/ValidatePrincipalAddress";
 
 class Facade {
     controllers = new Map();
@@ -20,7 +21,7 @@ class Facade {
 
         this.strategies.set("/users", [ValidatePassword, ValidateEmail]);
         this.strategies.set("/session", [ValidateEmailExistence]);
-        this.strategies.set("/user/addresses", [ValidateAddressExistence]);
+        this.strategies.set("/user/addresses", [ValidateAddressExistence, ValidatePrincipalAddress]);
     }
 
     async save(entityType, entityInfo) {
