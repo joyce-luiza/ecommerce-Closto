@@ -12,6 +12,7 @@ import "react-toastify/dist/ReactToastify.css";
 
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import bcrypt from 'bcryptjs';
 
 function UserProfile() {
     const [user, setUser] = useState({});
@@ -59,10 +60,24 @@ function UserProfile() {
     function handleDeleteUser() {
         const confirmBox = window.confirm("Deseja realmente excluir sua conta?");
 
+        const cancelDelete = () => {
+            toast.info("Exclusão de cadastro cancelada", {
+                className: "cancelDelete",
+                position: "top-right",
+                autoClose: 3000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "colored"
+            });
+        }
+
         const successDelete = () =>
             toast.success("Conta excluída com sucesso!", {
                 className: "DeleteSuccess",
-                position: "top-center",
+                position: "top-right",
                 autoClose: 3000,
                 hideProgressBar: false,
                 closeOnClick: true,
@@ -84,19 +99,22 @@ function UserProfile() {
                 setTimeout(() => {
                     navigate("/");
                 }, 5000);
+                return;
             })
             .catch((error) => {
                 console.log(error);
             });
+        } else {
+            cancelDelete();
         }
     }
 
-    function handlePassword() {
+    async function handlePassword() {
         const successUpdateSuccess = () =>
             toast.success("Senha alterada com sucesso!", {
                 className: "UpdateSuccess",
-                position: "top-center",
-                autoClose: 5000,
+                position: "top-right",
+                autoClose: 3000,
                 hideProgressBar: false,
                 closeOnClick: true,
                 pauseOnHover: true,
@@ -108,8 +126,8 @@ function UserProfile() {
         const errorUpdateError = () =>
             toast.error("Não foi possível alterar a senha!", {
                 className: "UpdateError",
-                position: "top-center",
-                autoClose: 5000,
+                position: "top-right",
+                autoClose: 3000,
                 hideProgressBar: false,
                 closeOnClick: true,
                 pauseOnHover: true,
@@ -117,8 +135,8 @@ function UserProfile() {
                 progress: undefined,
                 theme: "colored"
             });
-        if (passwordValid) {
-            console.log(passwordValid)
+
+        if (passwordValid && !(bcrypt.compareSync(password, user.password_hash))) {
             Axios.patch(
                 "http://localhost:3333/users",
                 {
@@ -135,7 +153,7 @@ function UserProfile() {
                     successUpdateSuccess();
                     setPassword();
                     setConfirmPassword();
-                    console.log(res.data);
+                    setContent('');
                 })
                 .catch((error) => {
                     console.log(error);
@@ -557,7 +575,6 @@ function UserProfile() {
                                 value={password}
                                 valueAgain={confirmPassword}
                                 onChange={(isValid) => {
-                                    console.log(isValid);
                                     setPasswordValid(isValid);
                                 }}
                             />
