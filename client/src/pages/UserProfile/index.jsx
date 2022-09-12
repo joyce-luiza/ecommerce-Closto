@@ -5,13 +5,14 @@ import Item from "../../components/Item";
 import Address from "../../components/Address";
 import Order from "../../components/Order";
 import ItemList from "../../components/ItemList";
-import Axios from 'axios';
+import Axios from "axios";
 import PasswordChecklist from "react-password-checklist";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 import { useEffect, useState } from "react";
 
 function UserProfile() {
-
     const [user, setUser] = useState({});
     const [updatedUser, setUpdatedUser] = useState({});
     const [content, setContent] = useState("");
@@ -26,62 +27,95 @@ function UserProfile() {
     }
 
     function handleUser() {
-        Axios.patch("http://localhost:3333/users",
-            updatedUser,
-        {
+        const successRegister = () =>
+            toast.success("Dados alterados com sucesso!", {
+                className: "UpdateSuccess",
+                position: "top-center",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+            });
+        Axios.patch("http://localhost:3333/users", updatedUser, {
             headers: {
                 Authorization: "Bearer " + localStorage.getItem("session"),
             },
         })
-        .then((res) => {
-            console.log(res.data);
-        })
-        .catch((error) => {
-            console.log(error);
-        });
-    }
-
-    function handlePassword() {
-        if(passwordValid) {
-            Axios.patch("http://localhost:3333/users", {
-                password: password
-            },
-            {
-                headers: {
-                    Authorization: "Bearer " + localStorage.getItem("session"),
-                },
-            })
             .then((res) => {
-               console.log(res.data);
+                successRegister();
+                console.log(res.data);
             })
             .catch((error) => {
                 console.log(error);
             });
+    }
+
+    function handlePassword() {
+        const successUpdateSuccess = () =>
+            toast.success("Senha alterada com sucesso!", {
+                className: "UpdateSuccess",
+                position: "top-center",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+            });
+        if (passwordValid) {
+            Axios.patch(
+                "http://localhost:3333/users",
+                {
+                    password: password,
+                },
+                {
+                    headers: {
+                        Authorization:
+                            "Bearer " + localStorage.getItem("session"),
+                    },
+                }
+            )
+                .then((res) => {
+                    successUpdateSuccess();
+                    console.log(res.data);
+                })
+                .catch((error) => {
+                    console.log(error);
+                });
         }
     }
 
-    async function getInfo(){
-        await Axios
-        .get("http://localhost:3333/users", {
+    async function getInfo() {
+        await Axios.get("http://localhost:3333/users", {
             headers: {
-            Authorization: "Bearer " + localStorage.getItem("session"),
+                Authorization: "Bearer " + localStorage.getItem("session"),
             },
         })
-        .then((res) => {
-            setUser(res.data);
-        })
-        .catch((error) => {
-            console.log(error);
-        });
-
+            .then((res) => {
+                setUser(res.data);
+            })
+            .catch((error) => {
+                console.log(error);
+            });
     }
 
     useEffect(() => {
-      getInfo();
-    }, [])
+        getInfo();
+    }, []);
 
     return (
         <div className="user-container">
+            <ToastContainer
+                position="top-center"
+                autoClose={5000}
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick
+                rtl={false}
+                draggable
+            />
             <section className="user-options">
                 <div className="user-info">
                     <img
@@ -161,7 +195,12 @@ function UserProfile() {
                             name="firstName"
                             id="firstName"
                             defaultValue={user.firstName}
-                            onChange={(e) => setUpdatedUser((prevState => ({ ...prevState, firstName: e.target.value })))}
+                            onChange={(e) =>
+                                setUpdatedUser((prevState) => ({
+                                    ...prevState,
+                                    firstName: e.target.value,
+                                }))
+                            }
                         />
 
                         <label className="form-label" htmlFor="lastName">
@@ -173,7 +212,12 @@ function UserProfile() {
                             name="lastName"
                             id="lastName"
                             defaultValue={user.lastName}
-                            onChange={(e) => setUpdatedUser((prevState => ({ ...prevState, lastName: e.target.value })))}
+                            onChange={(e) =>
+                                setUpdatedUser((prevState) => ({
+                                    ...prevState,
+                                    lastName: e.target.value,
+                                }))
+                            }
                         />
 
                         <label className="form-label" htmlFor="registerEmail">
@@ -185,10 +229,15 @@ function UserProfile() {
                             name="registerEmail"
                             id="registerEmail"
                             defaultValue={user.email}
-                            onChange={(e) => setUpdatedUser((prevState => ({ ...prevState, email: e.target.value })))}
+                            onChange={(e) =>
+                                setUpdatedUser((prevState) => ({
+                                    ...prevState,
+                                    email: e.target.value,
+                                }))
+                            }
                         />
 
-                        <label className="form-label" htmlFor="phoneNumber" >
+                        <label className="form-label" htmlFor="phoneNumber">
                             Celular
                         </label>
                         <input
@@ -197,9 +246,13 @@ function UserProfile() {
                             name="phoneNumber"
                             id="phoneNumber"
                             defaultValue={user.phoneNumber}
-                            onChange={(e) => setUpdatedUser((prevState => ({ ...prevState, phoneNumber: e.target.value })))}
+                            onChange={(e) =>
+                                setUpdatedUser((prevState) => ({
+                                    ...prevState,
+                                    phoneNumber: e.target.value,
+                                }))
+                            }
                         />
-
 
                         <label className="form-label" htmlFor="genre">
                             Sexo
@@ -209,10 +262,15 @@ function UserProfile() {
                             name="genre"
                             id="genre"
                             defaultValue={user.genre}
-                            onChange={(e) => setUpdatedUser((prevState => ({ ...prevState, genre: e.target.value })))}
+                            onChange={(e) =>
+                                setUpdatedUser((prevState) => ({
+                                    ...prevState,
+                                    genre: e.target.value,
+                                }))
+                            }
                         >
-                            <option value="Masculino">Masculino</option>
-                            <option value="Feminino">Feminino</option>
+                            <option value="masculino">Masculino</option>
+                            <option value="feminino">Feminino</option>
                         </select>
 
                         <label className="form-label" htmlFor="cpf">
@@ -237,13 +295,27 @@ function UserProfile() {
                             name="birthDate"
                             id="birthDate"
                             defaultValue={user.birthDate}
-                            onChange={(e) => setUpdatedUser((prevState => ({ ...prevState, birthDate: e.target.value })))}
+                            onChange={(e) =>
+                                setUpdatedUser((prevState) => ({
+                                    ...prevState,
+                                    birthDate: e.target.value,
+                                }))
+                            }
                         />
 
-                        <button className="form-btn" type="submit" onClick={() => handleUser()}>
+                        <button
+                            id="updateUser"
+                            className="form-btn"
+                            type="submit"
+                            onClick={() => handleUser()}
+                        >
                             Salvar Alterações
                         </button>
-                        <button className="form-btn" onClick={() => handleContent("Alterar Senha")}>
+                        <button
+                            id="updatePassword"
+                            className="form-btn"
+                            onClick={() => handleContent("Alterar Senha")}
+                        >
                             Alterar Senha
                         </button>
                     </Form>
@@ -382,13 +454,32 @@ function UserProfile() {
             {content === "Alterar Senha" && (
                 <section className="user-content">
                     <Form title="Alterar Senha">
-                        <label className="form-label" htmlFor="registerPassword" >Nova senha</label>
-                        <input className="form-input" type="password" name="registerPassword" id="registerPassword" onChange={(e) => setPassword(e.target.value)}/>
+                        <label
+                            className="form-label"
+                            htmlFor="registerPassword"
+                        >
+                            Nova senha
+                        </label>
+                        <input
+                            className="form-input"
+                            type="password"
+                            name="registerPassword"
+                            id="registerPassword"
+                            onChange={(e) => setPassword(e.target.value)}
+                        />
 
-                        <label className="form-label" htmlFor="confirmPassword" >Confirmar nova senha</label>
-                        <input className="form-input" type="password" name="confirmPassword" id="confirmPassword" onChange={(e) => setConfirmPassword(e.target.value)}/>
+                        <label className="form-label" htmlFor="confirmPassword">
+                            Confirmar nova senha
+                        </label>
+                        <input
+                            className="form-input"
+                            type="password"
+                            name="confirmPassword"
+                            id="confirmPassword"
+                            onChange={(e) => setConfirmPassword(e.target.value)}
+                        />
 
-                        { password && (
+                        {password && (
                             <PasswordChecklist
                                 rules={[
                                     "minLength",
@@ -408,16 +499,24 @@ function UserProfile() {
                             />
                         )}
 
-                        <button className="form-btn" type="submit"  onClick={() => handlePassword()}>
+                        <button
+                            id="submitPassword"
+                            className="form-btn"
+                            type="submit"
+                            onClick={() => handlePassword()}
+                        >
                             Alterar Senha
                         </button>
 
-                        <button className="form-btn" type="submit" onClick={() => handleContent("")}>
+                        <button
+                            id="backBtn"
+                            className="form-btn"
+                            type="submit"
+                            onClick={() => handleContent("")}
+                        >
                             Voltar
                         </button>
-
                     </Form>
-
                 </section>
             )}
         </div>
