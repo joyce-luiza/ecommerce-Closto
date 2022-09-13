@@ -1,6 +1,8 @@
+import Axios from "axios";
 import "../styles/addressStyle.css";
 
 export default function Address({
+    id,
     title,
     type,
     publicPlace,
@@ -15,6 +17,33 @@ export default function Address({
     cep,
     isPrincipal,
 }) {
+
+    async function toPrincipal() {
+        await Axios.patch('http://localhost:3333/user/addresses', {
+            id,
+            title,
+            type,
+            publicPlace,
+            publicPlaceType,
+            residenceType,
+            neighborhood,
+            number,
+            city,
+            state,
+            country,
+            note,
+            cep,
+            isPrincipal: true
+        }, {
+            headers: {
+                Authorization: "Bearer " + localStorage.getItem("session"),
+            },
+        })
+        .catch((err) => {
+            console.log(err.message);
+        })
+    }
+
     return (
         <section className="address-container">
             <div className="address-title_Desc">
@@ -49,7 +78,7 @@ export default function Address({
             </div>
 
             <div className="btn-address">
-                <button className="toPrincipal">Tornar principal</button>
+                <button className="toPrincipal" onClick={() => toPrincipal(id)}>Tornar principal</button>
                 <button className="toEdit">Editar</button>
             </div>
         </section>
