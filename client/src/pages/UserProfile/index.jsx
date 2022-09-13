@@ -54,7 +54,7 @@ function UserProfile() {
         })
             .then((res) => {
                 successRegister();
-                console.log(res.data);
+                setUser(res.data);
             })
             .catch((error) => {
                 console.log(error);
@@ -195,7 +195,7 @@ function UserProfile() {
 
     useEffect(() => {
         getInfo();
-    }, []);
+    }, [updatedUser]);
 
     return (
         <div className="user-container">
@@ -441,10 +441,12 @@ function UserProfile() {
             )}
             {content === "Endereços" && (
                 <section className="user-content">
-                    <ItemList title="Endereços">
+                    <ItemList title="Endereços" showBtn={true} btnText="Novo endereço">
                         { userAddresses.map((address) => {
                                 return (
                                     <Address
+                                        key={address.id}
+                                        id={address.id}
                                         title={address.title}
                                         type={address.type}
                                         publicPlace={address.publicPlace}
@@ -462,6 +464,14 @@ function UserProfile() {
                                 )
                             })
                         }
+                    </ItemList>
+                </section>
+            )}
+
+            {content === "Cartões de crédito" && (
+                <section className="user-content">
+                    <ItemList title="Cartões de crédito" showBtn={true} btnText="Novo cartão">
+
                     </ItemList>
                 </section>
             )}
