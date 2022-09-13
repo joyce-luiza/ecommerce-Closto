@@ -9,7 +9,6 @@ class ValidatePrincipalAddress {
         } = info;
 
         if(isPrincipal) {
-            console.log("Foi mandado True")
             const principalAddress = await Address.findOne({ where: {
                 user_id,
                 isPrincipal
@@ -17,13 +16,10 @@ class ValidatePrincipalAddress {
 
             if(principalAddress){
                 await principalAddress.update({ isPrincipal: false });
-                console.log("Alteração efetuada")
             }
 
             return null;
         }
-
-        console.log("Foi mandado false");
         return null;
     }
 }

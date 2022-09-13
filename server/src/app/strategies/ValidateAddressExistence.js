@@ -39,7 +39,7 @@ class ValidateAddressExistence {
         }});
 
         if(address && address.type === info.type && address.user_id === info.user_id){
-            return { addressExistence: 'This address is already in registered by this user.' };
+            return 'This address is already in registered by this user.';
         }
 
         return null;
