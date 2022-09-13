@@ -70,21 +70,26 @@ function LoginRegister() {
                 theme: "colored"
             });
 
-        const errorRegister = () =>
-            toast.error("Não foi possível criar a conta!", {
-                className: "RegisterError",
-                position: "top-center",
-                autoClose: 2000,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-                theme: "colored"
-            });
+        const errorRegister = (error) =>{
 
-        passwordValid &&
-            (await Axios.post("http://localhost:3333/users", {
+            for (let index = 0; index < error.length; index++) {
+                const message = error[index];
+                toast.error(message, {
+                    className: "RegisterError",
+                    position: "top-center",
+                    autoClose: 2000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "colored"
+                });
+            }
+
+        }
+        if (passwordValid) {
+            await Axios.post("http://localhost:3333/users", {
                 firstName: userFirstName,
                 lastName: userLastName,
                 birthDate: userBirthDate,
@@ -96,14 +101,17 @@ function LoginRegister() {
             })
                 .then((res) => {
                     if (res.data[0]) {
-                        errorRegister();
+                        errorRegister(res.data);
                         return;
                     }
                     successRegister();
                 })
                 .catch((err) => {
                     console.log(err.response.data);
-                }));
+                });
+        } else {
+            errorRegister();
+        }
     }
 
     return (
