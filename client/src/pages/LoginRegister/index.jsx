@@ -36,7 +36,7 @@ function LoginRegister() {
                 pauseOnHover: true,
                 draggable: true,
                 progress: undefined,
-                theme: "colored"
+                theme: "colored",
             });
 
         await Axios.post("http://localhost:3333/session", {
@@ -67,11 +67,10 @@ function LoginRegister() {
                 pauseOnHover: true,
                 draggable: true,
                 progress: undefined,
-                theme: "colored"
+                theme: "colored",
             });
 
-        const errorRegister = (error) =>{
-
+        const errorRegister = (error) => {
             for (let index = 0; index < error.length; index++) {
                 const message = error[index];
                 toast.error(message, {
@@ -83,11 +82,10 @@ function LoginRegister() {
                     pauseOnHover: true,
                     draggable: true,
                     progress: undefined,
-                    theme: "colored"
+                    theme: "colored",
                 });
             }
-
-        }
+        };
         if (passwordValid) {
             await Axios.post("http://localhost:3333/users", {
                 firstName: userFirstName,
@@ -110,7 +108,7 @@ function LoginRegister() {
                     console.log(err.response.data);
                 });
         } else {
-            errorRegister();
+            errorRegister("Não foi possível realizar o cadastro.");
         }
     }
 

@@ -35,7 +35,23 @@ function UserProfile() {
     }
 
     function handleUser() {
-        const successRegister = () =>
+        const errorUpdate = (error) => {
+            for (let index = 0; index < error.length; index++) {
+                const message = error[index];
+                toast.error(message, {
+                    className: "UpdateError",
+                    position: "top-center",
+                    autoClose: 2000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "colored",
+                });
+            }
+        };
+        const successUpdate = () =>
             toast.success("Dados alterados com sucesso!", {
                 className: "UpdateSuccess",
                 position: "top-center",
@@ -53,7 +69,11 @@ function UserProfile() {
             },
         })
             .then((res) => {
-                successRegister();
+                if (res.data[0]) {
+                    errorUpdate(res.data);
+                    return;
+                }
+                successUpdate();
                 setUser(res.data);
             })
             .catch((error) => {
@@ -173,24 +193,24 @@ function UserProfile() {
                 Authorization: "Bearer " + localStorage.getItem("session"),
             },
         })
-        .then((res) => {
-            setUser(res.data);
-        })
-        .catch((error) => {
-            console.log(error);
-        });
+            .then((res) => {
+                setUser(res.data);
+            })
+            .catch((error) => {
+                console.log(error);
+            });
 
         await Axios.get("http://localhost:3333/user/addresses", {
             headers: {
                 Authorization: "Bearer " + localStorage.getItem("session"),
             },
         })
-        .then((res) => {
-            setUserAddresses(res.data);
-        })
-        .catch((error) => {
-            console.log(error);
-        });
+            .then((res) => {
+                setUserAddresses(res.data);
+            })
+            .catch((error) => {
+                console.log(error);
+            });
     }
 
     useEffect(() => {
@@ -441,38 +461,43 @@ function UserProfile() {
             )}
             {content === "Endereços" && (
                 <section className="user-content">
-                    <ItemList title="Endereços" showBtn={true} btnText="Novo endereço">
-                        { userAddresses.map((address) => {
-                                return (
-                                    <Address
-                                        key={address.id}
-                                        id={address.id}
-                                        title={address.title}
-                                        type={address.type}
-                                        publicPlace={address.publicPlace}
-                                        publicPlaceType={address.publicPlaceType}
-                                        number={address.number}
-                                        neighborhood={address.neighborhood}
-                                        city={address.city}
-                                        state={address.state}
-                                        country={address.country}
-                                        cep={address.cep}
-                                        note={address.note}
-                                        residenceType={address.residenceType}
-                                        isPrincipal={address.isPrincipal}
-                                    />
-                                )
-                            })
-                        }
+                    <ItemList
+                        title="Endereços"
+                        showBtn={true}
+                        btnText="Novo endereço"
+                    >
+                        {userAddresses.map((address) => {
+                            return (
+                                <Address
+                                    key={address.id}
+                                    id={address.id}
+                                    title={address.title}
+                                    type={address.type}
+                                    publicPlace={address.publicPlace}
+                                    publicPlaceType={address.publicPlaceType}
+                                    number={address.number}
+                                    neighborhood={address.neighborhood}
+                                    city={address.city}
+                                    state={address.state}
+                                    country={address.country}
+                                    cep={address.cep}
+                                    note={address.note}
+                                    residenceType={address.residenceType}
+                                    isPrincipal={address.isPrincipal}
+                                />
+                            );
+                        })}
                     </ItemList>
                 </section>
             )}
 
             {content === "Cartões de crédito" && (
                 <section className="user-content">
-                    <ItemList title="Cartões de crédito" showBtn={true} btnText="Novo cartão">
-
-                    </ItemList>
+                    <ItemList
+                        title="Cartões de crédito"
+                        showBtn={true}
+                        btnText="Novo cartão"
+                    ></ItemList>
                 </section>
             )}
             {content === "Meus Pedidos" && (
