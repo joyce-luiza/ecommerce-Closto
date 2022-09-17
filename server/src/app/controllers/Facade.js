@@ -2,6 +2,7 @@ import UserController from "./UserController";
 import SessionController from "./SessionController";
 import CardController from "./CardController";
 import AddressController from "./AddressController";
+import ProductController from "./ProductController";
 
 import ValidatePassword from "../strategies/ValidatePassword";
 import ValidateEmail from "../strategies/ValidateEmail";
@@ -18,10 +19,14 @@ class Facade {
         this.controllers.set("/session", SessionController);
         this.controllers.set("/user/cards", CardController);
         this.controllers.set("/user/addresses", AddressController);
+        this.controllers.set("/products", ProductController);
+        this.controllers.set("/product", ProductController);
 
         this.strategies.set("/users", [ValidatePassword, ValidateEmail]);
         this.strategies.set("/session", [ValidateEmailExistence]);
         this.strategies.set("/user/addresses", [ValidateAddressExistence, ValidatePrincipalAddress]);
+        this.strategies.set("/products", []);
+        this.strategies.set("/product", []);
     }
 
     async save(entityType, entityInfo) {

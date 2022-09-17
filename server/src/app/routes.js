@@ -11,6 +11,8 @@ const routes = Router();
 
 routes.post("/users", SaveCommand);
 routes.post("/session", SaveCommand);
+routes.get("/product", IndexCommand);
+routes.get("/products", ConsultCommand);
 
 routes.use(AuthMiddleware);
 routes.get("/users", IndexCommand);
@@ -26,5 +28,9 @@ routes.post("/user/addresses", SaveCommand);
 routes.patch("/user/addresses", UpdateCommand);
 routes.get("/user/addresses", ConsultCommand);
 routes.delete("/user/addresses", DeleteCommand);
+
+routes.post("/products", SaveCommand);
+routes.patch("/products", UpdateCommand);
+routes.delete("/products", DeleteCommand);
 
 export default routes;
