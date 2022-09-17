@@ -8,7 +8,7 @@ import EditUser from "../../components/EditUser";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import ChangePassword from "../../components/ChangePassword";
-
+import ListUserCreditCard from "../../components/ListUserCreditCards";
 
 function UserProfile2() {
     const [user, setUser] = useState({});
@@ -20,9 +20,8 @@ function UserProfile2() {
         return;
     }
 
-    const showToast = ((type, text) => {
-
-        if (type === "success"){
+    const showToast = (type, text) => {
+        if (type === "success") {
             return toast.success(text, {
                 className: "SuccessToast",
                 position: "top-right",
@@ -32,11 +31,11 @@ function UserProfile2() {
                 pauseOnHover: true,
                 draggable: true,
                 progress: undefined,
-                theme: "colored"
-            })
+                theme: "colored",
+            });
         }
 
-        if (type === "error"){
+        if (type === "error") {
             return toast.error(text, {
                 className: "ErrorToast",
                 position: "top-right",
@@ -46,13 +45,12 @@ function UserProfile2() {
                 pauseOnHover: true,
                 draggable: true,
                 progress: undefined,
-                theme: "colored"
-            })
+                theme: "colored",
+            });
         }
 
         return;
-    })
-
+    };
 
     async function getUserInfo() {
         await Axios.get("http://localhost:3333/users", {
@@ -74,7 +72,6 @@ function UserProfile2() {
 
     return (
         <div className="user-container">
-
             <ToastContainer
                 position="top-center"
                 autoClose={5000}
@@ -85,12 +82,9 @@ function UserProfile2() {
                 draggable
             />
 
-            <UserOptions
-                user={user}
-                handleContent={handleContent}
-            />
+            <UserOptions user={user} handleContent={handleContent} />
 
-            {content === "" &&
+            {content === "" && (
                 <EditUser
                     user={user}
                     setUser={setUser}
@@ -99,22 +93,23 @@ function UserProfile2() {
                     handleContent={handleContent}
                     showToast={showToast}
                 />
-            }
+            )}
 
-            {content === "Alterar Senha" &&
+            {content === "Alterar Senha" && (
                 <ChangePassword
                     handleContent={handleContent}
                     user={user}
                     showToast={showToast}
                 />
-            }
+            )}
 
-            {content === "Endereços" &&
-                <ListUserAddresses
-                    showToast={showToast}
-                />
-            }
+            {content === "Endereços" && (
+                <ListUserAddresses showToast={showToast} />
+            )}
 
+            {content === "Cartões de crédito" && (
+                <ListUserCreditCard showToast={showToast} />
+            )}
         </div>
     );
 }
