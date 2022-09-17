@@ -87,6 +87,10 @@
     background-color: transparent;
 }
 
+.address-container .address-title_Desc .address-title .adddress-delete {
+    cursor: pointer;
+}
+
 @media screen and (min-width: 704px) and (max-width: 768px) {
     .address-container {
         width: 40%;

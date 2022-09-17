@@ -1,43 +1,31 @@
 import Axios from "axios";
 import "../styles/addressStyle.css";
 
-export default function Address({
-    id,
-    title,
-    type,
-    publicPlace,
-    publicPlaceType,
-    residenceType,
-    neighborhood,
-    number,
-    city,
-    state,
-    country,
-    note,
-    cep,
-    isPrincipal,
-}) {
+export default function Address({ address, getAddresses, setCrudAddress, setAddress, deleteAddress }) {
 
     async function toPrincipal() {
         await Axios.patch('http://localhost:3333/user/addresses', {
-            id,
-            title,
-            type,
-            publicPlace,
-            publicPlaceType,
-            residenceType,
-            neighborhood,
-            number,
-            city,
-            state,
-            country,
-            note,
-            cep,
+            id: address.id,
+            title: address.title,
+            type: address.type,
+            publicPlace: address.publicPlace,
+            publicPlaceType: address.publicPlaceType,
+            residenceType: address.residenceType,
+            neighborhood: address.neighborhood,
+            number: address.number,
+            city: address.city,
+            state: address.state,
+            country: address.country,
+            note: address.note,
+            cep: address.cep,
             isPrincipal: true
         }, {
             headers: {
                 Authorization: "Bearer " + localStorage.getItem("session"),
             },
+        })
+        .then((res) => {
+            getAddresses();
         })
         .catch((err) => {
             console.log(err.message);
@@ -48,14 +36,16 @@ export default function Address({
         <section className="address-container">
             <div className="address-title_Desc">
                 <div className="address-title">
-                    <a>{title}</a>
+                    <a>{address.title}</a>
                     <img
+                        className="adddress-delete"
                         src="https://via.placeholder.com/24x24"
                         alt="Excluir"
+                        onClick={() => deleteAddress(address.id)}
                     />
                 </div>
 
-                { isPrincipal === true &&
+                { address.isPrincipal === true &&
                     <div className="address-desc">
                         <span className="address-isPrincipal">Endereço principal ★</span>
                     </div>
@@ -65,21 +55,29 @@ export default function Address({
 
             <div className="address-info">
                 <span>
-                    Tipo: {residenceType} • {type}
+                    Tipo: {address.residenceType} • {address.type}
                 </span>
                 <span>
-                    {publicPlaceType} {publicPlace} • {neighborhood} • {number}
+                    {address.publicPlaceType} {address.publicPlace} • {address.neighborhood} • {address.number}
                 </span>
                 <span>
-                    {city} • {state} • {country}
+                    {address.city} • {address.state} • {address.country}
                 </span>
-                <span>CEP: {cep}</span>
-                <span>{note}</span>
+                <span>CEP: {address.cep}</span>
+                <span>{address.note}</span>
             </div>
 
             <div className="btn-address">
-                <button className="toPrincipal" onClick={() => toPrincipal(id)}>Tornar principal</button>
-                <button className="toEdit">Editar</button>
+                <button className="toPrincipal" onClick={() => toPrincipal(address.id)}>Tornar principal</button>
+                <button
+                    className="toEdit"
+                    onClick={() => {
+                        setCrudAddress("patch");
+                        setAddress(address);
+                    }}
+                >
+                    Editar
+                </button>
             </div>
         </section>
     );

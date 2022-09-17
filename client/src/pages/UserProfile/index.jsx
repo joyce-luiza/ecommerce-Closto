@@ -15,6 +15,7 @@ import "react-confirm-alert/src/react-confirm-alert.css";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import bcrypt from "bcryptjs";
+import UserOptions from "../../components/UserOptions";
 
 function UserProfile() {
     const [user, setUser] = useState({});
@@ -228,72 +229,11 @@ function UserProfile() {
                 rtl={false}
                 draggable
             />
-            <section className="user-options">
-                <div className="user-info">
-                    <img
-                        className="user-photo"
-                        src="https://via.placeholder.com/160x160"
-                        alt=""
-                    />
 
-                    <div className="user-description">
-                        <p className="user-name">OLÁ, {user.firstName}</p>
-                        <a>{user.email}</a>
-                    </div>
-                </div>
-
-                <hr className="div-user-info" />
-
-                <div className="user-menu">
-                    <section className="menu">
-                        <h3 className="menu-title">Dados</h3>
-
-                        <button
-                            className="menu-item"
-                            onClick={() => handleContent("")}
-                        >
-                            Dados Cadastrais
-                        </button>
-                        <button
-                            className="menu-item"
-                            onClick={() => handleContent("Lista de Desejos")}
-                        >
-                            Lista de Desejos
-                        </button>
-                        <button
-                            className="menu-item"
-                            onClick={() => handleContent("Endereços")}
-                        >
-                            Endereços
-                        </button>
-                        <button
-                            className="menu-item"
-                            onClick={() => handleContent("Cartões de crédito")}
-                        >
-                            Cartões de crédito
-                        </button>
-                    </section>
-
-                    <section className="menu">
-                        <h3 className="menu-title">Pedidos</h3>
-
-                        <button
-                            className="menu-item"
-                            onClick={() => handleContent("Meus Pedidos")}
-                        >
-                            {" "}
-                            Meus Pedidos
-                        </button>
-                        <button
-                            className="menu-item"
-                            onClick={() => handleContent("Trocas e Devoluções")}
-                        >
-                            {" "}
-                            Trocas e Devoluções
-                        </button>
-                    </section>
-                </div>
-            </section>
+            <UserOptions
+                user={user}
+                handleContent={handleContent}
+            />
 
             {content === "" && (
                 <section className="user-content">
