@@ -1,20 +1,9 @@
-import { useNavigate } from "react-router-dom";
 import "../styles/itemListStyle.css";
 
-function ItemList({ title, children, showBtn, btnText }) {
-    const navigate = useNavigate();
+function ItemList({ title, children, showBtn, btnText, btnFunction }) {
 
     function handleNewRegistry() {
-        switch (title) {
-            case "Endereços":
-                navigate("/");
-                break;
-            case "Cartões de crédito":
-                navigate("/");
-                break;
-            default:
-                break;
-        }
+        btnFunction('post');
     }
 
     return (

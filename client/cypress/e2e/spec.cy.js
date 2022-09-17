@@ -71,7 +71,7 @@ describe("User CRUD", () => {
             .type("00000000001")
             .should("have.value", "00000000001");
         cy.get("#updateUser").click();
-        cy.get(".UpdateSuccess");
+        cy.get(".SuccessToast");
     });
     it("allows users to update one field", () => {
         // Login
@@ -91,7 +91,7 @@ describe("User CRUD", () => {
             .type("Murebas Lilo")
             .should("have.value", "Murebas Lilo");
         cy.get("#updateUser").click();
-        cy.get(".UpdateSuccess");
+        cy.get(".SuccessToast");
     });
     it("allows users to update the password", () => {
         // Login
@@ -115,7 +115,7 @@ describe("User CRUD", () => {
             .type("Senha#12345")
             .should("have.value", "Senha#12345");
         cy.get("#submitPassword").click();
-        cy.get(".UpdateSuccess");
+        cy.get(".SuccessToast");
         cy.wait(5500);
     });
     it("allows users to delete their account", () => {
@@ -191,7 +191,7 @@ describe("User CRUD", () => {
             .type("murebas@gmail.com")
             .should("have.value", "murebas@gmail.com");
         cy.get("#updateUser").click();
-        cy.get(".UpdateError");
+        cy.get(".ErrorToast");
     });
 });
 
