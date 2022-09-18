@@ -1,0 +1,113 @@
+.productProfile-container {
+    display: flex;
+    width: 80vw;
+    margin: auto;
+    /* gap: 48px; */
+    justify-content: space-around;
+    margin-top: 40px;
+}
+
+.productProfile-info {
+    width: 30vw;
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+}
+
+.productProfile-name {
+    font-weight: 400;
+    font-size: 32px;
+}
+
+.productProfile-price {
+    font-weight: 600;
+    font-size: 24px;
+}
+
+.productProfile-price span {
+    color: rgba(34, 34, 34, 0.5);
+    font-weight: 400;
+    font-size: 14px;
+    margin-left: 16px;
+}
+
+.productProfile-header {
+    display: flex;
+    justify-content: space-between;
+}
+
+.productProfile-header {
+    display: flex;
+}
+
+.productProfile-colors-container,
+.productProfile-size-container {
+    display: flex;
+    gap: 16px;
+    margin-top: 16px;
+}
+
+.productProfile-colors p,
+.productProfile-sizes p,
+.productProfile-shipping,
+.productProfile-description h1,
+.productProfile-composition h1 {
+    font-weight: 600;
+    font-size: 16px;
+}
+
+.productProfile-color,
+.productProfile-size {
+    width: 40px;
+    height: 40px;
+    border-radius: 100%;
+    border: 2px solid black;
+}
+
+.productProfile-size {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+    font-size: 16px;
+}
+
+.color-1 {
+    background-color: aquamarine;
+}
+
+.color-2 {
+    background-color: blueviolet;
+}
+
+.productProfile-buyBtn,
+.productProfile-shipping button {
+    color: #ffffff;
+    background-color: #000000;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    height: 2.5rem;
+    cursor: pointer;
+}
+
+.productProfile-shipping button {
+    margin-left: 8px;
+    padding: 0 16px;
+}
+
+.productProfile-shipping input {
+    margin-bottom: 5%;
+    height: 2.5rem;
+    border: none;
+    width: 60%;
+    background-color: #e2e2e2;
+    border-bottom: 1px solid black;
+    outline: none;
+}
+
+.productProfile-composition p,
+.productProfile-description p {
+    margin-top: 16px;
+    color: rgba(34, 34, 34, 0.7);
+}

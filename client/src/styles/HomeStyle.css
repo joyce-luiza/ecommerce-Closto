@@ -1,0 +1,13 @@
+.product-content {
+}
+
+.products {
+    width: 90vw;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    margin: 40px auto 0 auto;
+    gap: 60px;
+}

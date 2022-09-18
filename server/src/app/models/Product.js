@@ -1,4 +1,4 @@
-import Sequelize, { Model } from 'sequelize';
+import Sequelize, { Model } from "sequelize";
 
 class Product extends Model {
     static init(sequelize) {
@@ -6,19 +6,19 @@ class Product extends Model {
             {
                 category: Sequelize.STRING,
                 name: Sequelize.STRING,
-                color: Sequelize.STRING,
-                size: Sequelize.STRING,
+                color: Sequelize.ARRAY(Sequelize.JSON),
+                size: Sequelize.ARRAY(Sequelize.JSON),
                 composition: Sequelize.STRING,
-                price:  Sequelize.FLOAT,
+                price: Sequelize.FLOAT,
                 quantity: Sequelize.INTEGER,
-                description: Sequelize.STRING,
                 status: Sequelize.STRING,
+                description: Sequelize.STRING,
                 onSale: Sequelize.BOOLEAN,
                 discount: Sequelize.INTEGER,
             },
             {
                 sequelize,
-                tableName: 'products',
+                tableName: "products",
             }
         );
 
