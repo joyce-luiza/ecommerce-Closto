@@ -1,4 +1,5 @@
 import "../styles/creditCardStyle.css";
+import "remixicon/fonts/remixicon.css";
 
 export default function CreditCard({
     creditCard,
@@ -12,12 +13,10 @@ export default function CreditCard({
             <div className="creditCard-title_Desc">
                 <div className="creditCard-title">
                     <a>{creditCard.title}</a>
-                    <img
-                        className="creditCard-delete"
-                        src="https://via.placeholder.com/24x24"
-                        alt="Excluir"
+                    <i
+                        class="ri-delete-bin-line"
                         onClick={() => deleteCreditCard(creditCard.id)}
-                    />
+                    ></i>
                 </div>
             </div>
 
