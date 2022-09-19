@@ -1,6 +1,7 @@
 import "../styles/productProfileStyle.css";
 import "remixicon/fonts/remixicon.css";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import Axios from 'axios';
 
 export default function ProductProfile({ product, setContent }) {
     const [color, setColor] = useState("Selecione uma cor");
@@ -17,11 +18,13 @@ export default function ProductProfile({ product, setContent }) {
         <>
             <button onClick={() => setContent("")}>voltar</button>
             <div className="productProfile-container">
+
                 <img
                     className="productProfile-image"
                     src="https://via.placeholder.com/502x664"
                     alt={product.name}
                 ></img>
+
                 <div className="productProfile-info">
                     <div className="productProfile-header">
                         <h1 className="productProfile-name">{product.name}</h1>
@@ -40,6 +43,7 @@ export default function ProductProfile({ product, setContent }) {
                                 return Object.values(color).map((hex) => {
                                     return (
                                         <div
+                                            key={hex}
                                             className="productProfile-color"
                                             style={{ backgroundColor: hex }}
                                             onClick={() => findColor(hex)}
@@ -51,14 +55,26 @@ export default function ProductProfile({ product, setContent }) {
                             <div className="productProfile-color color-2"></div>
                         </div>
                     </div>
+
                     <div className="productProfile-sizes">
                         <p>Tamanho:</p>
                         <div className="productProfile-size-container">
-                            <div className="productProfile-size">XP</div>
-                            <div className="productProfile-size">P</div>
+
+                            {product.size.map((size) => {
+                                return Object.keys(size).map((key) => {
+                                    if (Object.values(size)[0] !== 0) {
+                                        return (
+                                            <div key={size} className="productProfile-size">{key}</div>
+                                        )
+                                    }
+                                    return null;
+                                })
+                            })}
                         </div>
                     </div>
+
                     <button className="productProfile-buyBtn">Comprar</button>
+
                     <div className="productProfile-shipping">
                         <p>Calcular frete:</p>
                         <div>
@@ -66,14 +82,17 @@ export default function ProductProfile({ product, setContent }) {
                             <button>Calcular</button>
                         </div>
                     </div>
+
                     <div className="productProfile-description">
                         <h1>Descrição</h1>
                         <p>{product.description}</p>
                     </div>
+
                     <div className="productProfile-composition">
                         <h1>Composição</h1>
                         <p>{product.composition}</p>
                     </div>
+
                 </div>
             </div>
         </>

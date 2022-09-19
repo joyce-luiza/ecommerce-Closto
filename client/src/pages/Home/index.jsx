@@ -19,11 +19,9 @@ function Home() {
             });
     };
 
-    const productSample = { name: "product", price: "$20" };
-
     useEffect(() => {
         getProducts();
-    }, []);
+    }, [content]);
 
     return (
         <section className="product-content">
