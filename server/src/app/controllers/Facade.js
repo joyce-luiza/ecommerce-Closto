@@ -9,12 +9,14 @@ import ValidateEmail from "../strategies/ValidateEmail";
 import ValidateEmailExistence from "../strategies/ValidateEmailExistence";
 import ValidateAddressExistence from "../strategies/ValidateAddressExistence";
 import ValidatePrincipalAddress from "../strategies/ValidatePrincipalAddress";
+import AdminController from "./AdminController";
 
 class Facade {
     controllers = new Map();
     strategies = new Map();
 
     constructor() {
+        this.controllers.set("/admin", AdminController);
         this.controllers.set("/users", UserController);
         this.controllers.set("/session", SessionController);
         this.controllers.set("/user/cards", CardController);
