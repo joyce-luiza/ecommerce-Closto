@@ -13,15 +13,15 @@ class SessionController {
             return { session: "Incorrect password." };
         }
 
-        const { id, firstName } = user;
+        const { id, firstName, isAdmin } = user;
 
         return {
             user: {
                 id,
                 firstName,
-                email,
+                email
             },
-            token: jwt.sign({ id }, authConfig.secret, {
+            token: jwt.sign({ id, isAdmin }, authConfig.secret, {
                 expiresIn: authConfig.expiresIn,
             }),
         };

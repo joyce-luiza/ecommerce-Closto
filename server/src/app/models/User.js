@@ -14,6 +14,7 @@ class User extends Model {
                 password_hash: Sequelize.STRING,
                 phoneNumber: Sequelize.STRING(11),
                 genre: Sequelize.STRING,
+                isAdmin: Sequelize.BOOLEAN
             },
             {
                 sequelize,
