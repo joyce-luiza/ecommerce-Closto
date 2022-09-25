@@ -1,0 +1,35 @@
+.table-container {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    margin: 0 64px;
+}
+
+.row-container {
+    background: #f5f5f5;
+    padding: 24px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.table-column {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    margin: 0 32px;
+}
+
+.table-label {
+    font-weight: 600;
+    font-size: 14px;
+    text-transform: uppercase;
+}
+
+.row-actions {
+    margin-left: 32px;
+}
+
+.row-actions > .table-content {
+    display: flex;
+    gap: 24px;
+}

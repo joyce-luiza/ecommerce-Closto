@@ -1,0 +1,58 @@
+.editProduct-colors-container {
+    display: flex;
+    flex-direction: row;
+    gap: 48px;
+}
+
+.editProduct-container {
+    display: flex;
+    flex-direction: column;
+    width: 50vw;
+}
+
+.editProduct-back {
+    width: 5vw;
+}
+
+.editProduct-new-color {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-end;
+}
+
+.editProduct-color-container {
+    width: 100%;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+}
+
+.editProduct-colors {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-top: 16px;
+    margin-bottom: 40px;
+}
+
+.editProduct-colors p {
+    font-weight: 600;
+    font-size: 16px;
+}
+
+.editProduct-color-circle {
+    width: 40px;
+    height: 40px;
+    border-radius: 100%;
+    border: 2px solid black;
+}
+
+.editProduct-size-container {
+    display: flex;
+}
+
+.editProduct-sizes {
+    display: flex;
+    flex-direction: column;
+}
