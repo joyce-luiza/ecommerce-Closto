@@ -99,6 +99,16 @@
     color: black;
 }
 
+.form .form-children .form-list{
+    width: 70%;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+
+    color: black;
+}
+
 @media screen and (max-width: 768px) {
     .form {
         width: 100%;

@@ -62,17 +62,11 @@ class AdminController {
             try {
                 switch (entityInfo.table) {
                     case "/users":
-                        return await User.findByPk({
-                            where: { id: entityInfo.id },
-                        }).update(entityInfo);
+                        return await (await User.findByPk(entityInfo.id)).update(entityInfo)
                     case "/addresses":
-                        return await Address.findByPk({
-                            where: { id: entityInfo.id },
-                        }).update(entityInfo);
+                        return await (await Address.findByPk(entityInfo.id)).update(entityInfo)
                     case "/products":
-                        return await Product.findByPk({
-                            where: { id: entityInfo.id },
-                        }).update(entityInfo);
+                        return await (await Product.findByPk(entityInfo.id)).update(entityInfo)
                     default:
                         return { error: "Table not found!" };
                 }
