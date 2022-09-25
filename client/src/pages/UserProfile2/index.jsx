@@ -2,13 +2,13 @@ import "../../styles/UserProfileStyle.css";
 import Axios from "axios";
 
 import { useEffect, useState } from "react";
-import UserOptions from "../../components/UserOptions";
 import ListUserAddresses from "../../components/ListUserAddresses";
 import EditUser from "../../components/EditUser";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import ChangePassword from "../../components/ChangePassword";
 import ListUserCreditCard from "../../components/ListUserCreditCards";
+import ProfileOptions from "../../components/ProfileOptions";
 
 function UserProfile2() {
     const [user, setUser] = useState({});
@@ -82,7 +82,12 @@ function UserProfile2() {
                 draggable
             />
 
-            <UserOptions user={user} handleContent={handleContent} />
+            {/* <UserOptions user={user} handleContent={handleContent} /> */}
+            <ProfileOptions
+                handleContent={handleContent}
+                data={user}
+                type="user"
+            />
 
             {content === "" && (
                 <EditUser

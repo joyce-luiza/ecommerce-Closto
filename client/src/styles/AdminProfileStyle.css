@@ -1,4 +1,4 @@
-.user-container {
+.admin-container {
     width: 100%;
     height: 100%;
 
@@ -8,7 +8,7 @@
     margin-top: 72px;
 }
 
-.user-container .user-options {
+.admin-container .admin-options {
     min-width: 15%;
     height: 100%;
 
@@ -21,15 +21,15 @@
     padding: 1rem;
 }
 
-.user-container .user-content {
+.admin-container .admin-content {
     width: 60%;
 }
 
-.user-container .user-content .form {
+.admin-container .admin-content .form {
     padding: 0;
 }
 
-.user-container .user-options .user-info {
+.admin-container .admin-options .admin-info {
     width: 100%;
     height: 50%;
 
@@ -38,19 +38,19 @@
     align-items: center;
 }
 
-.user-container .user-options .user-info .user-name {
+.admin-container .admin-options .admin-info .admin-name {
     text-transform: uppercase;
     margin-bottom: 5%;
     font-weight: bold;
 }
 
-.user-container .user-options .user-info .user-description {
+.admin-container .admin-options .admin-info .admin-description {
     display: flex;
     flex-direction: column;
     align-items: center;
 }
 
-.user-container .user-options .user-info .user-photo {
+.admin-container .admin-options .admin-info .admin-photo {
     width: 160px;
     height: 160px;
 
@@ -59,7 +59,7 @@
     margin-bottom: 1.5rem;
 }
 
-.div-user-info {
+.div-admin-info {
     width: 90%;
     height: 1px;
 
@@ -68,7 +68,7 @@
     background-color: black;
 }
 
-.user-menu {
+.admin-menu {
     width: 90%;
 
     display: flex;
@@ -76,14 +76,14 @@
     justify-content: center;
 }
 
-.user-menu .menu {
+.admin-menu .menu {
     display: flex;
     flex-direction: column;
     justify-content: center;
 
     margin-bottom: 5%;
 }
-.user-menu .menu .menu-title {
+.admin-menu .menu .menu-title {
     font-style: normal;
     font-weight: 400;
     font-size: 20px;
@@ -94,7 +94,7 @@
     margin-bottom: 16px;
 }
 
-.user-menu .menu .menu-item {
+.admin-menu .menu .menu-item {
     background-color: transparent;
     border: none;
     text-align: start;
@@ -111,7 +111,7 @@
 }
 
 @media screen and (min-width: 400px) and (max-width: 768px) {
-    .user-container {
+    .admin-container {
         width: 100%;
         height: 100%;
 
@@ -121,7 +121,7 @@
         margin-top: 0px;
     }
 
-    .user-container .user-options {
+    .admin-container .admin-options {
         display: flex;
         flex-direction: row;
         align-items: center;
@@ -131,11 +131,11 @@
         padding: 1rem;
     }
 
-    .user-container .user-content {
+    .admin-container .admin-content {
         width: 100%;
     }
 
-    .user-container .user-options .user-info {
+    .admin-container .admin-options .admin-info {
         width: 30%;
 
         display: flex;
@@ -143,12 +143,12 @@
         align-items: center;
     }
 
-    .user-container .user-options .user-info .user-name {
+    .admin-container .admin-options .admin-info .admin-name {
         text-transform: uppercase;
         margin-bottom: 2%;
     }
 
-    .user-container .user-options .user-info .user-description {
+    .admin-container .admin-options .admin-info .admin-description {
         font-size: 12px;
         display: flex;
         flex-direction: column;
@@ -156,7 +156,7 @@
         justify-content: center;
     }
 
-    .user-container .user-options .user-info .user-photo {
+    .admin-container .admin-options .admin-info .admin-photo {
         width: 120px;
         height: 120px;
 
@@ -165,11 +165,11 @@
         margin-bottom: 1rem;
     }
 
-    .div-user-info {
+    .div-admin-info {
         display: none;
     }
 
-    .user-menu {
+    .admin-menu {
         width: 60%;
 
         display: flex;
@@ -178,7 +178,7 @@
         align-items: flex-start;
     }
 
-    .user-menu .menu {
+    .admin-menu .menu {
         width: 100%;
 
         display: flex;
@@ -189,7 +189,7 @@
         margin-left: 0%;
     }
 
-    .user-menu .menu .menu-title {
+    .admin-menu .menu .menu-title {
         font-style: normal;
         font-weight: 400;
         font-size: 16px;
@@ -200,7 +200,7 @@
         margin-bottom: 8px;
     }
 
-    .user-menu .menu .menu-item {
+    .admin-menu .menu .menu-item {
         background-color: transparent;
         border: none;
 
@@ -219,7 +219,7 @@
 }
 
 @media screen and (max-width: 400px) {
-    .user-container {
+    .admin-container {
         width: 100%;
         height: 100%;
 
@@ -229,7 +229,7 @@
         margin-top: 0px;
     }
 
-    .user-container .user-options {
+    .admin-container .admin-options {
         display: flex;
         flex-direction: row;
         align-items: center;
@@ -239,11 +239,11 @@
         padding: 0.5rem;
     }
 
-    .user-container .user-content {
+    .admin-container .admin-content {
         width: 100%;
     }
 
-    .user-container .user-options .user-info {
+    .admin-container .admin-options .admin-info {
         width: 40%;
 
         display: flex;
@@ -251,12 +251,12 @@
         align-items: center;
     }
 
-    .user-container .user-options .user-info .user-name {
+    .admin-container .admin-options .admin-info .admin-name {
         text-transform: uppercase;
         margin-bottom: 2%;
     }
 
-    .user-container .user-options .user-info .user-description {
+    .admin-container .admin-options .admin-info .admin-description {
         font-size: 12px;
         display: flex;
         flex-direction: column;
@@ -264,7 +264,7 @@
         justify-content: center;
     }
 
-    .user-container .user-options .user-info .user-photo {
+    .admin-container .admin-options .admin-info .admin-photo {
         width: 120px;
         height: 120px;
 
@@ -273,11 +273,11 @@
         margin-bottom: 1rem;
     }
 
-    .div-user-info {
+    .div-admin-info {
         display: none;
     }
 
-    .user-menu {
+    .admin-menu {
         width: 40%;
 
         display: flex;
@@ -286,7 +286,7 @@
         align-items: flex-start;
     }
 
-    .user-menu .menu {
+    .admin-menu .menu {
         width: 100%;
 
         display: flex;
@@ -297,7 +297,7 @@
         margin-left: 0%;
     }
 
-    .user-menu .menu .menu-title {
+    .admin-menu .menu .menu-title {
         font-style: normal;
         font-weight: 400;
         font-size: 14px;
@@ -308,7 +308,7 @@
         margin-bottom: 8px;
     }
 
-    .user-menu .menu .menu-item {
+    .admin-menu .menu .menu-item {
         background-color: transparent;
         border: none;
 

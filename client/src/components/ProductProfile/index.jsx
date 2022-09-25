@@ -1,7 +1,6 @@
 import "../styles/productProfileStyle.css";
 import "remixicon/fonts/remixicon.css";
-import { useState, useEffect } from "react";
-import Axios from 'axios';
+import { useState } from "react";
 
 export default function ProductProfile({ product, setContent }) {
     const [color, setColor] = useState("Selecione uma cor");
@@ -18,7 +17,6 @@ export default function ProductProfile({ product, setContent }) {
         <>
             <button onClick={() => setContent("")}>voltar</button>
             <div className="productProfile-container">
-
                 <img
                     className="productProfile-image"
                     src="https://via.placeholder.com/502x664"
@@ -59,16 +57,20 @@ export default function ProductProfile({ product, setContent }) {
                     <div className="productProfile-sizes">
                         <p>Tamanho:</p>
                         <div className="productProfile-size-container">
-
                             {product.size.map((size) => {
                                 return Object.keys(size).map((key) => {
                                     if (Object.values(size)[0] !== 0) {
                                         return (
-                                            <div key={size} className="productProfile-size">{key}</div>
-                                        )
+                                            <div
+                                                key={size}
+                                                className="productProfile-size"
+                                            >
+                                                {key}
+                                            </div>
+                                        );
                                     }
                                     return null;
-                                })
+                                });
                             })}
                         </div>
                     </div>
@@ -92,7 +94,6 @@ export default function ProductProfile({ product, setContent }) {
                         <h1>Composição</h1>
                         <p>{product.composition}</p>
                     </div>
-
                 </div>
             </div>
         </>

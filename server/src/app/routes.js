@@ -35,7 +35,7 @@ routes.delete("/products", DeleteCommand);
 
 routes.post("/admin", SaveCommand);
 routes.patch("/admin", UpdateCommand);
-routes.get("/admin", ConsultCommand);
+routes.post("/admin/consult", ConsultCommand);
 routes.delete("/admin", DeleteCommand);
 
 export default routes;

@@ -17,6 +17,7 @@ class Facade {
 
     constructor() {
         this.controllers.set("/admin", AdminController);
+        this.controllers.set("/admin/consult", AdminController);
         this.controllers.set("/users", UserController);
         this.controllers.set("/session", SessionController);
         this.controllers.set("/user/cards", CardController);
@@ -26,7 +27,10 @@ class Facade {
 
         this.strategies.set("/users", [ValidatePassword, ValidateEmail]);
         this.strategies.set("/session", [ValidateEmailExistence]);
-        this.strategies.set("/user/addresses", [ValidateAddressExistence, ValidatePrincipalAddress]);
+        this.strategies.set("/user/addresses", [
+            ValidateAddressExistence,
+            ValidatePrincipalAddress,
+        ]);
         this.strategies.set("/products", []);
         this.strategies.set("/product", []);
     }
