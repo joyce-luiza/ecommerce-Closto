@@ -6,9 +6,9 @@ export default function ProductProfile({ product, setContent }) {
     const [color, setColor] = useState("Selecione uma cor");
 
     const findColor = (hex) => {
-        for (const color in product.color[0]) {
-            if (hex === product.color[0][color]) {
-                setColor(color);
+        for (let index = 0; index < product.color.length; index++) {
+            if(hex === product.color[index].colorHex){
+                setColor(product.color[index])
             }
         }
     };
@@ -34,43 +34,37 @@ export default function ProductProfile({ product, setContent }) {
                     </p>
                     <div className="productProfile-colors">
                         <p>
-                            Cor: <span>{color}</span>
+                            Cor: <span>{color.colorName}</span>
                         </p>
                         <div className="productProfile-colors-container">
-                            {product.color.map((color) => {
-                                return Object.values(color).map((hex) => {
-                                    return (
-                                        <div
-                                            key={hex}
-                                            className="productProfile-color"
-                                            style={{ backgroundColor: hex }}
-                                            onClick={() => findColor(hex)}
-                                        ></div>
-                                    );
-                                });
+                            {product.color.map((color, index) => {
+                                return (
+                                    <div
+                                        key={index}
+                                        className="productProfile-color"
+                                        style={{ backgroundColor: color.colorHex }}
+                                        onClick={() => findColor(color.colorHex)}
+                                    ></div>
+                                );
                             })}
-                            <div className="productProfile-color color-1"></div>
-                            <div className="productProfile-color color-2"></div>
                         </div>
                     </div>
 
                     <div className="productProfile-sizes">
                         <p>Tamanho:</p>
                         <div className="productProfile-size-container">
-                            {product.size.map((size) => {
-                                return Object.keys(size).map((key) => {
-                                    if (Object.values(size)[0] !== 0) {
-                                        return (
-                                            <div
-                                                key={size}
-                                                className="productProfile-size"
-                                            >
-                                                {key}
-                                            </div>
-                                        );
-                                    }
-                                    return null;
-                                });
+                            {product.size.map((size, index) => {
+                                if (size.sizeQty !== 0) {
+                                    return (
+                                        <div
+                                            key={index}
+                                            className="productProfile-size"
+                                        >
+                                            {size.sizeName}
+                                        </div>
+                                    );
+                                }
+                                return null;
                             })}
                         </div>
                     </div>
