@@ -5,6 +5,7 @@
 }
 
 .editProduct-container {
+    width: 100%;
     display: flex;
     flex-direction: column;
     width: 50vw;
@@ -30,13 +31,23 @@
 
 .editProduct-colors {
     display: flex;
+    justify-content: space-between;
     align-items: center;
     gap: 16px;
     margin-top: 16px;
     margin-bottom: 40px;
 }
 
+.editProduct-colors_color{
+    min-width: 30%;
+    display: flex;
+
+    align-items: center;
+    justify-content: start;
+}
+
 .editProduct-colors p {
+    margin-left: 15px;
     font-weight: 600;
     font-size: 16px;
 }
@@ -55,4 +66,20 @@
 .editProduct-sizes {
     display: flex;
     flex-direction: column;
+}
+
+.size-label {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2px;
+}
+
+.onSale-option {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2px;
 }
