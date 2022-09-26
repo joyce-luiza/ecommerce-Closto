@@ -29,6 +29,10 @@ routes.patch("/user/addresses", UpdateCommand);
 routes.get("/user/addresses", ConsultCommand);
 routes.delete("/user/addresses", DeleteCommand);
 
+routes.post("/user/cart", SaveCommand);
+routes.get("/user/cart", ConsultCommand);
+routes.patch("/user/cart", UpdateCommand);
+
 routes.post("/products", SaveCommand);
 routes.patch("/products", UpdateCommand);
 routes.delete("/products", DeleteCommand);

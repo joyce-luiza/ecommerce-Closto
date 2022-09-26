@@ -58,7 +58,9 @@ function Header() {
                     </div>
 
                     <div className="header-icon">
-                        <i class="ri-shopping-bag-line ri-2x"></i>
+                        <Link to="/cart">
+                            <i class="ri-shopping-bag-line ri-2x"></i>
+                        </Link>
                     </div>
                 </div>
             </div>

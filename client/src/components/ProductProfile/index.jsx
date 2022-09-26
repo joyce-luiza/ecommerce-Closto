@@ -2,7 +2,7 @@ import "../styles/productProfileStyle.css";
 import "remixicon/fonts/remixicon.css";
 import { useState } from "react";
 
-export default function ProductProfile({ product, setContent }) {
+export default function ProductProfile({ product, setContent, addToCart }) {
     const [color, setColor] = useState("Selecione uma cor");
 
     const findColor = (hex) => {
@@ -38,6 +38,7 @@ export default function ProductProfile({ product, setContent }) {
                         </p>
                         <div className="productProfile-colors-container">
                             {product.color.map((color, index) => {
+
                                 return (
                                     <div
                                         key={index}
@@ -69,7 +70,14 @@ export default function ProductProfile({ product, setContent }) {
                         </div>
                     </div>
 
-                    <button className="productProfile-buyBtn">Comprar</button>
+                    <button
+                        className="productProfile-buyBtn"
+                        onClick={() => {
+                            addToCart(product);
+                        }}
+                    >
+                        Comprar
+                    </button>
 
                     <div className="productProfile-shipping">
                         <p>Calcular frete:</p>

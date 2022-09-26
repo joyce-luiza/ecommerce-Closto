@@ -8,6 +8,41 @@ function Home() {
     const [content, setContent] = useState("");
     const [product, setProduct] = useState({});
     const [products, setProducts] = useState([]);
+    const [cart, setCart] = useState([]);
+
+    const addToCart = (product) => {
+        setCart([...cart, product]);
+        // updateCart(product);
+    };
+
+    const updateCart = async (product) => {
+        await Axios.patch("http://localhost:3333/user/cart", product, {
+            headers: {
+                Authorization: "Bearer " + localStorage.getItem("session"),
+            },
+        })
+            .then((res) => {
+                setCart(res.data);
+                console.log(res);
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+    };
+
+    const getCart = async (cart) => {
+        await Axios.get("http://localhost:3333/user/cart", {
+            headers: {
+                Authorization: "Bearer " + localStorage.getItem("session"),
+            },
+        })
+            .then((res) => {
+                // console.log(res);
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+    };
 
     const getProducts = async () => {
         await Axios.get("http://localhost:3333/products", {})
@@ -21,6 +56,7 @@ function Home() {
 
     useEffect(() => {
         getProducts();
+        getCart();
     }, [content]);
 
     return (
@@ -37,6 +73,7 @@ function Home() {
                                     product={product}
                                     setContent={setContent}
                                     setProduct={setProduct}
+                                    addToCart={addToCart}
                                 />
                             );
                         })}
@@ -45,7 +82,11 @@ function Home() {
             )}
 
             {content === "productProfile" && (
-                <ProductProfile product={product} setContent={setContent} />
+                <ProductProfile
+                    product={product}
+                    setContent={setContent}
+                    addToCart={addToCart}
+                />
             )}
         </section>
     );
