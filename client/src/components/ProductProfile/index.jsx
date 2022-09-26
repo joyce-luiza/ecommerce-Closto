@@ -2,7 +2,7 @@ import "../styles/productProfileStyle.css";
 import "remixicon/fonts/remixicon.css";
 import { useState } from "react";
 
-export default function ProductProfile({ product, setContent }) {
+export default function ProductProfile({ product, setContent, addToCart }) {
     const [color, setColor] = useState("Selecione uma cor");
 
     const findColor = (hex) => {
@@ -37,11 +37,11 @@ export default function ProductProfile({ product, setContent }) {
                             Cor: <span>{color}</span>
                         </p>
                         <div className="productProfile-colors-container">
-                            {product.color.map((color) => {
+                            {product.color.map((color, index) => {
                                 return Object.values(color).map((hex) => {
                                     return (
                                         <div
-                                            key={hex}
+                                            key={hex + index}
                                             className="productProfile-color"
                                             style={{ backgroundColor: hex }}
                                             onClick={() => findColor(hex)}
@@ -57,12 +57,12 @@ export default function ProductProfile({ product, setContent }) {
                     <div className="productProfile-sizes">
                         <p>Tamanho:</p>
                         <div className="productProfile-size-container">
-                            {product.size.map((size) => {
+                            {product.size.map((size, index) => {
                                 return Object.keys(size).map((key) => {
                                     if (Object.values(size)[0] !== 0) {
                                         return (
                                             <div
-                                                key={size}
+                                                key={key + index}
                                                 className="productProfile-size"
                                             >
                                                 {key}
@@ -75,7 +75,14 @@ export default function ProductProfile({ product, setContent }) {
                         </div>
                     </div>
 
-                    <button className="productProfile-buyBtn">Comprar</button>
+                    <button
+                        className="productProfile-buyBtn"
+                        onClick={() => {
+                            addToCart(product);
+                        }}
+                    >
+                        Comprar
+                    </button>
 
                     <div className="productProfile-shipping">
                         <p>Calcular frete:</p>

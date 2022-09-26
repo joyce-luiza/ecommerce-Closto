@@ -3,6 +3,7 @@ import SessionController from "./SessionController";
 import CardController from "./CardController";
 import AddressController from "./AddressController";
 import ProductController from "./ProductController";
+import CartController from "./CartController";
 
 import ValidatePassword from "../strategies/ValidatePassword";
 import ValidateEmail from "../strategies/ValidateEmail";
@@ -21,6 +22,7 @@ class Facade {
         this.controllers.set("/users", UserController);
         this.controllers.set("/session", SessionController);
         this.controllers.set("/user/cards", CardController);
+        this.controllers.set("/user/cart", CartController);
         this.controllers.set("/user/addresses", AddressController);
         this.controllers.set("/products", ProductController);
         this.controllers.set("/product", ProductController);
@@ -38,6 +40,7 @@ class Facade {
     async save(entityType, entityInfo) {
         const entityController = this.controllers.get(entityType);
         const entityStrategies = this.strategies.get(entityType);
+        console.log(entityController + entityType);
 
         const errors = [];
 
