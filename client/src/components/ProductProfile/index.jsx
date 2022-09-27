@@ -3,12 +3,13 @@ import "remixicon/fonts/remixicon.css";
 import { useState } from "react";
 
 export default function ProductProfile({ product, setContent, addToCart }) {
-    const [color, setColor] = useState("Selecione uma cor");
+    const [color, setColor] = useState({ colorName: "Selecione uma cor"});
 
     const findColor = (hex) => {
         for (let index = 0; index < product.color.length; index++) {
             if(hex === product.color[index].colorHex){
-                setColor(product.color[index])
+                setColor(product.color[index]);
+                return;
             }
         }
     };
@@ -44,7 +45,9 @@ export default function ProductProfile({ product, setContent, addToCart }) {
                                         key={index}
                                         className="productProfile-color"
                                         style={{ backgroundColor: color.colorHex }}
-                                        onClick={() => findColor(color.colorHex)}
+                                        onClick={() => {
+                                            findColor(color.colorHex);
+                                        }}
                                     ></div>
                                 );
                             })}

@@ -2,42 +2,47 @@ import "../../styles/HomeStyle.css";
 import Product from "../../components/Product";
 import ProductProfile from "../../components/ProductProfile";
 import { useState, useEffect } from "react";
+import { ToastContainer, toast } from "react-toastify";
 import Axios from "axios";
 
 function Home() {
     const [content, setContent] = useState("");
     const [product, setProduct] = useState({});
     const [products, setProducts] = useState([]);
-    const [cart, setCart] = useState([]);
+    const [cartProducts, setCartProducts] = useState([]);
 
-    const addToCart = (product) => {
-        setCart([...cart, product]);
-        // updateCart(product);
-    };
+    const addToCart = ((product) => {
+        cartProducts.push(product)
+        updateCart();
+    });
 
-    const updateCart = async (product) => {
-        await Axios.patch("http://localhost:3333/user/cart", product, {
+    const updateCart = async () => {
+        console.log(cartProducts)
+        await Axios.patch("http://localhost:3333/user/cart", {products: cartProducts}, {
             headers: {
                 Authorization: "Bearer " + localStorage.getItem("session"),
             },
         })
             .then((res) => {
-                setCart(res.data);
-                console.log(res);
+                setCartProducts(res.data.products);
+                showToast('success', "Produto adicionado com sucesso.")
             })
             .catch((error) => {
                 console.log(error);
             });
     };
 
-    const getCart = async (cart) => {
+    const getCart = async () => {
         await Axios.get("http://localhost:3333/user/cart", {
             headers: {
                 Authorization: "Bearer " + localStorage.getItem("session"),
             },
         })
             .then((res) => {
-                // console.log(res);
+                if(res.data === null) {
+                    return;
+                }
+                setCartProducts(res.data);
             })
             .catch((error) => {
                 console.log(error);
@@ -59,8 +64,50 @@ function Home() {
         getCart();
     }, [content]);
 
+    const showToast = (type, text) => {
+        if (type === "success") {
+            return toast.success(text, {
+                className: "SuccessToast",
+                position: "top-right",
+                autoClose: 3000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "colored",
+            });
+        }
+
+        if (type === "error") {
+            return toast.error(text, {
+                className: "ErrorToast",
+                position: "top-right",
+                autoClose: 3000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "colored",
+            });
+        }
+
+        return;
+    };
+
     return (
         <section className="product-content">
+            <ToastContainer
+                position="top-center"
+                autoClose={5000}
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick
+                rtl={false}
+                draggable
+            />
+
             {content === "" && (
                 <>
                     <h1>Products</h1>

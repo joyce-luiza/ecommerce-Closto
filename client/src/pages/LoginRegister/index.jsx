@@ -96,20 +96,38 @@ function LoginRegister() {
                 password: userPassword,
                 phoneNumber: userPhoneNumber,
                 genre: userGenre,
+                isAdmin: false
             })
-                .then((res) => {
-                    if (res.data[0]) {
-                        errorRegister(res.data);
-                        return;
-                    }
-                    successRegister();
-                })
-                .catch((err) => {
-                    console.log(err.response.data);
-                });
+            .then((res) => {
+                if (res.data[0]) {
+                    errorRegister(res.data);
+                    return;
+                }
+                createUserCart(res.data);
+                successRegister();
+            })
+            .catch((err) => {
+                console.log(err.response.data);
+            });
         } else {
             errorRegister("Não foi possível realizar o cadastro.");
         }
+    }
+
+    async function createUserCart(user){
+        await Axios.post("http://localhost:3333/user/cart", {
+            user_id: user.id
+        },{
+            headers: {
+                Authorization: "Bearer " + localStorage.getItem("session"),
+            },
+        })
+        .then((res) => {
+            console.log(res.data)
+        })
+        .catch((err) => {
+            console.log(err.message)
+        })
     }
 
     return (

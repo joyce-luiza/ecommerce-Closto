@@ -2,9 +2,12 @@ import Cart from "../models/Cart";
 
 class CartController {
     async show(entityInfo) {
-        return await Cart.findAll({
-            where: { user_id: entityInfo.user_id },
-        });
+        try {
+            const cart = await Cart.findOne({where: {user_id: entityInfo.user_id}})
+            return cart.products
+        } catch (error) {
+            return {error: error.message}
+        }
     }
 
     async save(entityInfo) {
@@ -12,7 +15,11 @@ class CartController {
     }
 
     async update(entityInfo) {
-        return await (await Cart.findByPk(entityInfo.id)).update(entityInfo);
+        try {
+            return await (await Cart.findOne({where: { user_id: entityInfo.user_id}})).update(entityInfo)
+        } catch (error) {
+            return {error: error.message}
+        }
     }
 
     async delete(entityInfo) {
