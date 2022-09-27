@@ -18,7 +18,7 @@ module.exports = {
             },
             products: {
                 type: Sequelize.ARRAY(Sequelize.JSON),
-                allowNull: false,
+                allowNull: true,
             },
             createdAt: {
                 type: Sequelize.DATE,

@@ -13,6 +13,7 @@ routes.post("/users", SaveCommand);
 routes.post("/session", SaveCommand);
 routes.get("/product", IndexCommand);
 routes.get("/products", ConsultCommand);
+routes.post("/user/cart", SaveCommand);
 
 routes.use(AuthMiddleware);
 routes.get("/users", IndexCommand);
@@ -29,7 +30,6 @@ routes.patch("/user/addresses", UpdateCommand);
 routes.get("/user/addresses", ConsultCommand);
 routes.delete("/user/addresses", DeleteCommand);
 
-routes.post("/user/cart", SaveCommand);
 routes.get("/user/cart", ConsultCommand);
 routes.patch("/user/cart", UpdateCommand);
 
