@@ -1,0 +1,46 @@
+.cart-container {
+    width: 100%;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    margin-top: 72px;
+}
+
+.cartContent {
+    width: 40%;
+    min-height: 100%;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    align-items: flex-start;
+
+    margin: 0% 5%;
+}
+
+.cartCreditCards {
+    width: 45%;
+
+    display: flex;
+    justify-content: start;
+    align-items: flex-start;
+    margin: 2% 5%;
+    flex-direction: column;
+}
+
+.cartContent-title {
+    width: 100%;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.cardCheckbox {
+    background-color: rgb(220, 219, 219);
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}

@@ -14,9 +14,9 @@ export default function Footer() {
                 <p className="footer-menu-title">Formas de pagamento</p>
 
                 <div className="flags">
-                    <i class="ri-visa-line ri-2x"></i>
-                    <i class="ri-mastercard-line ri-2x"></i>
-                    <i class="ri-bank-card-line ri-2x"></i>
+                    <i className="ri-visa-line ri-2x"></i>
+                    <i className="ri-mastercard-line ri-2x"></i>
+                    <i className="ri-bank-card-line ri-2x"></i>
                 </div>
             </div>
 
@@ -24,12 +24,12 @@ export default function Footer() {
                 <p className="footer-menu-title">Canais de atendimento</p>
 
                 <div className="contact-form">
-                    <i class="ri-phone-line ri-2x"></i>
+                    <i className="ri-phone-line ri-2x"></i>
                     <p className="info">(00) 00000-0000</p>
                 </div>
 
                 <div className="contact-form">
-                    <i class="ri-mail-line ri-2x"></i>
+                    <i className="ri-mail-line ri-2x"></i>
                     <p className="info">closto.suporte@closto.com</p>
                 </div>
             </div>

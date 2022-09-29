@@ -7,15 +7,15 @@ function Header() {
         <header>
             <div className="transaction-info">
                 <a>
-                    <i class="ri-arrow-left-right-line ri-2x"></i>
+                    <i className="ri-arrow-left-right-line ri-2x"></i>
                     <span>Devolução e troca em até 30 dias</span>
                 </a>
                 <a>
-                    <i class="ri-bank-card-line ri-2x"></i>
+                    <i className="ri-bank-card-line ri-2x"></i>
                     <span>10x sem juros</span>
                 </a>
                 <a>
-                    <i class="ri-truck-line ri-2x"></i>
+                    <i className="ri-truck-line ri-2x"></i>
                     <span>Frete grátis</span>
                 </a>
             </div>
@@ -37,7 +37,7 @@ function Header() {
                             placeholder="O que você procura?"
                         />
                         <button className="header-search-btn">
-                            <i class="ri-search-line ri-2x"></i>
+                            <i className="ri-search-line ri-2x"></i>
                         </button>
                     </div>
                 </div>
@@ -48,18 +48,18 @@ function Header() {
                     </div>
 
                     <div className="header-icon">
-                        <Link to="/profile">
-                            <i class="ri-user-line ri-2x"></i>
+                        <Link className="header-icon_link" to="/profile">
+                            <i className="ri-user-line ri-2x"></i>
                         </Link>
                     </div>
 
                     <div className="header-icon">
-                        <i class="ri-heart-line ri-2x"></i>
+                        <i className="ri-heart-line ri-2x"></i>
                     </div>
 
                     <div className="header-icon">
-                        <Link to="/cart">
-                            <i class="ri-shopping-bag-line ri-2x"></i>
+                        <Link className="header-icon_link" to="/cart">
+                            <i className="ri-shopping-bag-line ri-2x"></i>
                         </Link>
                     </div>
                 </div>

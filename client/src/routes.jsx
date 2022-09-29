@@ -6,6 +6,7 @@ import Footer from "./components/Footer";
 import Home from "./pages/Home";
 import AdminPanel from "./pages/AdminPanel";
 import UserProfile from "./pages/UserProfile";
+import Cart from "./pages/Cart";
 
 function RoutesApp() {
     return (
@@ -15,9 +16,10 @@ function RoutesApp() {
                 <Route path="/" element={<Home />} />
                 <Route path="/login" element={<LoginRegister />} />
                 <Route path="/profile" element={<UserProfile />} />
+                <Route path="/cart" element={<Cart />} />
                 <Route path="/admin" element={<AdminPanel />} />
             </Routes>
-            <Footer />
+            <Footer />  
         </BrowserRouter>
     );
 }

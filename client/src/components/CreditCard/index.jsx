@@ -3,7 +3,6 @@ import "remixicon/fonts/remixicon.css";
 
 export default function CreditCard({
     creditCard,
-    getCreditCards,
     setCrudCreditCard,
     setCreditCard,
     deleteCreditCard,
@@ -14,7 +13,7 @@ export default function CreditCard({
                 <div className="creditCard-title">
                     <a>{creditCard.title}</a>
                     <i
-                        class="ri-delete-bin-line"
+                        className="ri-delete-bin-line"
                         onClick={() => deleteCreditCard(creditCard.id)}
                     ></i>
                 </div>

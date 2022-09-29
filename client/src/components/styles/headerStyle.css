@@ -131,6 +131,10 @@ header {
     height: 24px;
     cursor: pointer;
 }
+.search .header-icons .header-icon .header-icon_link{
+    text-decoration: none;
+    color: #000000;
+}
 
 .search .header-icons .header-icon_search {
     width: 24px;
