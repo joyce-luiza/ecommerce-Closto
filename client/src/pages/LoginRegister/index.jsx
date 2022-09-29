@@ -103,7 +103,6 @@ function LoginRegister() {
                     errorRegister(res.data);
                     return;
                 }
-                createUserCart(res.data);
                 successRegister();
             })
             .catch((err) => {
@@ -112,22 +111,6 @@ function LoginRegister() {
         } else {
             errorRegister("Não foi possível realizar o cadastro.");
         }
-    }
-
-    async function createUserCart(user){
-        await Axios.post("http://localhost:3333/user/cart", {
-            user_id: user.id
-        },{
-            headers: {
-                Authorization: "Bearer " + localStorage.getItem("session"),
-            },
-        })
-        .then((res) => {
-            console.log(res.data)
-        })
-        .catch((err) => {
-            console.log(err.message)
-        })
     }
 
     return (

@@ -66,7 +66,7 @@ export default function EditUser({ user, setUser, updatedUser, setUpdatedUser, h
 
     return (
         <section className="user-content">
-                    <Form title="Dados cadastrais 2">
+                    <Form title="Dados cadastrais">
                         <label className="form-label" htmlFor="firstName">
                             Nome
                         </label>

@@ -1,9 +1,14 @@
 import "../styles/productProfileStyle.css";
 import "remixicon/fonts/remixicon.css";
 import { useState } from "react";
+import { useContext } from "react";
+import { CartContext } from "../../contexts/CartContext";
 
-export default function ProductProfile({ product, setContent, addToCart }) {
+export default function ProductProfile({ product, setContent }) {
     const [color, setColor] = useState({ colorName: "Selecione uma cor"});
+    const [size, setSize] = useState({ sizeName: "Selecione um tamanho"});
+
+    const {handleAddProductToCart} = useContext(CartContext);
 
     const findColor = (hex) => {
         for (let index = 0; index < product.color.length; index++) {
@@ -12,6 +17,10 @@ export default function ProductProfile({ product, setContent, addToCart }) {
                 return;
             }
         }
+    };
+
+    const findSize = (size) => {
+        setSize({sizeName: size})
     };
 
     return (
@@ -27,11 +36,11 @@ export default function ProductProfile({ product, setContent, addToCart }) {
                 <div className="productProfile-info">
                     <div className="productProfile-header">
                         <h1 className="productProfile-name">{product.name}</h1>
-                        <i class="ri-heart-line ri-2x"></i>
+                        <i className="ri-heart-line ri-2x"></i>
                     </div>
                     <p className="productProfile-price">
-                        {product.price}
-                        <span>x2 R${product.price / 2}</span>
+                        R$ {product.price}
+                        <span>x2 R$ {product.price / 2}</span>
                     </p>
                     <div className="productProfile-colors">
                         <p>
@@ -55,14 +64,17 @@ export default function ProductProfile({ product, setContent, addToCart }) {
                     </div>
 
                     <div className="productProfile-sizes">
-                        <p>Tamanho:</p>
-                        <div className="productProfile-size-container">
+                        <p>Tamanho: {size.sizeName}</p>
+                        <div className="productProfile-size-container" >
                             {product.size.map((size, index) => {
                                 if (size.sizeQty !== 0) {
                                     return (
                                         <div
                                             key={index}
                                             className="productProfile-size"
+                                            onClick={() => {
+                                                findSize(size.sizeName);
+                                            }}
                                         >
                                             {size.sizeName}
                                         </div>
@@ -76,7 +88,7 @@ export default function ProductProfile({ product, setContent, addToCart }) {
                     <button
                         className="productProfile-buyBtn"
                         onClick={() => {
-                            addToCart(product);
+                            handleAddProductToCart(product.id, product.price, color, size,)
                         }}
                     >
                         Comprar
