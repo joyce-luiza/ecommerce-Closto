@@ -40,7 +40,7 @@ function CartItem({product, index}) {
                 <div className="cartOperation_quantity">
                     <span>Quantidade: {cart[index].qtd}</span>
                     <button onClick={() => handleAddProductToCart(product.id, product.price, product.color, product.size)}> + </button>
-                    <button onClick={() => handleRemoveProductOfCart(product.id, product.color, product.size)}> - </button>
+                    <button onClick={() => handleRemoveProductOfCart(product.id, product.color, product.size, productDetails.category   )}> - </button>
                 </div>
             </div>
         </div>
