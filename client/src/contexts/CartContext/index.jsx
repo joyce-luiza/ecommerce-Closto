@@ -29,7 +29,11 @@ export const CartProvider = ({children}) => {
             product.qtd -= 1;
             setCart(cartCopy);
         } else {
-            const filteredCart = cartCopy.filter((product) => product.id !== id && product.color.colorName !== color.colorName && product.size.sizeName !== size.sizeName)
+            const filteredCart = cartCopy.filter((product) => {
+                if(product.id !== id | product.color.colorName !== color.colorName | product.size.sizeName !== size.sizeName){
+                    return(product)
+                }
+            })
             setCart(filteredCart);
         }
     })
