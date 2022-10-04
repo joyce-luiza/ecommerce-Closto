@@ -1,0 +1,15 @@
+.productCard {
+    /* background-color: red; */
+    width: 100%;
+    height: 5rem;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.productCard .productName {
+    display: flex;
+    flex-direction: column;
+}

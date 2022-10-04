@@ -14,10 +14,21 @@ function Cart() {
     const [userAddresses, setUserAddresses] = useState([]);
     const [shippingAddress, setShippingAddress] = useState({});
     const [newAddress, setNewAddress] = useState({});
+    const [orderValue, setOrderValue] = useState(0)
 
     const [paymentCards, setPaymentCards] = useState([]);
     const [newCreditCard, setNewCreditCard] = useState({});
     const [content, setContent] = useState("");
+
+    const getOrderSubTotalValue  = (() => {
+        var total = 0;
+
+        for (let index = 0; index < cart.length; index++) {
+            total += cart[index].price * cart[index].qtd;
+        }
+
+        setOrderValue(total)
+    })
 
     const addCardToPayment = (creditCard, checked) => {
         if (checked) {
@@ -82,7 +93,7 @@ function Cart() {
 
             .then((res) => {
                 showToast("success", "Cartão de crédito inserido com sucesso!");
-                setContent("");
+                setContent("CreditCards")
             })
             .catch((error) => {
                 showToast(
@@ -120,7 +131,7 @@ function Cart() {
 
             .then((res) => {
                 showToast("success", "Endereço inserido com sucesso!");
-                setContent("");
+                setContent("Addresses");
             })
             .catch((error) => {
                 showToast("error", "Não foi possível inserir o endereço!");
@@ -165,8 +176,13 @@ function Cart() {
         getAddresses();
     }, [content]);
 
+    useEffect(() => {
+        getOrderSubTotalValue()
+    }, [cart])
+
+
     return (
-        <div>
+        <>
             <ToastContainer
                 position="top-center"
                 autoClose={5000}
@@ -176,107 +192,56 @@ function Cart() {
                 rtl={false}
                 draggable
             />
-            {content === "" && (
-                <section className="cart-container">
-                    <ToastContainer
-                        position="top-center"
-                        autoClose={5000}
-                        hideProgressBar={false}
-                        newestOnTop={false}
-                        closeOnClick
-                        rtl={false}
-                        draggable
-                    />
-                    <div>
+
+            <section className="cart-container">
+                <div className="cart-params">
+                    {content === "" && (
                         <div className="cartContent">
-                            <div className="cartContent-title">
-                                <h1>Meu carrinho</h1>
-                                <button onClick={clearCart}>Limpar</button>
-                            </div>
-                            {cart.map((product, index) => {
-                                return (
-                                    <CartItem
-                                        key={index}
-                                        product={product}
-                                        index={index}
-                                    />
-                                );
-                            })}
-                        </div>
-
-                        <div className="cartCreditCards">
-                            <h1>Cartões cadastrados</h1>
-                            <button
-                                onClick={() => {
-                                    setContent("newCreditCard");
-                                }}
-                            >
-                                Adicionar novo cartão
-                            </button>
-
-                            {userCreditCards.map((creditCard) => {
-                                return (
-                                    <>
-                                        <div className="cardCheckbox">
-                                            <label
-                                                for={`card-${creditCard.id}`}
-                                            >
-                                                {creditCard.number}
-                                            </label>
-                                            <input
-                                                type="checkbox"
-                                                id={`card-${creditCard.id}`}
-                                                name={`card-${creditCard.id}`}
-                                                onChange={(e) => {
-                                                    addCardToPayment(
-                                                        creditCard,
-                                                        e.target.checked
-                                                    );
-                                                    console.log(creditCard);
-                                                }}
+                            <div className="cart-itens">
+                                <div className="cart-itens_title">
+                                    <h1>MEU CARRINHO</h1>
+                                    <button onClick={clearCart}>Limpar</button>
+                                </div>
+                                {cart.map((product, index) => {
+                                    return (
+                                        <div className="cart-itens_item">
+                                            <CartItem
+                                                key={index}
+                                                product={product}
+                                                index={index}
                                             />
                                         </div>
+                                    );
+                                })}
+                            </div>
 
-                                        {creditCard.checked && (
-                                            <>
-                                                <label for="valueToPay">
-                                                    Insira o valor a ser
-                                                    cobrado:{" "}
-                                                </label>
-                                                <input
-                                                    type="number"
-                                                    name="valueToPay"
-                                                    id="valueToPay"
-                                                    onChange={(e) => {
-                                                        addValueToCardToPayment(
-                                                            creditCard,
-                                                            parseFloat(
-                                                                e.target.value
-                                                            )
-                                                        );
-                                                    }}
-                                                />
-                                            </>
-                                        )}
-                                    </>
-                                );
-                            })}
+                            <div className="cart-next">
+                                <button
+                                    className="cart-next_btn"
+                                    onClick={() => setContent("Addresses")}
+                                >
+                                    Selecionar endereço
+                                </button>
+                            </div>
                         </div>
-
+                    )}
+                    {content === "Addresses" && (
                         <div className="cartAddresses">
-                            <h1>Endereço de entrega</h1>
-                            <button
-                                onClick={() => {
-                                    setContent("newAddresses");
-                                }}
-                            >
-                                Adicionar novo endereço
-                            </button>
+                            <div className="cart-itens_title">
+                                <h1>ENDEREÇO DE ENTREGA</h1>
+                                <button
+                                    onClick={() => {
+                                        setContent("newAddress");
+                                    }}
+                                >
+                                    Adicionar novo endereço
+                                </button>
+                            </div>
 
-                            <fieldset>
+                            <div className="addressCard">
                                 {userAddresses.map((address) => {
                                     return (
-                                        <>
+                                        <div className="addressCard-radioBtn">
                                             <input
                                                 type="radio"
                                                 id={`address-${address.id}`}
@@ -291,354 +256,504 @@ function Cart() {
                                                     );
                                                 }}
                                             />
-                                            <label
-                                                for={`address-${address.id}`}
-                                            >
-                                                {address.title} •{" "}
-                                                {address.publicPlaceType}{" "}
-                                                {address.publicPlace}
-                                            </label>
-                                        </>
+                                            <div className="addressCard-radioBtn_label">
+                                                <label
+                                                    for={`address-${address.id}`}
+                                                >
+                                                    {address.title} • {address.publicPlaceType} {address.publicPlace}  • nº {address.number}
+                                                </label>
+                                            </div>
+                                        </div>
                                     );
                                 })}
-                            </fieldset>
+
+                                <div className="cart-next">
+                                    <button
+                                        className="cart-next_btn"
+                                        onClick={() => setContent("CreditCards")}
+                                    >
+                                        Selecionar forma de pagamento
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    )}
+                    {content === "newAddress" && (
+                        <Form title="Novo endereço">
+                            <label className="form-label" htmlFor="title">
+                                Título
+                            </label>
+                            <input
+                                className="form-input"
+                                type="text"
+                                name="title"
+                                id="title"
+                                placeholder="Casa na praia, Apartamento 404..."
+                                onChange={(e) =>
+                                    setNewAddress((prevState) => ({
+                                        ...prevState,
+                                        title: e.target.value,
+                                    }))
+                                }
+                            />
+
+                            <label className="form-label" htmlFor="type">
+                                Tipo de endereço
+                            </label>
+                            <select
+                                className="form-select"
+                                name="type"
+                                id="type"
+                                defaultValue="none"
+                                onChange={(e) =>
+                                    setNewAddress((prevState) => ({
+                                        ...prevState,
+                                        type: e.target.value,
+                                    }))
+                                }
+                            >
+                                <option value="none" disabled hidden>
+                                    Selecione uma opção
+                                </option>
+                                <option value="Entrega">Entrega</option>
+                                <option value="Cobrança">Cobrança</option>
+                            </select>
+
+                            <label className="form-label" htmlFor="residenceType">
+                                Tipo residência
+                            </label>
+                            <input
+                                className="form-input"
+                                type="text"
+                                name="residenceType"
+                                id="residenceType"
+                                placeholder="Casa, apartamento, etc..."
+                                onChange={(e) =>
+                                    setNewAddress((prevState) => ({
+                                        ...prevState,
+                                        residenceType: e.target.value,
+                                    }))
+                                }
+                            />
+
+                            <label className="form-label" htmlFor="cep">
+                                CEP
+                            </label>
+                            <input
+                                className="form-input"
+                                type="text"
+                                name="cep"
+                                id="cep"
+                                placeholder="00000-000"
+                                onChange={(e) =>
+                                    setNewAddress((prevState) => ({
+                                        ...prevState,
+                                        cep: e.target.value,
+                                    }))
+                                }
+                            />
+
+                            <label className="form-label" htmlFor="publicPlaceType">
+                                Tipo logradouro
+                            </label>
+                            <input
+                                className="form-input"
+                                type="text"
+                                name="publicPlaceType"
+                                id="publicPlaceType"
+                                placeholder="Rua, Avenida, etc..."
+                                onChange={(e) =>
+                                    setNewAddress((prevState) => ({
+                                        ...prevState,
+                                        publicPlaceType: e.target.value,
+                                    }))
+                                }
+                            />
+
+                            <label className="form-label" htmlFor="publicPlace">
+                                Logradouro
+                            </label>
+                            <input
+                                className="form-input"
+                                type="text"
+                                name="publicPlace"
+                                id="publicPlace"
+                                onChange={(e) =>
+                                    setNewAddress((prevState) => ({
+                                        ...prevState,
+                                        publicPlace: e.target.value,
+                                    }))
+                                }
+                            />
+
+                            <label className="form-label" htmlFor="neighborhood">
+                                Bairro
+                            </label>
+                            <input
+                                className="form-input"
+                                type="text"
+                                name="neighborhood"
+                                id="neighborhood"
+                                onChange={(e) =>
+                                    setNewAddress((prevState) => ({
+                                        ...prevState,
+                                        neighborhood: e.target.value,
+                                    }))
+                                }
+                            />
+
+                            <label className="form-label" htmlFor="number">
+                                Número
+                            </label>
+                            <input
+                                className="form-input"
+                                type="text"
+                                name="number"
+                                id="number"
+                                onChange={(e) =>
+                                    setNewAddress((prevState) => ({
+                                        ...prevState,
+                                        number: e.target.value,
+                                    }))
+                                }
+                            />
+
+                            <label className="form-label" htmlFor="city">
+                                Cidade
+                            </label>
+                            <input
+                                className="form-input"
+                                type="text"
+                                name="city"
+                                id="city"
+                                onChange={(e) =>
+                                    setNewAddress((prevState) => ({
+                                        ...prevState,
+                                        city: e.target.value,
+                                    }))
+                                }
+                            />
+
+                            <label className="form-label" htmlFor="state">
+                                Estado
+                            </label>
+                            <input
+                                className="form-input"
+                                type="text"
+                                name="state"
+                                id="state"
+                                onChange={(e) =>
+                                    setNewAddress((prevState) => ({
+                                        ...prevState,
+                                        state: e.target.value,
+                                    }))
+                                }
+                            />
+
+                            <label className="form-label" htmlFor="country">
+                                País
+                            </label>
+                            <input
+                                className="form-input"
+                                type="text"
+                                name="country"
+                                id="country"
+                                onChange={(e) =>
+                                    setNewAddress((prevState) => ({
+                                        ...prevState,
+                                        country: e.target.value,
+                                    }))
+                                }
+                            />
+
+                            <label className="form-label" htmlFor="note">
+                                Observações
+                            </label>
+                            <input
+                                className="form-input"
+                                type="text"
+                                name="note"
+                                id="note"
+                                onChange={(e) =>
+                                    setNewAddress((prevState) => ({
+                                        ...prevState,
+                                        note: e.target.value,
+                                    }))
+                                }
+                            />
+
+                            <label className="form-label" htmlFor="isPrincipal">
+                                Deseja que este seja seu endereço principal?
+                            </label>
+                            <select
+                                className="form-select"
+                                name="isPrincipal"
+                                id="isPrincipal"
+                                defaultValue="none"
+                                onChange={(e) =>
+                                    setNewAddress((prevState) => ({
+                                        ...prevState,
+                                        isPrincipal: e.target.value,
+                                    }))
+                                }
+                            >
+                                <option value="none" disabled hidden>
+                                    Selecione uma opção
+                                </option>
+                                <option value="true">Sim</option>
+                                <option value="false">Não</option>
+                            </select>
+
+                            <button
+                                id="submitNewAddress"
+                                className="form-btn"
+                                type="submit"
+                                onClick={() => {
+                                    addNeWAddress(newAddress);
+                                }}
+                            >
+                                Adicionar endereço
+                            </button>
+
+                            <button className="form-btn" onClick={() => setContent("Addresses")}>Voltar</button>
+                        </Form>
+                    )}
+                    {content === "CreditCards" && (
+                        <div className="cartCreditCards">
+                            <div className="cart-itens_title">
+                                <h1>CARTÕES CADASTRADOS</h1>
+                                <button
+                                    onClick={() => {
+                                        setContent("newCreditCard");
+                                    }}
+                                >
+                                    Adicionar novo cartão
+                                </button>
+                            </div>
+
+                            <div className="creditCard-info">
+                                {userCreditCards.map((creditCard) => {
+                                    return (
+                                        <div className="creditCard-card">
+                                            <div className="cardCheckbox">
+                                                <label
+                                                    for={`card-${creditCard.id}`}
+                                                >
+                                                    {creditCard.number}
+                                                </label>
+                                                <input
+                                                    type="checkbox"
+                                                    id={`card-${creditCard.id}`}
+                                                    name={`card-${creditCard.id}`}
+                                                    onChange={(e) => {
+                                                        addCardToPayment(
+                                                            creditCard,
+                                                            e.target.checked
+                                                        );
+                                                        creditCard.installments = 1;
+                                                        console.log(creditCard);
+                                                    }}
+                                                />
+                                            </div>
+
+                                            {creditCard.checked && (
+                                                <>
+                                                    <label for="valueToPay">
+                                                        Insira o valor a ser
+                                                        cobrado:{" "}
+                                                    </label>
+                                                    <input
+                                                        type="number"
+                                                        name="valueToPay"
+                                                        id="valueToPay"
+                                                        onChange={(e) => {
+                                                            addValueToCardToPayment(
+                                                                creditCard,
+                                                                parseFloat(
+                                                                    e.target.value
+                                                                )
+                                                            );
+                                                        }}
+                                                    />
+
+                                                    <select
+                                                        name="installments"
+                                                        id="installments"
+                                                        defaultValue={1}
+                                                        onChange={(e) => {
+                                                            creditCard.installments = parseInt(e.target.value)
+                                                            console.log(creditCard)
+                                                        }}
+                                                    >
+                                                        <option value={1}>1x</option>
+                                                        <option value={2}>2x</option>
+                                                        <option value={3}>3x</option>
+                                                        <option value={4}>4x</option>
+                                                        <option value={5}>5x</option>
+                                                        <option value={6}>6x</option>
+                                                        <option value={7}>7x</option>
+                                                        <option value={8}>8x</option>
+                                                        <option value={9}>9x</option>
+                                                        <option value={10}>10x</option>
+                                                        <option value={11}>11x</option>
+                                                        <option value={12}>12x</option>
+                                                    </select>
+                                                </>
+                                            )}
+                                        </div>
+                                    );
+                                })}
+                            </div>
+
+                                <div className="cart-next">
+                                    <button
+                                        className="cart-next_btn"
+                                        onClick={() => setContent("")}
+                                    >
+                                        Finalizar Compra
+                                    </button>
+                                </div>
+                        </div>
+                    )}
+                    {content === "newCreditCard" && (
+                        <Form title="Novo cartão de crédito">
+                            <label className="form-label" htmlFor="cardHolderName">
+                                Nome impresso
+                            </label>
+                            <input
+                                className="form-input"
+                                type="text"
+                                name="cardHolderName"
+                                id="cardHolderName"
+                                placeholder=""
+                                onChange={(e) =>
+                                    setNewCreditCard((prevState) => ({
+                                        ...prevState,
+                                        cardHolderName: e.target.value,
+                                    }))
+                                }
+                            />
+
+                            <label className="form-label" htmlFor="number">
+                                Número
+                            </label>
+                            <input
+                                className="form-input"
+                                type="text"
+                                name="number"
+                                id="number"
+                                placeholder=""
+                                onChange={(e) =>
+                                    setNewCreditCard((prevState) => ({
+                                        ...prevState,
+                                        number: e.target.value,
+                                    }))
+                                }
+                            />
+
+                            <label className="form-label" htmlFor="serviceCode">
+                                CVV
+                            </label>
+                            <input
+                                className="form-input"
+                                type="text"
+                                name="serviceCode"
+                                id="serviceCode"
+                                placeholder=""
+                                onChange={(e) =>
+                                    setNewCreditCard((prevState) => ({
+                                        ...prevState,
+                                        serviceCode: e.target.value,
+                                    }))
+                                }
+                            />
+
+                            <label className="form-label" htmlFor="flag">
+                                Bandeira
+                            </label>
+                            <select
+                                className="form-select"
+                                name="flag"
+                                id="flag"
+                                defaultValue="none"
+                                onChange={(e) =>
+                                    setNewCreditCard((prevState) => ({
+                                        ...prevState,
+                                        flag: e.target.value,
+                                    }))
+                                }
+                            >
+                                <option value="none" disabled hidden>
+                                    Selecione uma opção
+                                </option>
+                                <option value="visa">Visa</option>
+                                <option value="mastercard">Mastercard</option>
+                                <option value="elo">Elo</option>
+                            </select>
+
+                            <button
+                                id="submitNewCreditCard"
+                                className="form-btn"
+                                type="submit"
+                                onClick={() => {
+                                    addCreditCard(newCreditCard);
+                                }}
+                            >
+                                Adicionar cartão
+                            </button>
+
+                            <button className="form-btn" onClick={() => setContent("CreditCards")}>
+                                Voltar
+                            </button>
+                        </Form>
+                    )}
+                </div>
+
+                <div className="order-summary">
+                    <h1 className="order-summary_title">RESUMO DA COMPRA</h1>
+
+                    <div className="order-item">
+                        <span className="order-item_title">subtotal</span>
+                        <span className="order-item_value">R$ {orderValue}</span>
+                    </div>
+
+                    <div className="order-item">
+                        <span className="order-item_title">frete</span>
+                        <span className="order-item_value">A calcular</span>
+                    </div>
+
+                    <div className="order-item">
+                        <span className="order-item_title">desconto</span>
+                        <span className="order-item_value">R$ 0,00</span>
+                    </div>
+
+                    <div className="order-item">
+                        <h4>TOTAL</h4>
+                        <div className="order-total_value">
+                            <span className="total-value">R$ {orderValue+25-(orderValue*0)}</span>
+                            <span className="installment">10x de R$ {(orderValue+25-(orderValue*0.5))/10}</span>
                         </div>
                     </div>
-                </section>
-            )}
-            {content === "newCreditCard" && (
-                <Form title="Novo cartão de crédito">
-                    <label className="form-label" htmlFor="cardHolderName">
-                        Nome impresso
-                    </label>
-                    <input
-                        className="form-input"
-                        type="text"
-                        name="cardHolderName"
-                        id="cardHolderName"
-                        placeholder=""
-                        onChange={(e) =>
-                            setNewCreditCard((prevState) => ({
-                                ...prevState,
-                                cardHolderName: e.target.value,
-                            }))
-                        }
-                    />
 
-                    <label className="form-label" htmlFor="number">
-                        Número
-                    </label>
-                    <input
-                        className="form-input"
-                        type="text"
-                        name="number"
-                        id="number"
-                        placeholder=""
-                        onChange={(e) =>
-                            setNewCreditCard((prevState) => ({
-                                ...prevState,
-                                number: e.target.value,
-                            }))
-                        }
-                    />
+                    <h1 className="order-summary_title">CALCULAR FRETE</h1>
 
-                    <label className="form-label" htmlFor="serviceCode">
-                        CVV
-                    </label>
-                    <input
-                        className="form-input"
-                        type="text"
-                        name="serviceCode"
-                        id="serviceCode"
-                        placeholder=""
-                        onChange={(e) =>
-                            setNewCreditCard((prevState) => ({
-                                ...prevState,
-                                serviceCode: e.target.value,
-                            }))
-                        }
-                    />
+                    <div className="order-item">
+                        <input type="text" name="shipping-tax" id="shipping-tax" />
+                        <button>Calcular</button>
+                    </div>
 
-                    <label className="form-label" htmlFor="flag">
-                        Bandeira
-                    </label>
-                    <select
-                        className="form-select"
-                        name="flag"
-                        id="flag"
-                        defaultValue="none"
-                        onChange={(e) =>
-                            setNewCreditCard((prevState) => ({
-                                ...prevState,
-                                flag: e.target.value,
-                            }))
-                        }
-                    >
-                        <option value="none" disabled hidden>
-                            Selecione uma opção
-                        </option>
-                        <option value="visa">Visa</option>
-                        <option value="mastercard">Mastercard</option>
-                        <option value="elo">Elo</option>
-                    </select>
+                    <h1 className="order-summary_title">CUPOM DE DESCONTO</h1>
 
-                    <button
-                        id="submitNewCreditCard"
-                        className="form-btn"
-                        type="submit"
-                        onClick={() => {
-                            addCreditCard(newCreditCard);
-                        }}
-                    >
-                        Adicionar cartão
-                    </button>
+                    <div className="order-item">
+                        <input type="text" name="coupon" id="coupon" />
+                        <button onClick={() => {console.log(orderValue)}}>Aplicar</button>
+                    </div>
 
-                    <button className="form-btn" onClick={() => setContent("")}>
-                        Voltar
-                    </button>
-                </Form>
-            )}
-            {content === "newAddresses" && (
-                <Form title="Novo endereço">
-                    <label className="form-label" htmlFor="title">
-                        Título
-                    </label>
-                    <input
-                        className="form-input"
-                        type="text"
-                        name="title"
-                        id="title"
-                        placeholder="Casa na praia, Apartamento 404..."
-                        onChange={(e) =>
-                            setNewAddress((prevState) => ({
-                                ...prevState,
-                                title: e.target.value,
-                            }))
-                        }
-                    />
+                    <button  onClick={() => {getOrderSubTotalValue()}}>FINALIZAR COMPRA</button>
 
-                    <label className="form-label" htmlFor="type">
-                        Tipo de endereço
-                    </label>
-                    <select
-                        className="form-select"
-                        name="type"
-                        id="type"
-                        defaultValue="none"
-                        onChange={(e) =>
-                            setNewAddress((prevState) => ({
-                                ...prevState,
-                                type: e.target.value,
-                            }))
-                        }
-                    >
-                        <option value="none" disabled hidden>
-                            Selecione uma opção
-                        </option>
-                        <option value="Entrega">Entrega</option>
-                        <option value="Cobrança">Cobrança</option>
-                    </select>
-
-                    <label className="form-label" htmlFor="residenceType">
-                        Tipo residência
-                    </label>
-                    <input
-                        className="form-input"
-                        type="text"
-                        name="residenceType"
-                        id="residenceType"
-                        placeholder="Casa, apartamento, etc..."
-                        onChange={(e) =>
-                            setNewAddress((prevState) => ({
-                                ...prevState,
-                                residenceType: e.target.value,
-                            }))
-                        }
-                    />
-
-                    <label className="form-label" htmlFor="cep">
-                        CEP
-                    </label>
-                    <input
-                        className="form-input"
-                        type="text"
-                        name="cep"
-                        id="cep"
-                        placeholder="00000-000"
-                        onChange={(e) =>
-                            setNewAddress((prevState) => ({
-                                ...prevState,
-                                cep: e.target.value,
-                            }))
-                        }
-                    />
-
-                    <label className="form-label" htmlFor="publicPlaceType">
-                        Tipo logradouro
-                    </label>
-                    <input
-                        className="form-input"
-                        type="text"
-                        name="publicPlaceType"
-                        id="publicPlaceType"
-                        placeholder="Rua, Avenida, etc..."
-                        onChange={(e) =>
-                            setNewAddress((prevState) => ({
-                                ...prevState,
-                                publicPlaceType: e.target.value,
-                            }))
-                        }
-                    />
-
-                    <label className="form-label" htmlFor="publicPlace">
-                        Logradouro
-                    </label>
-                    <input
-                        className="form-input"
-                        type="text"
-                        name="publicPlace"
-                        id="publicPlace"
-                        onChange={(e) =>
-                            setNewAddress((prevState) => ({
-                                ...prevState,
-                                publicPlace: e.target.value,
-                            }))
-                        }
-                    />
-
-                    <label className="form-label" htmlFor="neighborhood">
-                        Bairro
-                    </label>
-                    <input
-                        className="form-input"
-                        type="text"
-                        name="neighborhood"
-                        id="neighborhood"
-                        onChange={(e) =>
-                            setNewAddress((prevState) => ({
-                                ...prevState,
-                                neighborhood: e.target.value,
-                            }))
-                        }
-                    />
-
-                    <label className="form-label" htmlFor="number">
-                        Número
-                    </label>
-                    <input
-                        className="form-input"
-                        type="text"
-                        name="number"
-                        id="number"
-                        onChange={(e) =>
-                            setNewAddress((prevState) => ({
-                                ...prevState,
-                                number: e.target.value,
-                            }))
-                        }
-                    />
-
-                    <label className="form-label" htmlFor="city">
-                        Cidade
-                    </label>
-                    <input
-                        className="form-input"
-                        type="text"
-                        name="city"
-                        id="city"
-                        onChange={(e) =>
-                            setNewAddress((prevState) => ({
-                                ...prevState,
-                                city: e.target.value,
-                            }))
-                        }
-                    />
-
-                    <label className="form-label" htmlFor="state">
-                        Estado
-                    </label>
-                    <input
-                        className="form-input"
-                        type="text"
-                        name="state"
-                        id="state"
-                        onChange={(e) =>
-                            setNewAddress((prevState) => ({
-                                ...prevState,
-                                state: e.target.value,
-                            }))
-                        }
-                    />
-
-                    <label className="form-label" htmlFor="country">
-                        País
-                    </label>
-                    <input
-                        className="form-input"
-                        type="text"
-                        name="country"
-                        id="country"
-                        onChange={(e) =>
-                            setNewAddress((prevState) => ({
-                                ...prevState,
-                                country: e.target.value,
-                            }))
-                        }
-                    />
-
-                    <label className="form-label" htmlFor="note">
-                        Observações
-                    </label>
-                    <input
-                        className="form-input"
-                        type="text"
-                        name="note"
-                        id="note"
-                        onChange={(e) =>
-                            setNewAddress((prevState) => ({
-                                ...prevState,
-                                note: e.target.value,
-                            }))
-                        }
-                    />
-
-                    <label className="form-label" htmlFor="isPrincipal">
-                        Deseja que este seja seu endereço principal?
-                    </label>
-                    <select
-                        className="form-select"
-                        name="isPrincipal"
-                        id="isPrincipal"
-                        defaultValue="none"
-                        onChange={(e) =>
-                            setNewAddress((prevState) => ({
-                                ...prevState,
-                                isPrincipal: e.target.value,
-                            }))
-                        }
-                    >
-                        <option value="none" disabled hidden>
-                            Selecione uma opção
-                        </option>
-                        <option value="true">Sim</option>
-                        <option value="false">Não</option>
-                    </select>
-
-                    <button
-                        id="submitNewAddress"
-                        className="form-btn"
-                        type="submit"
-                        onClick={() => {
-                            addNeWAddress(newAddress);
-                        }}
-                    >
-                        Adicionar endereço
-                    </button>
-
-                    <button className="form-btn">Voltar</button>
-                </Form>
-            )}
-        </div>
+                </div>
+            </section>
+        </>
     );
 }
 

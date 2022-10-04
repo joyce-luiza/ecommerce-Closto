@@ -2,13 +2,17 @@
     width: 100%;
 
     display: flex;
-    flex-direction: column;
-    justify-content: start;
+    flex-direction: row;
+    justify-content: space-around;
     margin-top: 72px;
 }
 
+.cart-params {
+    width: 50%;
+}
+
 .cartContent {
-    width: 40%;
+    width: 100%;
     min-height: 100%;
 
     display: flex;
@@ -16,11 +20,46 @@
     justify-content: start;
     align-items: flex-start;
 
-    margin: 0% 5%;
+}
+
+.cartContent .cart-itens {
+    width: 100%;
+
+    display: flex;
+    flex-direction: column;
+}
+
+.cart-itens_title {
+    width: 100%;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    margin-bottom: 1rem;
+}
+
+.cart-itens_title button{
+    color: #ffffff;
+    background-color: #000000;
+
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+
+    cursor: pointer;
+
+    height: 2rem;
+    min-width: 35%;
+    border: none;
+}
+
+.cartContent .cart-itens .cart-itens_item {
+    margin-bottom: 2rem;
 }
 
 .cartCreditCards {
-    width: 45%;
+    width: 100%;
 
     display: flex;
     justify-content: start;
@@ -29,18 +68,92 @@
     flex-direction: column;
 }
 
-.cartContent-title {
+.creditCard-info {
+    width: 100%;
+}
+
+.addressCard {
     width: 100%;
 
     display: flex;
-    justify-content: space-between;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+.addressCard-radioBtn {
+    width: 60%;
+    height: 50px;
+
+    display: flex;
+    flex-direction: row;
     align-items: center;
+    justify-content: start;
+}
+
+.addressCard-radioBtn .addressCard-radioBtn_label {
+    margin-left: 20px;
 }
 
 .cardCheckbox {
-    background-color: rgb(220, 219, 219);
     width: 100%;
     display: flex;
     justify-content: space-between;
     align-items: center;
+
+    margin-bottom: 0.5rem;
+}
+.creditCard-card {
+    margin-bottom: 20px;
+}
+.cart-next {
+    width: 100%;
+}
+
+.cart-next_btn {
+    color: #ffffff;
+    background-color: #000000;
+
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+
+    cursor: pointer;
+
+    margin-top: 5%;
+    height: 2.5rem;
+    width: 100%;
+    border: none;
+}
+
+
+.order-summary {
+    width: 30%;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    align-items: flex-start;
+}
+
+.order-summary .order-summary_title {
+    margin-bottom: 20px;
+}
+
+.order-summary .order-item {
+    width: 100%;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+
+}
+
+.order-summary .order-item .order-total_value {
+    display: flex;
+
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-end;
 }
