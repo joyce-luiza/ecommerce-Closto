@@ -1,3 +1,4 @@
+import '../styles/cartItemStyle.css';
 import { useEffect } from "react";
 import { useContext, useState } from "react"
 import { CartContext } from "../../contexts/CartContext"
@@ -28,7 +29,9 @@ function CartItem({product, index}) {
     return (
         <div key={index} className="productCard">
             <div className="productName">
-                <h3>{productDetails.name} • {product.color.colorName} • {product.size.sizeName}</h3>
+                <h3>{productDetails.name}</h3>
+                <span>Cor: {product.color.colorName}</span>
+                <span>Tamanho: {product.size.sizeName}</span>
             </div>
 
             <span className="productUnitPrice">
@@ -38,8 +41,8 @@ function CartItem({product, index}) {
             <div className="cartOperations">
 
                 <div className="cartOperation_quantity">
-                    <span>Quantidade: {cart[index].qtd}</span>
                     <button onClick={() => handleAddProductToCart(product.id, product.price, product.color, product.size)}> + </button>
+                    <span>{cart[index].qtd}</span>
                     <button onClick={() => handleRemoveProductOfCart(product.id, product.color, product.size, productDetails.category   )}> - </button>
                 </div>
             </div>
