@@ -4,6 +4,7 @@ import CardController from "./CardController";
 import AddressController from "./AddressController";
 import ProductController from "./ProductController";
 import OrderController from "./OrderController";
+import CouponController from "./CouponController";
 
 import ValidatePassword from "../strategies/ValidatePassword";
 import ValidateEmail from "../strategies/ValidateEmail";
@@ -24,6 +25,9 @@ class Facade {
         this.controllers.set("/user/cards", CardController);
         this.controllers.set("/user/addresses", AddressController);
         this.controllers.set("/user/orders", OrderController);
+        this.controllers.set("/orders", OrderController);
+        this.controllers.set("users/coupons", CouponController);
+        this.controllers.set("/coupons", CouponController);
         this.controllers.set("/products", ProductController);
         this.controllers.set("/product", ProductController);
 

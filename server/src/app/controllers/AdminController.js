@@ -1,6 +1,8 @@
 import User from "../models/User";
 import Address from "../models/Address";
 import Product from "../models/Product";
+import Order from "../models/Order";
+import Coupon from "../models/Coupon";
 
 class AdminController {
     async show(entityInfo) {
@@ -16,6 +18,10 @@ class AdminController {
                         return await Address.findAll();
                     case "/products":
                         return await Product.findAll();
+                    case "/orders":
+                        return await Order.findAll();
+                    case "/coupons":
+                        return await Coupon.findAll();
                     default:
                         return { error: "Table not found!" };
                 }
@@ -42,6 +48,10 @@ class AdminController {
                         return await Address.create(entityInfo);
                     case "/products":
                         return await Product.create(entityInfo);
+                    case "/orders":
+                        return await Order.create(entityInfo);
+                    case "/coupons":
+                        return await Coupon.create(entityInfo);
                     default:
                         return { error: "Table not found!" };
                 }
@@ -62,11 +72,25 @@ class AdminController {
             try {
                 switch (entityInfo.table) {
                     case "/users":
-                        return await (await User.findByPk(entityInfo.id)).update(entityInfo)
+                        return await (
+                            await User.findByPk(entityInfo.id)
+                        ).update(entityInfo);
                     case "/addresses":
-                        return await (await Address.findByPk(entityInfo.id)).update(entityInfo)
+                        return await (
+                            await Address.findByPk(entityInfo.id)
+                        ).update(entityInfo);
                     case "/products":
-                        return await (await Product.findByPk(entityInfo.id)).update(entityInfo)
+                        return await (
+                            await Product.findByPk(entityInfo.id)
+                        ).update(entityInfo);
+                    case "/orders":
+                        return await (
+                            await Order.findByPk(entityInfo.id)
+                        ).update(entityInfo);
+                    case "/coupons":
+                        return await (
+                            await Coupon.findByPk(entityInfo.id)
+                        ).update(entityInfo);
                     default:
                         return { error: "Table not found!" };
                 }
@@ -98,6 +122,15 @@ class AdminController {
                         return await Product.destroy({
                             where: { id: entityInfo.id },
                         });
+                    case "/orders":
+                        return await Order.destroy({
+                            where: { id: entityInfo.id },
+                        });
+                    case "/coupons":
+                        return await Coupon.destroy({
+                            where: { id: entityInfo.id },
+                        });
+
                     default:
                         return { error: "Table not found!" };
                 }

@@ -2,7 +2,7 @@
 
 module.exports = {
     async up(queryInterface, Sequelize) {
-        await queryInterface.createTable("orders", {
+        await queryInterface.createTable("coupons", {
             id: {
                 type: Sequelize.INTEGER,
                 autoIncrement: true,
@@ -14,37 +14,34 @@ module.exports = {
                 references: { model: "users", key: "id" },
                 onUpdate: "CASCADE",
                 onDelete: "CASCADE",
-                allowNull: false,
+                allowNull: true,
             },
-            products: {
-                type: Sequelize.ARRAY(Sequelize.JSON),
-                allowNull: false,
-            },
-            total: {
-                type: Sequelize.FLOAT,
-                allowNull: false,
-            },
-            status: {
+            code: {
                 type: Sequelize.STRING,
                 allowNull: false,
             },
-            shipping: {
-                type: Sequelize.FLOAT,
-            },
-            discount: {
-                type: Sequelize.FLOAT,
-                allowNull: true,
-            },
-            coupon: {
-                type: Sequelize.JSON,
-                allowNull: true,
-            },
-            paymentMethod: {
-                type: Sequelize.ARRAY(Sequelize.JSON),
+            couponType: {
+                type: Sequelize.STRING,
                 allowNull: false,
             },
-            shippingAddress: {
-                type: Sequelize.ARRAY(Sequelize.JSON),
+            discountType: {
+                type: Sequelize.STRING,
+                allowNull: false,
+            },
+            discountValue: {
+                type: Sequelize.FLOAT,
+                allowNull: false,
+            },
+            expiresIn: {
+                type: Sequelize.DATE,
+                allowNull: true,
+            },
+            quantity: {
+                type: Sequelize.INTEGER,
+                allowNull: true,
+            },
+            active: {
+                type: Sequelize.BOOLEAN,
                 allowNull: false,
             },
             createdAt: {
@@ -59,6 +56,6 @@ module.exports = {
     },
 
     async down(queryInterface) {
-        await queryInterface.dropTable("orders");
+        await queryInterface.dropTable("coupons");
     },
 };
