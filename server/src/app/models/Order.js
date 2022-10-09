@@ -11,7 +11,7 @@ class Order extends Model {
                 discount: Sequelize.FLOAT,
                 coupon: Sequelize.JSON,
                 paymentMethod: Sequelize.ARRAY(Sequelize.JSON),
-                shippingAddress: Sequelize.ARRAY(Sequelize.JSON),
+                shippingAddress: Sequelize.JSON,
             },
             {
                 sequelize,
