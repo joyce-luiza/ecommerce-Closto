@@ -29,6 +29,8 @@ routes.patch("/user/addresses", UpdateCommand);
 routes.get("/user/addresses", ConsultCommand);
 routes.delete("/user/addresses", DeleteCommand);
 
+routes.post("/user/orders", SaveCommand);
+
 routes.post("/products", SaveCommand);
 routes.patch("/products", UpdateCommand);
 routes.delete("/products", DeleteCommand);

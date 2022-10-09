@@ -3,6 +3,7 @@ import SessionController from "./SessionController";
 import CardController from "./CardController";
 import AddressController from "./AddressController";
 import ProductController from "./ProductController";
+import OrderController from "./OrderController";
 
 import ValidatePassword from "../strategies/ValidatePassword";
 import ValidateEmail from "../strategies/ValidateEmail";
@@ -22,6 +23,7 @@ class Facade {
         this.controllers.set("/session", SessionController);
         this.controllers.set("/user/cards", CardController);
         this.controllers.set("/user/addresses", AddressController);
+        this.controllers.set("/user/orders", OrderController);
         this.controllers.set("/products", ProductController);
         this.controllers.set("/product", ProductController);
 
