@@ -32,6 +32,10 @@ module.exports = {
                 type: Sequelize.FLOAT,
                 allowNull: false,
             },
+            minValue: {
+                type: Sequelize.FLOAT,
+                allowNull: false,
+            },
             expiresIn: {
                 type: Sequelize.DATE,
                 allowNull: true,

@@ -45,9 +45,7 @@ routes.patch("/orders", UpdateCommand);
 routes.delete("/orders", DeleteCommand);
 
 routes.get("/coupons", ConsultCommand);
-routes.post("/coupons", SaveCommand);
-routes.patch("/coupons", UpdateCommand);
-routes.delete("/coupons", DeleteCommand);
+routes.post("/coupons", IndexCommand);
 
 routes.post("/admin", SaveCommand);
 routes.patch("/admin", UpdateCommand);

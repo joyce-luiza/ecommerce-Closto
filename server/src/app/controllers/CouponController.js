@@ -2,7 +2,10 @@ import Coupon from "../models/Coupon";
 
 class CouponController {
     async index(entityInfo) {
-        return await Coupon.findByPk(entityInfo.id);
+        const coupon = await Coupon.findOne({
+            where: { code: entityInfo.code },
+        });
+        return coupon;
     }
 
     async show(entityInfo) {
