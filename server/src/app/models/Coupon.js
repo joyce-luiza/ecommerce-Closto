@@ -8,6 +8,7 @@ class Coupon extends Model {
                 couponType: Sequelize.STRING,
                 discountType: Sequelize.STRING,
                 discountValue: Sequelize.FLOAT,
+                minValue: Sequelize.FLOAT,
                 expiresIn: Sequelize.DATE,
                 quantity: Sequelize.INTEGER,
                 active: Sequelize.BOOLEAN,
