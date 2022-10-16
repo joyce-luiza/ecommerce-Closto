@@ -6,12 +6,15 @@ import "../../styles/AdminProfileStyle.css";
 import Table from "../../components/Table";
 import { useEffect } from "react";
 import EditProduct from "../../components/EditProduct";
+import EditOrder from "../../components/EditOrder";
 
 function AdminPanel() {
     const [admin, setAdmin] = useState({});
     const [content, setContent] = useState("");
     const [products, setProducts] = useState([]);
     const [product, setProduct] = useState({});
+    const [orders, setOrders] = useState([]);
+    const [order, setOrder] = useState({});
     const [data, setData] = useState(false);
 
     async function getAdminInfo() {
@@ -50,9 +53,28 @@ function AdminPanel() {
                 console.log(error);
             });
     }
+    async function getOrders() {
+        await Axios.post(
+            "http://localhost:3333/admin/consult",
+            { table: "/orders" },
+            {
+                headers: {
+                    Authorization: "Bearer " + localStorage.getItem("session"),
+                },
+            }
+        )
+            .then((res) => {
+                setOrders(res.data);
+                console.log(orders);
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+    }
 
     useEffect(() => {
         getProducts();
+        getOrders();
         getAdminInfo();
     }, [data]);
 
@@ -65,23 +87,6 @@ function AdminPanel() {
             data: { id: id, table: `/${type}` },
         })
             .then((res) => {
-                setData(!data);
-            })
-            .catch((error) => {
-                console.log(error);
-            });
-    }
-
-    async function editObj(id, type) {
-        await Axios.patch("http://localhost:3333/admin", {
-            headers: {
-                Authorization: "Bearer " + localStorage.getItem("session"),
-            },
-
-            data: { id: id, table: `/${type}` },
-        })
-            .then((res) => {
-                console.log("produto editado");
                 setData(!data);
             })
             .catch((error) => {
@@ -112,7 +117,7 @@ function AdminPanel() {
                     data={products}
                     deleteObj={deleteObj}
                     setContent={setContent}
-                    setProduct={setProduct}
+                    setData={setProduct}
                 ></Table>
             )}
 
@@ -120,8 +125,21 @@ function AdminPanel() {
                 <EditProduct
                     product={product}
                     setContent={setContent}
-                    editProduct={editObj}
                 ></EditProduct>
+            )}
+
+            {content === "Pedidos" && (
+                <Table
+                    type="orders"
+                    data={orders}
+                    deleteObj={deleteObj}
+                    setContent={setContent}
+                    setData={setOrder}
+                ></Table>
+            )}
+
+            {content === "order" && (
+                <EditOrder order={order} setContent={setContent}></EditOrder>
             )}
         </div>
     );

@@ -2,9 +2,9 @@ import "../styles/editProductStyle.css";
 import { useEffect } from "react";
 import { useState } from "react";
 import Form from "../Form";
-import Axios from 'axios';
+import Axios from "axios";
 
-export default function     EditProduct({ product, setContent, editProduct }) {
+export default function EditProduct({ product, setContent }) {
     const [name, setName] = useState();
     const [category, setCategory] = useState();
     const [composition, setComposition] = useState();
@@ -18,16 +18,17 @@ export default function     EditProduct({ product, setContent, editProduct }) {
     const [onSale, setOnSale] = useState(product.onSale);
     const [discount, setDiscount] = useState(product.discount);
 
-    const updateProduct = (async () => {
-
+    const updateProduct = async () => {
         var quantity = 0;
 
         Object.values(sizes).forEach((qnt) => {
             quantity += qnt.sizeQty;
-        })
+        });
 
-        await Axios.patch("http://localhost:3333/admin",{
-                table: '/products',
+        await Axios.patch(
+            "http://localhost:3333/admin",
+            {
+                table: "/products",
                 id: product.id,
                 category: category,
                 name: name,
@@ -39,63 +40,63 @@ export default function     EditProduct({ product, setContent, editProduct }) {
                 description: description,
                 status: status,
                 onSale: onSale,
-                discount: discount
-        } ,{
-            headers: {
-                Authorization: "Bearer " + localStorage.getItem("session"),
+                discount: discount,
             },
-        })
-        .then((res) => {
-            console.log(res.data)
-            setContent('');
-        })
-        .catch((error) => {
-            console.log(error);
-        });
-    })
+            {
+                headers: {
+                    Authorization: "Bearer " + localStorage.getItem("session"),
+                },
+            }
+        )
+            .then((res) => {
+                console.log(res.data);
+                setContent("");
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+    };
 
-    const insertNewSize = (() => {
-        sizes.push({sizeName: "Inserir Tamanho", sizeQty: 0})
-        var newSizes = sizes
+    const insertNewSize = () => {
+        sizes.push({ sizeName: "Inserir Tamanho", sizeQty: 0 });
+        var newSizes = sizes;
         setSizes(Object.values(newSizes));
-    })
+    };
 
-    const updateSizeValue = ((index, newValue) => {
+    const updateSizeValue = (index, newValue) => {
         Object.values(sizes)[index].sizeQty = parseInt(newValue);
-    })
+    };
 
-    const updateSizeName = ((index, newValue) => {
+    const updateSizeName = (index, newValue) => {
         Object.values(sizes)[index].sizeName = newValue;
-    })
+    };
 
-    const removeSize = ((index) => {
+    const removeSize = (index) => {
         var currentSizes = Object.values(sizes);
-        currentSizes.splice(index, 1)
+        currentSizes.splice(index, 1);
         setSizes(currentSizes);
-    })
+    };
 
-    const insertNewColor = ((colorName, colorHex) => {
-        colors.push({colorName: colorName, colorHex: colorHex})
-        var newColors = colors
+    const insertNewColor = (colorName, colorHex) => {
+        colors.push({ colorName: colorName, colorHex: colorHex });
+        var newColors = colors;
         setColors(Object.values(newColors));
-    })
+    };
 
-    const removeColor = ((index) => {
+    const removeColor = (index) => {
         var currentColors = Object.values(colors);
-        currentColors.splice(index, 1)
+        currentColors.splice(index, 1);
         setColors(currentColors);
-    })
+    };
 
-    useEffect(() => {}, [sizes])
-    useEffect(() => {}, [colors])
-    useEffect(() => {}, [onSale])
-    useEffect(() => {}, [discount])
+    useEffect(() => {}, [sizes]);
+    useEffect(() => {}, [colors]);
+    useEffect(() => {}, [onSale]);
+    useEffect(() => {}, [discount]);
 
     return (
         <div className="editProduct-container">
-
             <Form title={`Produto #${product.id}`}>
-
                 <label className="form-label" htmlFor="productName">
                     Nome
                 </label>
@@ -107,7 +108,7 @@ export default function     EditProduct({ product, setContent, editProduct }) {
                     id="productName"
                     defaultValue={product.name}
                     onChange={(e) => {
-                        setName(e.target.value)
+                        setName(e.target.value);
                     }}
                 />
 
@@ -122,7 +123,7 @@ export default function     EditProduct({ product, setContent, editProduct }) {
                     id="productCategory"
                     defaultValue={product.category}
                     onChange={(e) => {
-                        setCategory(e.target.value)
+                        setCategory(e.target.value);
                     }}
                 />
 
@@ -137,7 +138,9 @@ export default function     EditProduct({ product, setContent, editProduct }) {
                                 <div className="editProduct-colors_color">
                                     <div
                                         className="editProduct-color-circle"
-                                        style={{ backgroundColor: color.colorHex }}
+                                        style={{
+                                            backgroundColor: color.colorHex,
+                                        }}
                                     ></div>
 
                                     <p>{color.colorName}</p>
@@ -149,7 +152,6 @@ export default function     EditProduct({ product, setContent, editProduct }) {
                                         removeColor(index);
                                     }}
                                 ></i>
-
                             </div>
                         );
                     })}
@@ -184,7 +186,7 @@ export default function     EditProduct({ product, setContent, editProduct }) {
                 <button
                     className="form-btn"
                     onClick={() => {
-                        insertNewColor(colorName, colorHex)
+                        insertNewColor(colorName, colorHex);
                     }}
                 >
                     Adicionar cor
@@ -196,13 +198,16 @@ export default function     EditProduct({ product, setContent, editProduct }) {
 
                 <>
                     {sizes.map((size, index) => {
-                        return(
+                        return (
                             <>
-                                {size.sizeName !== 'Inserir Tamanho' &&
+                                {size.sizeName !== "Inserir Tamanho" && (
                                     <>
                                         <div className="form-list">
                                             <div className="size-label">
-                                                <label className="form-label" htmlFor="productSizeName">
+                                                <label
+                                                    className="form-label"
+                                                    htmlFor="productSizeName"
+                                                >
                                                     {size.sizeName}
                                                 </label>
 
@@ -221,14 +226,17 @@ export default function     EditProduct({ product, setContent, editProduct }) {
                                             name="productSizeQty"
                                             id="productSizeQty"
                                             defaultValue={size.sizeQty}
-                                            onChange={((e) => {
-                                                updateSizeValue(index, e.target.value)
-                                            })}
+                                            onChange={(e) => {
+                                                updateSizeValue(
+                                                    index,
+                                                    e.target.value
+                                                );
+                                            }}
                                         />
                                     </>
-                                }
+                                )}
 
-                                {size.sizeName === 'Inserir Tamanho' &&
+                                {size.sizeName === "Inserir Tamanho" && (
                                     <>
                                         <input
                                             className="form-input"
@@ -236,9 +244,12 @@ export default function     EditProduct({ product, setContent, editProduct }) {
                                             name="productSizeName"
                                             id="productSizeName"
                                             placeholder="Insira o indicador de tamanho"
-                                            onChange={((e) => {
-                                                updateSizeName(index, e.target.value)
-                                            })}
+                                            onChange={(e) => {
+                                                updateSizeName(
+                                                    index,
+                                                    e.target.value
+                                                );
+                                            }}
                                         />
 
                                         <input
@@ -247,19 +258,24 @@ export default function     EditProduct({ product, setContent, editProduct }) {
                                             name="productSizeQty"
                                             id="productSizeQty"
                                             defaultValue={size.sizeQty}
-                                            onChange={((e) => {
-                                                updateSizeValue(index, e.target.value)
-                                            })}
+                                            onChange={(e) => {
+                                                updateSizeValue(
+                                                    index,
+                                                    e.target.value
+                                                );
+                                            }}
                                         />
                                     </>
-                                }
+                                )}
                             </>
-                        )
+                        );
                     })}
 
                     <button
                         className="form-btn"
-                        onClick={() => {insertNewSize()}}
+                        onClick={() => {
+                            insertNewSize();
+                        }}
                     >
                         Adicionar Tamanho
                     </button>
@@ -276,7 +292,7 @@ export default function     EditProduct({ product, setContent, editProduct }) {
                     id="productComposition"
                     defaultValue={product.composition}
                     onChange={(e) => {
-                        setComposition(e.target.value)
+                        setComposition(e.target.value);
                     }}
                 />
 
@@ -291,7 +307,7 @@ export default function     EditProduct({ product, setContent, editProduct }) {
                     id="productPrice"
                     defaultValue={product.price}
                     onChange={(e) => {
-                        setPrice(e.target.value)
+                        setPrice(e.target.value);
                     }}
                 />
 
@@ -306,7 +322,7 @@ export default function     EditProduct({ product, setContent, editProduct }) {
                     id="productDescription"
                     defaultValue={product.description}
                     onChange={(e) => {
-                        setDescription(e.target.value)
+                        setDescription(e.target.value);
                     }}
                 />
 
@@ -319,9 +335,7 @@ export default function     EditProduct({ product, setContent, editProduct }) {
                     name="type"
                     id="type"
                     defaultValue={product.status}
-                    onChange={(e) =>
-                        setStatus(e.target.value)
-                    }
+                    onChange={(e) => setStatus(e.target.value)}
                 >
                     <option value="none" disabled hidden>
                         Selecione uma opção
@@ -339,12 +353,12 @@ export default function     EditProduct({ product, setContent, editProduct }) {
                     name="type"
                     id="type"
                     defaultValue={product.onSale}
-                    onChange={(e) =>{
-                        if(e.target.value === 'true'){
-                            setOnSale(true)
+                    onChange={(e) => {
+                        if (e.target.value === "true") {
+                            setOnSale(true);
                         }
-                        if(e.target.value === 'false'){
-                            setOnSale(false)
+                        if (e.target.value === "false") {
+                            setOnSale(false);
                         }
                     }}
                 >
@@ -352,7 +366,7 @@ export default function     EditProduct({ product, setContent, editProduct }) {
                     <option value="false">Não aplicar</option>
                 </select>
 
-                {onSale === true &&
+                {onSale === true && (
                     <input
                         className="form-input"
                         type="number"
@@ -360,12 +374,12 @@ export default function     EditProduct({ product, setContent, editProduct }) {
                         id="productSale"
                         defaultValue={discount}
                         onChange={(e) => {
-                            setDiscount(e.target.value)
+                            setDiscount(e.target.value);
                         }}
                     />
-                }
+                )}
 
-                {onSale === false &&
+                {onSale === false && (
                     <input
                         className="form-input"
                         type="text"
@@ -374,17 +388,23 @@ export default function     EditProduct({ product, setContent, editProduct }) {
                         placeholder="Promoção não aplicada."
                         disabled
                     />
-                }
+                )}
 
                 <button
-                        className="form-btn"
-                        onClick={() => {updateProduct()}}
+                    className="form-btn"
+                    onClick={() => {
+                        updateProduct();
+                    }}
                 >
                     Salvar Alterações
                 </button>
 
-
-                <button className="form-btn" onClick={() => {setContent('')}}>
+                <button
+                    className="form-btn"
+                    onClick={() => {
+                        setContent("");
+                    }}
+                >
                     Voltar
                 </button>
             </Form>

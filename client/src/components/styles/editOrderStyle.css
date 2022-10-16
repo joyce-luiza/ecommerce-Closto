@@ -1,0 +1,86 @@
+.order-header-info {
+    display: flex;
+    justify-content: space-between;
+    width: 70%;
+    margin: 32px 0;
+}
+
+.order-header-info p {
+    font-weight: 600;
+    color: #222222;
+}
+
+.order-header-info span {
+    font-weight: 400;
+    color: rgba(34, 34, 34, 0.6);
+}
+
+.order-label {
+    font-size: 20px;
+    color: #222222;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+.order-address {
+    width: 70%;
+}
+
+.order-address h1 {
+    font-size: 16px;
+    color: #222222;
+}
+
+.order-items {
+    width: 70%;
+    margin-top: 5%;
+}
+
+.order-item {
+    display: flex;
+    justify-content: space-between;
+}
+
+.order-item h1 {
+    font-size: 14px;
+    color: #222222;
+    font-weight: 400;
+}
+
+.item-info {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.order-payment,
+.order-payment-method {
+    width: 70%;
+    margin-top: 5%;
+}
+
+.order-payment h1 {
+    font-size: 16px;
+    color: rgba(34, 34, 34, 0.6);
+    font-weight: 400;
+}
+
+.order-payment div {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 8px 0;
+}
+
+.order-credit-card-info {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 5%;
+}
+
+.order-credit-card-info div {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-top: 24px;
+}
