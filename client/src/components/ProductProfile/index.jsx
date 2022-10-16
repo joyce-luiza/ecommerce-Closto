@@ -5,14 +5,14 @@ import { useContext } from "react";
 import { CartContext } from "../../contexts/CartContext";
 
 export default function ProductProfile({ product, setContent }) {
-    const [color, setColor] = useState({ colorName: "Selecione uma cor"});
-    const [size, setSize] = useState({ sizeName: "Selecione um tamanho"});
+    const [color, setColor] = useState({ colorName: "Selecione uma cor" });
+    const [size, setSize] = useState({ sizeName: "Selecione um tamanho" });
 
-    const {handleAddProductToCart} = useContext(CartContext);
+    const { handleAddProductToCart } = useContext(CartContext);
 
     const findColor = (hex) => {
         for (let index = 0; index < product.color.length; index++) {
-            if(hex === product.color[index].colorHex){
+            if (hex === product.color[index].colorHex) {
                 setColor(product.color[index]);
                 return;
             }
@@ -20,7 +20,7 @@ export default function ProductProfile({ product, setContent }) {
     };
 
     const findSize = (size) => {
-        setSize({sizeName: size})
+        setSize({ sizeName: size });
     };
 
     return (
@@ -48,12 +48,13 @@ export default function ProductProfile({ product, setContent }) {
                         </p>
                         <div className="productProfile-colors-container">
                             {product.color.map((color, index) => {
-
                                 return (
                                     <div
                                         key={index}
                                         className="productProfile-color"
-                                        style={{ backgroundColor: color.colorHex }}
+                                        style={{
+                                            backgroundColor: color.colorHex,
+                                        }}
                                         onClick={() => {
                                             findColor(color.colorHex);
                                         }}
@@ -65,7 +66,7 @@ export default function ProductProfile({ product, setContent }) {
 
                     <div className="productProfile-sizes">
                         <p>Tamanho: {size.sizeName}</p>
-                        <div className="productProfile-size-container" >
+                        <div className="productProfile-size-container">
                             {product.size.map((size, index) => {
                                 if (size.sizeQty !== 0) {
                                     return (
@@ -88,7 +89,13 @@ export default function ProductProfile({ product, setContent }) {
                     <button
                         className="productProfile-buyBtn"
                         onClick={() => {
-                            handleAddProductToCart(product.id, product.price, color, size,)
+                            handleAddProductToCart(
+                                product.id,
+                                product.name,
+                                product.price,
+                                color,
+                                size
+                            );
                         }}
                     >
                         Comprar
