@@ -87,7 +87,7 @@ function Cart() {
 
 		if (value === orderValue) {
 			setContent('');
-			setFinalValue(0);
+			setFinalValue(value);
 			value = 0;
 			finishOrder();
 			clearCart();
@@ -310,7 +310,11 @@ function Cart() {
 								<div className="cart-next">
 									<button
 										className="cart-next_btn"
-										onClick={() => setContent('CreditCards')}
+										onClick={() => {
+											if (shippingAddress.id) {
+												setContent('CreditCards');
+											}
+										}}
 									>
 										Selecionar forma de pagamento
 									</button>
@@ -653,7 +657,9 @@ function Cart() {
 								<button
 									className="cart-next_btn"
 									onClick={() => {
-										getFinalValue();
+										if (paymentCards.length > 0) {
+											getFinalValue();
+										}
 									}}
 								>
 									Finalizar Compra
