@@ -80,17 +80,12 @@ function CompletedOrder() {
 
 									<div className="detailed-value_row">
 										<span>Produto</span>
-										<span>
-											R${' '}
-											{orderInfo.total -
-												orderInfo.discount -
-												orderInfo.shipping}
-										</span>
+										<span>R$ {orderInfo.total + orderInfo.discount}</span>
 									</div>
 
 									<div className="detailed-value_row">
 										<span>Total</span>
-										<span>R$ {orderInfo.total}</span>
+										<span>R$ {orderInfo.total + orderInfo.shipping}</span>
 									</div>
 								</>
 							)}
