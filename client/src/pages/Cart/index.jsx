@@ -18,10 +18,10 @@ function Cart() {
 	const [orderValue, setOrderValue] = useState(0);
 	const [coupon, setCoupon] = useState('');
 	const [discount, setDiscount] = useState(0);
+	var finalValue = 0;
 
 	const [paymentCards, setPaymentCards] = useState([]);
 	const [newCreditCard, setNewCreditCard] = useState({});
-	const [finalValue, setFinalValue] = useState(0);
 	const [content, setContent] = useState('');
 
 	const navigate = useNavigate();
@@ -66,7 +66,6 @@ function Cart() {
 	};
 
 	const validateCoupon = (coupon) => {
-		console.log(coupon);
 		const date = new Date().toISOString();
 		if (
 			coupon.expiresIn < date ||
@@ -136,7 +135,7 @@ function Cart() {
 		}
 
 		if (value === orderValue - discount) {
-			setFinalValue(value);
+			finalValue = value;
 			setContent('');
 			finishOrder();
 			clearCart();
