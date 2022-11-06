@@ -2,45 +2,15 @@ import "../styles/editOrderStyle.css";
 import { useState } from "react";
 import Form from "../Form";
 import "react-toastify/dist/ReactToastify.css";
-import { toast } from "react-toastify";
+import { ToastContainer } from "react-toastify";
 import Axios from "axios";
+import showToast from "../Toast";
 
-export default function EditOrder({ order, setContent }) {
+export default function EditOrder({ userType, order, setContent }) {
     const [updatedStatus, setUpdatedStatus] = useState();
-    const showToast = (type, text) => {
-        if (type === "success") {
-            return toast.success(text, {
-                className: "SuccessToast",
-                position: "top-right",
-                autoClose: 3000,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-                theme: "colored",
-            });
-        }
 
-        if (type === "error") {
-            return toast.error(text, {
-                className: "ErrorToast",
-                position: "top-right",
-                autoClose: 3000,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-                theme: "colored",
-            });
-        }
-
-        return;
-    };
-
-    function handleStatus() {
-        Axios.patch(
+    const handleStatus = async () => {
+        await Axios.patch(
             "http://localhost:3333/admin",
             {
                 table: "/orders",
@@ -66,10 +36,19 @@ export default function EditOrder({ order, setContent }) {
             .catch((error) => {
                 console.log(error);
             });
-    }
+    };
 
     return (
         <Form title={`Pedido #${order.id}`}>
+            <ToastContainer
+                position="top-center"
+                autoClose={5000}
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick
+                rtl={false}
+                draggable
+            />
             <div className="order-header-info">
                 <p>
                     <span>Status:</span> {order.status}
@@ -84,28 +63,34 @@ export default function EditOrder({ order, setContent }) {
                 </p>
             </div>
 
-            <label className="form-label " htmlFor="orderStatus">
-                ATUALIZAR STATUS DO PEDIDO
-            </label>
-            <select
-                className="form-select"
-                name="orderStatus"
-                id="orderStatus"
-                defaultValue={order.status}
-                onChange={(e) => setUpdatedStatus(e.target.value)}
-            >
-                <option value="none" disabled hidden>
-                    Selecione uma opção
-                </option>
-                <option value="Pedido realizado">Pedido realizado</option>
-                <option value="Pagamento confirmado">
-                    Pagamento confirmado
-                </option>
-                <option value="Enviado">Enviado</option>
-                <option value="Em troca">Em troca</option>
-                <option value="Em devolução">Em devolução</option>
-                <option value="Cancelado">Cancelado</option>
-            </select>
+            {userType === "admin" && (
+                <div>
+                    <label className="form-label " htmlFor="orderStatus">
+                        ATUALIZAR STATUS DO PEDIDO
+                    </label>
+                    <select
+                        className="form-select"
+                        name="orderStatus"
+                        id="orderStatus"
+                        defaultValue={order.status}
+                        onChange={(e) => setUpdatedStatus(e.target.value)}
+                    >
+                        <option value="none" disabled hidden>
+                            Selecione uma opção
+                        </option>
+                        <option value="Pedido realizado">
+                            Pedido realizado
+                        </option>
+                        <option value="Pagamento confirmado">
+                            Pagamento confirmado
+                        </option>
+                        <option value="Enviado">Enviado</option>
+                        <option value="Em troca">Em troca</option>
+                        <option value="Em devolução">Em devolução</option>
+                        <option value="Cancelado">Cancelado</option>
+                    </select>
+                </div>
+            )}
             <div className="order-address">
                 <label className="order-label">Endereço de entrega</label>
                 {/* <h1>{order.shippingAddress.title}</h1> */}
@@ -183,15 +168,20 @@ export default function EditOrder({ order, setContent }) {
                     </div>
                 )}
             </div>
+            {userType === "admin" && (
+                <button
+                    className="form-btn"
+                    onClick={() => {
+                        handleStatus();
+                    }}
+                >
+                    Salvar Alterações
+                </button>
+            )}
             <button
                 className="form-btn"
-                onClick={() => {
-                    handleStatus();
-                }}
+                onClick={() => setContent("Meus Pedidos")}
             >
-                Salvar Alterações
-            </button>
-            <button className="form-btn" onClick={() => setContent("Pedidos")}>
                 Voltar
             </button>
         </Form>

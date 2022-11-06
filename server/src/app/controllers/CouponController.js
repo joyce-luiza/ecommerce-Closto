@@ -9,7 +9,9 @@ class CouponController {
     }
 
     async show(entityInfo) {
-        return await Coupon.findAll();
+        return await Coupon.findAll({
+            where: { userId: entityInfo.user_id },
+        });
     }
 
     async save(entityInfo) {

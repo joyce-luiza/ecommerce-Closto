@@ -4,7 +4,14 @@ import "../styles/tableRowStyle.css";
 //     return <div className="table-container">{children}</div>;
 // }
 
-export default function Table({ type, data, deleteObj, setContent, setData }) {
+export default function Table({
+    user,
+    type,
+    data,
+    deleteObj,
+    setContent,
+    setData,
+}) {
     return (
         <>
             {type === "products" && (
@@ -70,7 +77,7 @@ export default function Table({ type, data, deleteObj, setContent, setData }) {
                     })}
                 </div>
             )}
-            {type === "orders" && (
+            {(type === "orders" || type === "exchangeableOrders") && (
                 <div className="table-container">
                     {data.map((order) => {
                         return (
@@ -83,6 +90,7 @@ export default function Table({ type, data, deleteObj, setContent, setData }) {
                                         {order.id}
                                     </div>
                                 </div>
+
                                 <div className="table-column">
                                     <div className="table-label">Status</div>
                                     <div className="table-content">
@@ -103,24 +111,216 @@ export default function Table({ type, data, deleteObj, setContent, setData }) {
                                         {order.total}
                                     </div>
                                 </div>
-                                <div className="table-column row-actions">
-                                    <div className="table-label"></div>
+                                {type === "orders" && user === "user" && (
+                                    <div className="table-column">
+                                        <div className="table-label"></div>
+                                        <div className="table-content">
+                                            <p
+                                                onClick={() => {
+                                                    setData(order);
+                                                    setContent("Pedido");
+                                                }}
+                                            >
+                                                Ver mais
+                                            </p>
+                                        </div>
+                                    </div>
+                                )}
+                                {type === "exchangeableOrders" &&
+                                    user === "user" && (
+                                        <div className="table-column">
+                                            <div className="table-label"></div>
+                                            <div className="table-content">
+                                                <button
+                                                    onClick={() => {
+                                                        setData(order);
+                                                        setContent(
+                                                            "Nova Troca"
+                                                        );
+                                                    }}
+                                                >
+                                                    Selecionar
+                                                </button>
+                                            </div>
+                                        </div>
+                                    )}
+                                {user === "admin" && (
+                                    <div className="table-column row-actions">
+                                        <div className="table-label"></div>
+                                        <div className="table-content">
+                                            <i
+                                                className="ri-pencil-fill ri-xl"
+                                                onClick={() => {
+                                                    setData(order);
+                                                    setContent("order");
+                                                }}
+                                            ></i>
+                                            <i
+                                                className="ri-delete-bin-fill ri-xl"
+                                                onClick={() => {
+                                                    deleteObj(
+                                                        order.id,
+                                                        "orders"
+                                                    );
+                                                }}
+                                            ></i>
+                                        </div>
+                                    </div>
+                                )}
+                            </div>
+                        );
+                    })}
+                </div>
+            )}
+            {type === "exchanges" && (
+                <div className="table-container">
+                    {data.map((exchange) => {
+                        return (
+                            <div key={exchange.id} className="row-container">
+                                <div className="table-column">
+                                    <div className="table-label">
+                                        Número da troca
+                                    </div>
                                     <div className="table-content">
-                                        <i
-                                            className="ri-pencil-fill ri-xl"
-                                            onClick={() => {
-                                                setData(order);
-                                                setContent("order");
-                                            }}
-                                        ></i>
-                                        <i
-                                            className="ri-delete-bin-fill ri-xl"
-                                            onClick={() => {
-                                                deleteObj(order.id, "orders");
-                                            }}
-                                        ></i>
+                                        {exchange.id}
                                     </div>
                                 </div>
+                                <div className="table-column">
+                                    <div className="table-label">
+                                        Número do pedido
+                                    </div>
+                                    <div className="table-content">
+                                        {exchange.order_id}
+                                    </div>
+                                </div>
+
+                                <div className="table-column">
+                                    <div className="table-label">Status</div>
+                                    <div className="table-content">
+                                        {exchange.status}
+                                    </div>
+                                </div>
+                                <div className="table-column">
+                                    <div className="table-label">Data</div>
+                                    <div className="table-content">
+                                        {new Date(
+                                            exchange.createdAt
+                                        ).toLocaleDateString()}
+                                    </div>
+                                </div>
+                                {user === "user" && (
+                                    <div className="table-column">
+                                        <div className="table-label"></div>
+                                        <div className="table-content">
+                                            <p
+                                                onClick={() => {
+                                                    setData(exchange);
+                                                    setContent(
+                                                        "Perfil da Troca"
+                                                    );
+                                                }}
+                                            >
+                                                Ver mais
+                                            </p>
+                                        </div>
+                                    </div>
+                                )}
+                                {user === "admin" && (
+                                    <div className="table-column row-actions">
+                                        <div className="table-label"></div>
+                                        <div className="table-content">
+                                            <i
+                                                className="ri-pencil-fill ri-xl"
+                                                onClick={() => {
+                                                    setData(exchange);
+                                                    setContent(
+                                                        "Perfil da Troca"
+                                                    );
+                                                }}
+                                            ></i>
+                                            <i
+                                                className="ri-delete-bin-fill ri-xl"
+                                                onClick={() => {
+                                                    deleteObj(
+                                                        exchange.id,
+                                                        "exchanges"
+                                                    );
+                                                }}
+                                            ></i>
+                                        </div>
+                                    </div>
+                                )}
+                            </div>
+                        );
+                    })}
+                </div>
+            )}
+
+            {type === "coupons" && (
+                <div className="table-container">
+                    {data.map((coupon) => {
+                        return (
+                            <div key={coupon.id} className="row-container">
+                                <div className="table-column">
+                                    <div className="table-label">ID</div>
+                                    <div className="table-content">
+                                        {coupon.id}
+                                    </div>
+                                </div>
+                                <div className="table-column">
+                                    <div className="table-label">Código</div>
+                                    <div className="table-content">
+                                        {coupon.code}
+                                    </div>
+                                </div>
+                                <div className="table-column">
+                                    <div className="table-label">Valor</div>
+                                    <div className="table-content">
+                                        R${coupon.discountValue}
+                                    </div>
+                                </div>
+                                <div className="table-column">
+                                    <div className="table-label">Validade</div>
+                                    <div className="table-content">
+                                        {new Date(
+                                            coupon.createdAt
+                                        ).toLocaleDateString() || "Não expira"}
+                                    </div>
+                                </div>
+                                {(coupon.active && (
+                                    <button
+                                        onClick={() => {
+                                            navigator.clipboard.writeText(
+                                                coupon.code
+                                            );
+                                        }}
+                                    >
+                                        Utilizar
+                                    </button>
+                                )) || <p>Utilizado</p>}
+                                {user === "admin" && (
+                                    <div className="table-column row-actions">
+                                        <div className="table-label"></div>
+                                        <div className="table-content">
+                                            <i
+                                                className="ri-pencil-fill ri-xl"
+                                                onClick={() => {
+                                                    setData(coupon);
+                                                    setContent("Cupom");
+                                                }}
+                                            ></i>
+                                            <i
+                                                className="ri-delete-bin-fill ri-xl"
+                                                onClick={() => {
+                                                    deleteObj(
+                                                        coupon.id,
+                                                        "products"
+                                                    );
+                                                }}
+                                            ></i>
+                                        </div>
+                                    </div>
+                                )}
                             </div>
                         );
                     })}

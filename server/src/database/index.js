@@ -7,8 +7,9 @@ import Address from "../app/models/Address";
 import Product from "../app/models/Product";
 import Order from "../app/models/Order";
 import Coupon from "../app/models/Coupon";
+import Exchange from "../app/models/Exchange";
 
-const models = [User, Card, Address, Product, Order, Coupon];
+const models = [User, Card, Address, Product, Order, Coupon, Exchange];
 
 class Database {
     constructor() {

@@ -3,6 +3,7 @@ import Address from "../models/Address";
 import Product from "../models/Product";
 import Order from "../models/Order";
 import Coupon from "../models/Coupon";
+import Exchange from "../models/Exchange";
 
 class AdminController {
     async show(entityInfo) {
@@ -22,6 +23,8 @@ class AdminController {
                         return await Order.findAll();
                     case "/coupons":
                         return await Coupon.findAll();
+                    case "/exchanges":
+                        return await Exchange.findAll();
                     default:
                         return { error: "Table not found!" };
                 }
@@ -52,6 +55,8 @@ class AdminController {
                         return await Order.create(entityInfo);
                     case "/coupons":
                         return await Coupon.create(entityInfo);
+                    case "/exchanges":
+                        return await Exchange.create(entityInfo);
                     default:
                         return { error: "Table not found!" };
                 }
@@ -91,6 +96,10 @@ class AdminController {
                         return await (
                             await Coupon.findByPk(entityInfo.id)
                         ).update(entityInfo);
+                    case "/exchanges":
+                        return await (
+                            await Exchange.findByPk(entityInfo.id)
+                        ).update(entityInfo);
                     default:
                         return { error: "Table not found!" };
                 }
@@ -128,6 +137,10 @@ class AdminController {
                         });
                     case "/coupons":
                         return await Coupon.destroy({
+                            where: { id: entityInfo.id },
+                        });
+                    case "/exchanges":
+                        return await Exchange.destroy({
                             where: { id: entityInfo.id },
                         });
 

@@ -29,11 +29,14 @@ routes.patch("/user/addresses", UpdateCommand);
 routes.get("/user/addresses", ConsultCommand);
 routes.delete("/user/addresses", DeleteCommand);
 
-routes.get("/user/order", ConsultCommand);
+routes.get("/user/orders", ConsultCommand);
 routes.post("/user/orders", SaveCommand);
 routes.patch("/user/orders", UpdateCommand);
 
-routes.get("/user/coupons", SaveCommand);
+routes.get("/user/coupons", ConsultCommand);
+
+routes.get("/user/exchanges", ConsultCommand);
+routes.post("/user/exchanges", SaveCommand);
 
 routes.post("/products", SaveCommand);
 routes.patch("/products", UpdateCommand);

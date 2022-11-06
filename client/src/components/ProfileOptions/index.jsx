@@ -44,6 +44,12 @@ export default function ProfileOptions({ handleContent, data, type }) {
                         >
                             Cartões de crédito
                         </button>
+                        <button
+                            className="menu-item"
+                            onClick={() => handleContent("Cupons")}
+                        >
+                            Cupons
+                        </button>
                     </section>
 
                     <section className="menu">
@@ -58,10 +64,10 @@ export default function ProfileOptions({ handleContent, data, type }) {
                         </button>
                         <button
                             className="menu-item"
-                            onClick={() => handleContent("Trocas e Devoluções")}
+                            onClick={() => handleContent("Trocas")}
                         >
                             {" "}
-                            Trocas e Devoluções
+                            Trocas
                         </button>
                     </section>
                 </div>
@@ -105,10 +111,10 @@ export default function ProfileOptions({ handleContent, data, type }) {
                         </button>
                         <button
                             className="menu-item"
-                            onClick={() => handleContent("Pedidos")}
+                            onClick={() => handleContent("Trocas")}
                         >
                             {" "}
-                            Trocas e devoluções
+                            Trocas
                         </button>
                     </section>
                 </div>
