@@ -4,6 +4,7 @@ class Coupon extends Model {
     static init(sequelize) {
         super.init(
             {
+                userId: Sequelize.INTEGER,
                 code: Sequelize.STRING,
                 couponType: Sequelize.STRING,
                 discountType: Sequelize.STRING,

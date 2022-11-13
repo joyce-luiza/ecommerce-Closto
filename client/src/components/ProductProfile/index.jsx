@@ -50,6 +50,7 @@ export default function ProductProfile({ product, setContent }) {
                             {product.color.map((color, index) => {
                                 return (
                                     <div
+                                        id={`productProfile-color-${index}`}
                                         key={index}
                                         className="productProfile-color"
                                         style={{
@@ -71,6 +72,7 @@ export default function ProductProfile({ product, setContent }) {
                                 if (size.sizeQty !== 0) {
                                     return (
                                         <div
+                                            id={`productProfile-size-${index}`}
                                             key={index}
                                             className="productProfile-size"
                                             onClick={() => {

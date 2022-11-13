@@ -7,6 +7,8 @@ import Table from "../../components/Table";
 import { useEffect } from "react";
 import EditProduct from "../../components/EditProduct";
 import EditOrder from "../../components/EditOrder";
+import ExchangeProfile from "../../components/ExchangeProfile";
+import showToast from "../../components/Toast";
 
 function AdminPanel() {
     const [admin, setAdmin] = useState({});
@@ -16,6 +18,8 @@ function AdminPanel() {
     const [orders, setOrders] = useState([]);
     const [order, setOrder] = useState({});
     const [data, setData] = useState(false);
+    const [exchanges, setExchanges] = useState([]);
+    const [exchange, setExchange] = useState({});
 
     async function getAdminInfo() {
         await Axios.get("http://localhost:3333/users", {
@@ -65,7 +69,24 @@ function AdminPanel() {
         )
             .then((res) => {
                 setOrders(res.data);
-                console.log(orders);
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+    }
+
+    async function getExchanges() {
+        await Axios.post(
+            "http://localhost:3333/admin/consult",
+            { table: "/exchanges" },
+            {
+                headers: {
+                    Authorization: "Bearer " + localStorage.getItem("session"),
+                },
+            }
+        )
+            .then((res) => {
+                setExchanges(res.data);
             })
             .catch((error) => {
                 console.log(error);
@@ -76,6 +97,7 @@ function AdminPanel() {
         getProducts();
         getOrders();
         getAdminInfo();
+        getExchanges();
     }, [data]);
 
     async function deleteObj(id, type) {
@@ -87,6 +109,7 @@ function AdminPanel() {
             data: { id: id, table: `/${type}` },
         })
             .then((res) => {
+                showToast("success", "Objeto deletado com sucesso!");
                 setData(!data);
             })
             .catch((error) => {
@@ -113,6 +136,7 @@ function AdminPanel() {
 
             {content === "" && (
                 <Table
+                    user="admin"
                     type="products"
                     data={products}
                     deleteObj={deleteObj}
@@ -130,6 +154,7 @@ function AdminPanel() {
 
             {content === "Pedidos" && (
                 <Table
+                    user="admin"
                     type="orders"
                     data={orders}
                     deleteObj={deleteObj}
@@ -139,7 +164,30 @@ function AdminPanel() {
             )}
 
             {content === "order" && (
-                <EditOrder order={order} setContent={setContent}></EditOrder>
+                <EditOrder
+                    userType={"admin"}
+                    order={order}
+                    setContent={setContent}
+                ></EditOrder>
+            )}
+
+            {content === "Trocas" && (
+                <Table
+                    user="admin"
+                    type="exchanges"
+                    data={exchanges}
+                    deleteObj={deleteObj}
+                    setContent={setContent}
+                    setData={setExchange}
+                ></Table>
+            )}
+
+            {content === "Perfil da Troca" && (
+                <ExchangeProfile
+                    user={"admin"}
+                    exchange={exchange}
+                    setContent={setContent}
+                ></ExchangeProfile>
             )}
         </div>
     );
