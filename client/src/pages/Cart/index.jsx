@@ -7,6 +7,7 @@ import { ToastContainer, toast } from "react-toastify";
 import Form from "../../components/Form";
 
 import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 function Cart() {
     const { cart, clearCart } = useContext(CartContext);
@@ -17,13 +18,16 @@ function Cart() {
     const [orderValue, setOrderValue] = useState(0);
     const [coupon, setCoupon] = useState("");
     const [discount, setDiscount] = useState(0);
+    var finalValue = 0;
 
     const [paymentCards, setPaymentCards] = useState([]);
     const [newCreditCard, setNewCreditCard] = useState({});
-    const [finalValue, setFinalValue] = useState(0);
     const [content, setContent] = useState("");
 
+    const navigate = useNavigate();
+
     const finishOrder = async () => {
+        console.log(finalValue);
         await Axios.post(
             "http://localhost:3333/orders",
             {
@@ -44,7 +48,7 @@ function Cart() {
             }
         )
             .then((res) => {
-                console.log(res.data);
+                navigate(`order/${res.data.id}`);
             })
             .catch((error) => {
                 console.log(error);
@@ -63,6 +67,7 @@ function Cart() {
 
     const validateCoupon = (coupon) => {
         const date = new Date().toISOString();
+
         if (
             coupon.expiresIn < date ||
             coupon.active === false ||
@@ -131,9 +136,8 @@ function Cart() {
         }
 
         if (value === orderValue - discount) {
+            finalValue = value;
             setContent("");
-            setFinalValue(0);
-            value = 0;
             finishOrder();
             clearCart();
             return;
@@ -311,6 +315,7 @@ function Cart() {
 
                             <div className="cart-next">
                                 <button
+                                    id="select-address_btn"
                                     className="cart-next_btn"
                                     onClick={() => {
                                         if (cart.length > 0) {
@@ -365,10 +370,13 @@ function Cart() {
 
                                 <div className="cart-next">
                                     <button
+                                        id="#select-payment_btn"
                                         className="cart-next_btn"
-                                        onClick={() =>
-                                            setContent("CreditCards")
-                                        }
+                                        onClick={() => {
+                                            if (shippingAddress.id) {
+                                                setContent("CreditCards");
+                                            }
+                                        }}
                                     >
                                         Selecionar forma de pagamento
                                     </button>
@@ -682,7 +690,9 @@ function Cart() {
                                                                 parseFloat(
                                                                     e.target
                                                                         .value
-                                                                ) >= 10
+                                                                ) >= 10 ||
+                                                                discount ===
+                                                                    orderValue
                                                             ) {
                                                                 addValueToCardToPayment(
                                                                     creditCard,
@@ -758,9 +768,12 @@ function Cart() {
 
                             <div className="cart-next">
                                 <button
+                                    id="finish-order_btn"
                                     className="cart-next_btn"
                                     onClick={() => {
-                                        getFinalValue();
+                                        if (paymentCards.length > 0) {
+                                            getFinalValue();
+                                        }
                                     }}
                                 >
                                     Finalizar Compra

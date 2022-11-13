@@ -2,8 +2,9 @@ import "../styles/productStyle.css";
 
 export default function Product({ product, setContent, setProduct }) {
     return (
-        <div className="product-container">
+        <div id={`product-${product.id}`} className="product-container">
             <img
+                id={`product-${product.id}-image`}
                 className="product-image"
                 src="https://via.placeholder.com/260x400"
                 alt={product.name}

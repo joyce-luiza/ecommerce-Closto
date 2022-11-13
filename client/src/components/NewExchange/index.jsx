@@ -11,6 +11,18 @@ export default function NewExchange({ order, setContent }) {
     const [description, setDescription] = useState("");
     const [updatedOrder, setUpdatedOrder] = useState(order);
 
+    const validateExchange = () => {
+        if (exchangeProducts[0]) {
+            if (description) {
+                createExchange();
+            } else {
+                showToast("error", "Informe o motivo da troca!");
+            }
+        } else {
+            showToast("error", "Selecione os produtos a serem trocados!");
+        }
+    };
+
     const productsValue = () => {
         let totalValue = 0;
         exchangeProducts.map((product) => {
@@ -23,7 +35,6 @@ export default function NewExchange({ order, setContent }) {
         if (checked) {
             product.checked = checked;
             setExchangeProducts([...exchangeProducts, product]);
-            console.log("Produto adicionado");
             console.log(exchangeProducts);
         } else {
             product.checked = checked;
@@ -31,7 +42,6 @@ export default function NewExchange({ order, setContent }) {
                 (prod) => prod.id !== product.id
             );
             setExchangeProducts(filteredExchangeProducts);
-            console.log("Produto removido");
             console.log(exchangeProducts);
         }
     };
@@ -84,14 +94,7 @@ export default function NewExchange({ order, setContent }) {
             <h1>Nova Troca</h1>
             <button
                 onClick={() => {
-                    console.log(exchangeProducts);
-                }}
-            >
-                teste
-            </button>
-            <button
-                onClick={() => {
-                    setContent("Nova Troca");
+                    setContent("Pedidos Trocáveis");
                 }}
             >
                 Voltar
@@ -139,16 +142,6 @@ export default function NewExchange({ order, setContent }) {
                                     );
                                 }}
                             />
-                            {/* <button
-                                onClick={() => {
-                                    setExchangeProducts([
-                                        ...exchangeProducts,
-                                        product,
-                                    ]);
-                                }}
-                            >
-                                Selecionar
-                            </button> */}
                         </div>
                     );
                 })}
@@ -168,7 +161,7 @@ export default function NewExchange({ order, setContent }) {
                 />
                 <button
                     onClick={() => {
-                        createExchange();
+                        validateExchange();
                     }}
                 >
                     Solicitar troca

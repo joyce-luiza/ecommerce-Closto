@@ -27,6 +27,7 @@ class Facade {
         this.controllers.set("/user/addresses", AddressController);
         this.controllers.set("/user/orders", OrderController);
         this.controllers.set("/orders", OrderController);
+        this.controllers.set("/order", OrderController);
         this.controllers.set("/user/coupons", CouponController);
         this.controllers.set("/coupons", CouponController);
         this.controllers.set("/products", ProductController);

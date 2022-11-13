@@ -49,7 +49,7 @@ export default function ExchangeProfile({ user, exchange, setContent }) {
             }
         )
             .then((res) => {
-                if (res.data[0]) {
+                if (res.data.error) {
                     showToast("error", "Não foi possível criar o cupom!");
                 }
                 console.log(res);
@@ -63,6 +63,16 @@ export default function ExchangeProfile({ user, exchange, setContent }) {
             {
                 table: "/exchanges",
                 id: exchange.id,
+                coupon: {
+                    code: couponCode,
+                    couponType: "Troca",
+                    discountType: "Valor",
+                    discountValue: couponValue,
+                    minValue: couponValue,
+                    quantity: 1,
+                    active: true,
+                    userId: exchange.user_id,
+                },
                 status: "Cupom gerado",
             },
             {

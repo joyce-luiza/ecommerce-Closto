@@ -43,12 +43,15 @@ routes.patch("/products", UpdateCommand);
 routes.delete("/products", DeleteCommand);
 
 routes.get("/orders", ConsultCommand);
+routes.post("/order", IndexCommand);
 routes.post("/orders", SaveCommand);
 routes.patch("/orders", UpdateCommand);
 routes.delete("/orders", DeleteCommand);
 
-routes.get("/coupons", ConsultCommand);
+// routes.get('/coupons', ConsultCommand);
 routes.post("/coupons", IndexCommand);
+routes.patch("/coupons", UpdateCommand);
+routes.delete("/coupons", DeleteCommand);
 
 routes.post("/admin", SaveCommand);
 routes.patch("/admin", UpdateCommand);

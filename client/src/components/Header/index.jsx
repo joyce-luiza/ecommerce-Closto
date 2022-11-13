@@ -47,7 +47,7 @@ function Header() {
                         <img src="/icons/search.svg" alt="Procurar" />
                     </div>
 
-                    <div className="header-icon">
+                    <div id="profile-icon" className="header-icon">
                         <Link className="header-icon_link" to="/profile">
                             <i className="ri-user-line ri-2x"></i>
                         </Link>
@@ -57,7 +57,7 @@ function Header() {
                         <i className="ri-heart-line ri-2x"></i>
                     </div>
 
-                    <div className="header-icon">
+                    <div id="cart-icon" className="header-icon">
                         <Link className="header-icon_link" to="/cart">
                             <i className="ri-shopping-bag-line ri-2x"></i>
                         </Link>

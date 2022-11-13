@@ -4,6 +4,9 @@ class OrderController {
     async show(entityInfo) {
         return await Order.findAll({ where: { user_id: entityInfo.user_id } });
     }
+    async index(entityInfo) {
+        return await Order.findByPk(entityInfo.id);
+    }
 
     async save(entityInfo) {
         return await Order.create(entityInfo);

@@ -8,6 +8,7 @@ import { useEffect } from "react";
 import EditProduct from "../../components/EditProduct";
 import EditOrder from "../../components/EditOrder";
 import ExchangeProfile from "../../components/ExchangeProfile";
+import showToast from "../../components/Toast";
 
 function AdminPanel() {
     const [admin, setAdmin] = useState({});
@@ -108,6 +109,7 @@ function AdminPanel() {
             data: { id: id, table: `/${type}` },
         })
             .then((res) => {
+                showToast("success", "Objeto deletado com sucesso!");
                 setData(!data);
             })
             .catch((error) => {
@@ -174,7 +176,7 @@ function AdminPanel() {
                     user="admin"
                     type="exchanges"
                     data={exchanges}
-                    deleteObj={[]}
+                    deleteObj={deleteObj}
                     setContent={setContent}
                     setData={setExchange}
                 ></Table>
