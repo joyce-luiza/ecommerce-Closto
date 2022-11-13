@@ -67,7 +67,6 @@ function Cart() {
 
     const validateCoupon = (coupon) => {
         const date = new Date().toISOString();
-
         if (
             coupon.expiresIn < date ||
             coupon.active === false ||
@@ -315,7 +314,6 @@ function Cart() {
 
                             <div className="cart-next">
                                 <button
-                                    id="select-address_btn"
                                     className="cart-next_btn"
                                     onClick={() => {
                                         if (cart.length > 0) {
@@ -370,7 +368,6 @@ function Cart() {
 
                                 <div className="cart-next">
                                     <button
-                                        id="#select-payment_btn"
                                         className="cart-next_btn"
                                         onClick={() => {
                                             if (shippingAddress.id) {
@@ -690,9 +687,7 @@ function Cart() {
                                                                 parseFloat(
                                                                     e.target
                                                                         .value
-                                                                ) >= 10 ||
-                                                                discount ===
-                                                                    orderValue
+                                                                ) >= 10
                                                             ) {
                                                                 addValueToCardToPayment(
                                                                     creditCard,
@@ -768,7 +763,6 @@ function Cart() {
 
                             <div className="cart-next">
                                 <button
-                                    id="finish-order_btn"
                                     className="cart-next_btn"
                                     onClick={() => {
                                         if (paymentCards.length > 0) {
