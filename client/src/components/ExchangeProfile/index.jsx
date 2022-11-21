@@ -16,8 +16,6 @@ export default function ExchangeProfile({ user, exchange, setContent }) {
 
     const createCouponCode = (string) => {
         let code = bcrypt.hashSync(string, 8);
-        console.log(exchange);
-        console.log("código:" + code);
         setCouponCode(code);
     };
 
@@ -212,7 +210,6 @@ export default function ExchangeProfile({ user, exchange, setContent }) {
                             id="confirmExchangeUpdate"
                             className="btn btn-primary"
                             onClick={() => {
-                                console.log(exchange);
                                 handleStatus();
                             }}
                         >

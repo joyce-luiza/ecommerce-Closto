@@ -19,7 +19,6 @@ class CouponController {
     }
 
     async update(entityInfo) {
-        console.log(entityInfo);
         return await (await Coupon.findByPk(entityInfo.id)).update(entityInfo);
     }
 
