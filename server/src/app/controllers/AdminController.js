@@ -89,9 +89,10 @@ class AdminController {
                             await Product.findByPk(entityInfo.id)
                         ).update(entityInfo);
                     case "/orders":
+                        console.log(entityInfo);
                         return await (
                             await Order.findByPk(entityInfo.id)
-                        ).update(entityInfo);
+                        ).update({ status: entityInfo.status });
                     case "/coupons":
                         return await (
                             await Coupon.findByPk(entityInfo.id)
@@ -99,7 +100,7 @@ class AdminController {
                     case "/exchanges":
                         return await (
                             await Exchange.findByPk(entityInfo.id)
-                        ).update(entityInfo);
+                        ).update({ status: entityInfo.status });
                     default:
                         return { error: "Table not found!" };
                 }
