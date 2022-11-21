@@ -5,7 +5,7 @@ export const CartContext = createContext({});
 export const CartProvider = ({ children }) => {
 	const [cart, setCart] = useState([]);
 
-	const handleAddProductToCart = (id, name, price, color, size) => {
+	const handleAddProductToCart = (id, name, price, color, size, category) => {
 		const cartCopy = [...cart];
 
 		const product = cartCopy.find(
@@ -23,6 +23,7 @@ export const CartProvider = ({ children }) => {
 				price: price,
 				color: color,
 				size: size,
+				category: category,
 				qtd: 1,
 			});
 		} else {

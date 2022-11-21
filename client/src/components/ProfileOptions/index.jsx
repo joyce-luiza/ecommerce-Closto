@@ -86,18 +86,22 @@ export default function ProfileOptions({ handleContent, data, type }) {
                         <h3 className="menu-title">Loja</h3>
 
                         <button
-                            id="link-produtos"
                             className="menu-item"
                             onClick={() => handleContent("")}
                         >
                             Produtos
                         </button>
                         <button
-                            id="link-promocoes"
                             className="menu-item"
                             onClick={() => handleContent("Promoções")}
                         >
                             Promoções
+                        </button>
+                        <button
+                            className="menu-item"
+                            onClick={() => handleContent("Relatório")}
+                        >
+                            Relatório
                         </button>
                     </section>
 
