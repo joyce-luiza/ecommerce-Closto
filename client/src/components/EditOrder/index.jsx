@@ -15,6 +15,7 @@ export default function EditOrder({ userType, order, setContent }) {
             {
                 table: "/orders",
                 id: order.id,
+                user_id: order.user_id,
                 status: updatedStatus,
             },
             {
@@ -170,9 +171,11 @@ export default function EditOrder({ userType, order, setContent }) {
             </div>
             {userType === "admin" && (
                 <button
+                    id="confirmOrderUpdate"
                     className="form-btn"
                     onClick={() => {
                         handleStatus();
+                        console.log(order);
                     }}
                 >
                     Salvar Alterações

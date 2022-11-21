@@ -27,7 +27,28 @@ function Cart() {
     const navigate = useNavigate();
 
     const finishOrder = async () => {
-        console.log(finalValue);
+        if (coupon) {
+            await Axios.patch(
+                "http://localhost:3333/coupons",
+                {
+                    id: coupon.id,
+                    code: coupon.code,
+                    active: "false",
+                },
+                {
+                    headers: {
+                        Authorization:
+                            "Bearer " + localStorage.getItem("session"),
+                    },
+                }
+            )
+                .then((res) => {
+                    console.log(res);
+                })
+                .catch((error) => {
+                    console.log(error);
+                });
+        }
         await Axios.post(
             "http://localhost:3333/orders",
             {
@@ -81,6 +102,7 @@ function Cart() {
             } else {
                 setDiscount(coupon.discountValue);
             }
+            setCoupon(coupon);
         }
     };
 
@@ -104,7 +126,7 @@ function Cart() {
                 validateCoupon(res.data);
             })
             .catch((error) => {
-                console.log(error);
+                showToast("error", "Cupom inválido!");
             });
     };
 
@@ -687,7 +709,9 @@ function Cart() {
                                                                 parseFloat(
                                                                     e.target
                                                                         .value
-                                                                ) >= 10
+                                                                ) >= 10 ||
+                                                                discount ===
+                                                                    orderValue
                                                             ) {
                                                                 addValueToCardToPayment(
                                                                     creditCard,
@@ -928,6 +952,7 @@ function Cart() {
                             onChange={(e) => setCoupon(e.target.value)}
                         />
                         <button
+                            id="remove-coupon"
                             onClick={() => {
                                 removeCoupon();
                             }}
@@ -935,6 +960,7 @@ function Cart() {
                             Remover cupom
                         </button>
                         <button
+                            id="apply-coupon"
                             onClick={() => {
                                 getCoupon();
                             }}

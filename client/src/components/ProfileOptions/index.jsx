@@ -21,30 +21,35 @@ export default function ProfileOptions({ handleContent, data, type }) {
                         <h3 className="menu-title">Dados</h3>
 
                         <button
+                            id="link-dados-cadastrais"
                             className="menu-item"
                             onClick={() => handleContent("")}
                         >
                             Dados Cadastrais
                         </button>
                         <button
+                            id="link-lista-de-desejos"
                             className="menu-item"
                             onClick={() => handleContent("Lista de Desejos")}
                         >
                             Lista de Desejos
                         </button>
                         <button
+                            id="link-enderecos"
                             className="menu-item"
                             onClick={() => handleContent("Endereços")}
                         >
                             Endereços
                         </button>
                         <button
+                            id="link-cartao-credito"
                             className="menu-item"
                             onClick={() => handleContent("Cartões de crédito")}
                         >
                             Cartões de crédito
                         </button>
                         <button
+                            id="link-cupons"
                             className="menu-item"
                             onClick={() => handleContent("Cupons")}
                         >
@@ -56,6 +61,7 @@ export default function ProfileOptions({ handleContent, data, type }) {
                         <h3 className="menu-title">Pedidos</h3>
 
                         <button
+                            id="link-pedidos"
                             className="menu-item"
                             onClick={() => handleContent("Meus Pedidos")}
                         >
@@ -63,6 +69,7 @@ export default function ProfileOptions({ handleContent, data, type }) {
                             Meus Pedidos
                         </button>
                         <button
+                            id="link-trocas"
                             className="menu-item"
                             onClick={() => handleContent("Trocas")}
                         >
@@ -79,12 +86,14 @@ export default function ProfileOptions({ handleContent, data, type }) {
                         <h3 className="menu-title">Loja</h3>
 
                         <button
+                            id="link-produtos"
                             className="menu-item"
                             onClick={() => handleContent("")}
                         >
                             Produtos
                         </button>
                         <button
+                            id="link-promocoes"
                             className="menu-item"
                             onClick={() => handleContent("Promoções")}
                         >
@@ -96,6 +105,7 @@ export default function ProfileOptions({ handleContent, data, type }) {
                         <h3 className="menu-title">Clientes</h3>
 
                         <button
+                            id="link-clientes"
                             className="menu-item"
                             onClick={() => handleContent("Clientes")}
                         >
@@ -103,6 +113,7 @@ export default function ProfileOptions({ handleContent, data, type }) {
                             Clientes
                         </button>
                         <button
+                            id="link-pedidos"
                             className="menu-item"
                             onClick={() => handleContent("Pedidos")}
                         >
@@ -110,6 +121,7 @@ export default function ProfileOptions({ handleContent, data, type }) {
                             Pedidos
                         </button>
                         <button
+                            id="link-trocas"
                             className="menu-item"
                             onClick={() => handleContent("Trocas")}
                         >

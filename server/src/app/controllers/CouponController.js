@@ -3,7 +3,7 @@ import Coupon from "../models/Coupon";
 class CouponController {
     async index(entityInfo) {
         const coupon = await Coupon.findOne({
-            where: { code: entityInfo.code },
+            where: { code: entityInfo.code, userId: entityInfo.user_id },
         });
         return coupon;
     }
@@ -19,6 +19,7 @@ class CouponController {
     }
 
     async update(entityInfo) {
+        console.log(entityInfo);
         return await (await Coupon.findByPk(entityInfo.id)).update(entityInfo);
     }
 

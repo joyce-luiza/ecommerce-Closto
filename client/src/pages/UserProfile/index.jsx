@@ -198,6 +198,7 @@ function UserProfile2() {
                 <div>
                     <h1>Trocas</h1>
                     <button
+                        id="new-exchange"
                         onClick={() => {
                             setContent("Pedidos Trocáveis");
                         }}
