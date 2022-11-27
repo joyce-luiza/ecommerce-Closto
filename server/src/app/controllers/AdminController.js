@@ -75,40 +75,42 @@ class AdminController {
 			where: { id: entityInfo.user_id, isAdmin: entityInfo.isAdmin },
 		});
 
-		if (admin) {
-			try {
-				switch (entityInfo.table) {
-					case '/users':
-						return await (
-							await User.findByPk(entityInfo.id)
-						).update(entityInfo);
-					case '/addresses':
-						return await (
-							await Address.findByPk(entityInfo.id)
-						).update(entityInfo);
-					case '/products':
-						return await (
-							await Product.findByPk(entityInfo.id)
-						).update(entityInfo);
-					case '/orders':
-						return await (
-							await Order.findByPk(entityInfo.id)
-						).update(entityInfo);
-					case '/coupons':
-						return await (
-							await Coupon.findByPk(entityInfo.id)
-						).update(entityInfo);
-					case '/exchanges':
-						return await (
-							await Exchange.findByPk(entityInfo.id)
-						).update(entityInfo);
-					default:
-						return { error: 'Table not found!' };
-				}
-			} catch (error) {
-				return { error: error.message };
-			}
-		}
+
+    if (admin) {
+        try {
+            switch (entityInfo.table) {
+                case "/users":
+                    return await (
+                        await User.findByPk(entityInfo.id)
+                    ).update(entityInfo);
+                case "/addresses":
+                    return await (
+                        await Address.findByPk(entityInfo.id)
+                    ).update(entityInfo);
+                case "/products":
+                    return await (
+                        await Product.findByPk(entityInfo.id)
+                    ).update(entityInfo);
+                case "/orders":
+                    console.log(entityInfo);
+                    return await (
+                        await Order.findByPk(entityInfo.id)
+                    ).update({ status: entityInfo.status });
+                case "/coupons":
+                    return await (
+                        await Coupon.findByPk(entityInfo.id)
+                    ).update(entityInfo);
+                case "/exchanges":
+                    return await (
+                        await Exchange.findByPk(entityInfo.id)
+                    ).update({ status: entityInfo.status });
+                default:
+                    return { error: "Table not found!" };
+            }
+        } catch (error) {
+            return { error: error.message };
+        }
+    }
 
 		return { error: 'Only an admin can access this content!' };
 	}

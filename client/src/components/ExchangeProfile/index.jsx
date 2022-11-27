@@ -7,6 +7,7 @@ import Axios from "axios";
 import showToast from "../Toast";
 import "../styles/exchangeProfileStyle.css";
 import bcrypt from "bcryptjs";
+import { useEffect } from "react";
 
 export default function ExchangeProfile({ user, exchange, setContent }) {
     const [updatedStatus, setUpdatedStatus] = useState();
@@ -27,8 +28,6 @@ export default function ExchangeProfile({ user, exchange, setContent }) {
     };
 
     const createCoupon = async () => {
-        createCouponCode(`${exchange.user_id}${exchange.createdAt}`);
-        productsValue();
         await Axios.post(
             "http://localhost:3333/admin",
             {
@@ -51,9 +50,10 @@ export default function ExchangeProfile({ user, exchange, setContent }) {
             .then((res) => {
                 if (res.data.error) {
                     showToast("error", "Não foi possível criar o cupom!");
+                    console.log(res);
+                } else {
+                    showToast("success", "Cupom criado com sucesso");
                 }
-                console.log(res);
-                showToast("success", "Cupom criado com sucesso");
             })
             .catch((error) => {
                 console.log(error);
@@ -111,6 +111,11 @@ export default function ExchangeProfile({ user, exchange, setContent }) {
                 console.log(error);
             });
     }
+
+    useEffect(() => {
+        createCouponCode(`${exchange.user_id}${exchange.createdAt}`);
+        productsValue();
+    }, []);
 
     return (
         <div className="container">
@@ -192,6 +197,7 @@ export default function ExchangeProfile({ user, exchange, setContent }) {
                                 </select>
                             </div>
                             <button
+                                id="newCoupon"
                                 className="btn btn-secondary"
                                 onClick={() => {
                                     createCoupon();
@@ -201,6 +207,7 @@ export default function ExchangeProfile({ user, exchange, setContent }) {
                             </button>
                         </div>
                         <button
+                            id="confirmExchangeUpdate"
                             className="btn btn-primary"
                             onClick={() => {
                                 handleStatus();
@@ -221,10 +228,13 @@ export default function ExchangeProfile({ user, exchange, setContent }) {
                                     {product.name}
                                 </h1>
                                 <span className="exchange-item-color">
-                                    {product.color.colorName}
+                                    Cor: {product.color.colorName}
                                 </span>
                                 <span className="exchange-item-size">
-                                    {product.size.sizeName}
+                                    Tamanho: {product.size.sizeName}
+                                </span>
+                                <span className="exchange-item-price">
+                                    R$ {product.price}
                                 </span>
                             </div>
                             <span className="order-item-qty">

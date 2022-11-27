@@ -133,8 +133,8 @@ export default function NewExchange({ order, setContent }) {
                             </span>
                             <input
                                 type="checkbox"
-                                id={`product-${product.id}`}
-                                name={`product-${product.id}`}
+                                id={`product-${index}`}
+                                name={`product-${index}`}
                                 onChange={(e) => {
                                     addExchangeProduct(
                                         product,
@@ -160,6 +160,7 @@ export default function NewExchange({ order, setContent }) {
                     }}
                 />
                 <button
+                    id="newExchange"
                     onClick={() => {
                         validateExchange();
                     }}

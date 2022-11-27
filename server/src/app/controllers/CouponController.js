@@ -3,7 +3,7 @@ import Coupon from "../models/Coupon";
 class CouponController {
     async index(entityInfo) {
         const coupon = await Coupon.findOne({
-            where: { code: entityInfo.code },
+            where: { code: entityInfo.code, userId: entityInfo.user_id },
         });
         return coupon;
     }

@@ -86,20 +86,20 @@ export default function Table({
                                     <div className="table-label">
                                         Número do pedido
                                     </div>
-                                    <div className="table-content">
+                                    <div className="table-content column-order-id">
                                         {order.id}
                                     </div>
                                 </div>
 
                                 <div className="table-column">
                                     <div className="table-label">Status</div>
-                                    <div className="table-content">
+                                    <div className="table-content column-order-status">
                                         {order.status}
                                     </div>
                                 </div>
                                 <div className="table-column">
                                     <div className="table-label">Data</div>
-                                    <div className="table-content">
+                                    <div className="table-content column-order-date">
                                         {new Date(
                                             order.createdAt
                                         ).toLocaleDateString()}
@@ -107,7 +107,7 @@ export default function Table({
                                 </div>
                                 <div className="table-column">
                                     <div className="table-label">Valor</div>
-                                    <div className="table-content">
+                                    <div className="table-content column-order-value">
                                         {order.total}
                                     </div>
                                 </div>
@@ -132,6 +132,7 @@ export default function Table({
                                             <div className="table-label"></div>
                                             <div className="table-content">
                                                 <button
+                                                    className="select-exchange"
                                                     onClick={() => {
                                                         setData(order);
                                                         setContent(
@@ -181,7 +182,7 @@ export default function Table({
                                     <div className="table-label">
                                         Número da troca
                                     </div>
-                                    <div className="table-content">
+                                    <div className="table-content column-exchange-id">
                                         {exchange.id}
                                     </div>
                                 </div>
@@ -189,20 +190,20 @@ export default function Table({
                                     <div className="table-label">
                                         Número do pedido
                                     </div>
-                                    <div className="table-content">
+                                    <div className="table-content column-exchange-order-id">
                                         {exchange.order_id}
                                     </div>
                                 </div>
 
                                 <div className="table-column">
                                     <div className="table-label">Status</div>
-                                    <div className="table-content">
+                                    <div className="table-content column-exchange-status">
                                         {exchange.status}
                                     </div>
                                 </div>
                                 <div className="table-column">
                                     <div className="table-label">Data</div>
-                                    <div className="table-content">
+                                    <div className="table-content column-exchange-date">
                                         {new Date(
                                             exchange.createdAt
                                         ).toLocaleDateString()}
@@ -263,25 +264,25 @@ export default function Table({
                             <div key={coupon.id} className="row-container">
                                 <div className="table-column">
                                     <div className="table-label">ID</div>
-                                    <div className="table-content">
+                                    <div className="table-content coupon-id">
                                         {coupon.id}
                                     </div>
                                 </div>
                                 <div className="table-column">
                                     <div className="table-label">Código</div>
-                                    <div className="table-content">
+                                    <div className="table-content coupon-code">
                                         {coupon.code}
                                     </div>
                                 </div>
                                 <div className="table-column">
                                     <div className="table-label">Valor</div>
-                                    <div className="table-content">
+                                    <div className="table-content coupon-discount">
                                         R${coupon.discountValue}
                                     </div>
                                 </div>
                                 <div className="table-column">
                                     <div className="table-label">Validade</div>
-                                    <div className="table-content">
+                                    <div className="table-content coupon-expiration">
                                         {new Date(
                                             coupon.createdAt
                                         ).toLocaleDateString() || "Não expira"}

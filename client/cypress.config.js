@@ -1,13 +1,23 @@
 const { defineConfig } = require("cypress");
-
-const db = require("../server/src/database");
+const { Client } = require("pg");
 
 module.exports = defineConfig({
     e2e: {
         setupNodeEvents(on, config) {
             on("task", {
-                "defaults:db": () => {
-                    return db.seed("defaults");
+                async connectDB(query) {
+                    const client = new Client({
+                        user: "postgres",
+                        password: "super123",
+                        host: "localhost",
+                        database: "closto",
+                        ssl: false,
+                        port: 5000,
+                    });
+                    await client.connect();
+                    const res = await client.query(query);
+                    await client.end();
+                    return res.rows;
                 },
             });
         },
