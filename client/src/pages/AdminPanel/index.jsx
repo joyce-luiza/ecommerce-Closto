@@ -22,8 +22,7 @@ function AdminPanel() {
 	const [data, setData] = useState(false);
 	const [exchanges, setExchanges] = useState([]);
 	const [exchange, setExchange] = useState({});
-	const [graphCategoryData, setCategoryData] = useState([]);
-	const [graphValuesData, setValuesData] = useState([]);
+	const [graphData, setGraphData] = useState([]);
 
 	const getOrdersInfo = async () => {
 		await Axios.post(
@@ -36,61 +35,64 @@ function AdminPanel() {
 			}
 		)
 			.then(async (res) => {
-				prepareCategoryData(res.data);
-				prepareValuesData(res.data);
+				getGraphData(res.data);
 			})
 			.catch((error) => {
 				console.log(error);
 			});
 	};
 
-	const prepareCategoryData = (ordersData) => {
-		const orders = ordersData;
-
-		var products = [];
+	async function getGraphData(data) {
+		const orders = data;
+		const total = [];
+		const dates = [];
+		const totalOrders = [];
 
 		orders.forEach((order) => {
-			for (let index = 0; index < order.products.length; index++) {
-				products.push(order.products[index]);
-			}
+			const createdAt = new Date(order.createdAt);
+			const formattedDate = `${
+				createdAt.getUTCMonth() + 1
+			}/${createdAt.getUTCDate()}/${createdAt.getFullYear()}`;
+			dates.push(formattedDate);
 		});
 
-		products = _.groupBy(products, (product) => {
-			return product.category;
+		dates.forEach((day) => {
+			var valuePerDay = 0;
+			var totalOrdersPerDay = 0;
+
+			orders.forEach((order) => {
+				const createdAt = new Date(order.createdAt);
+				const formattedDate = `${
+					createdAt.getUTCMonth() + 1
+				}/${createdAt.getUTCDate()}/${createdAt.getFullYear()}`;
+				if (day === formattedDate) {
+					valuePerDay += order.total;
+					totalOrdersPerDay += 1;
+				}
+			});
+
+			total.push(valuePerDay);
+			totalOrders.push(totalOrdersPerDay);
 		});
 
-		const result = _.map(products, (product, key) => {
-			return [key, _.sumBy(products[key], (p) => p.qtd)];
-		});
-
-		setCategoryData(result);
-	};
-
-	const prepareValuesData = (ordersData) => {
-		const orders = _.groupBy(ordersData, (order) => {
-			if (order.total <= 200) {
-				return '0 - 200';
-			} else if (order.total <= 400) {
-				return '200 - 400';
-			} else if (order.total <= 600) {
-				return '400 - 600';
-			} else if (order.total <= 800) {
-				return '600 - 800';
-			} else if (order.total <= 800) {
-				return '800 - 1000';
-			} else if (order.total > 1000) {
-				return '1000+';
-			}
-		});
-
-		const result = _.map(orders, (order, key) => {
-			return [key, _.sumBy(orders[key], () => 1)];
-		});
+		const result = {
+			values: [
+				{
+					name: 'Valor total (R$)',
+					data: total,
+				},
+				{
+					name: 'Pedidos',
+					data: totalOrders,
+				},
+			],
+			x: dates,
+		};
 
 		console.log(result);
 
-		setValuesData(result);
-	};
+		setGraphData(result);
+	}
 
 	async function getAdminInfo() {
 		await Axios.get('http://localhost:3333/users', {
@@ -249,35 +251,7 @@ function AdminPanel() {
 
 			{content === 'Relatório' && (
 				<>
-					<Graph
-						graphData={graphCategoryData}
-						graphOptions={{
-							title: 'Vendas por categoria de produto',
-							is3D: true,
-							slices: {
-								0: { color: '#221d21' },
-								1: { color: '#433d3d' },
-								2: { color: '#e33c08' },
-								3: { color: '#f77014' },
-								4: { color: '#ffa927' },
-							},
-						}}
-					/>
-					<Graph
-						graphData={graphValuesData}
-						graphOptions={{
-							title: 'Valor por pedido (R$)',
-							is3D: false,
-							pieHole: 0.3,
-							slices: {
-								0: { color: '#5b1d99' },
-								1: { color: '#0074b4' },
-								2: { color: '#00b34c' },
-								3: { color: '#ffd41f' },
-								4: { color: '#fc6e3d' },
-							},
-						}}
-					/>
+					<Graph graphData={graphData} />
 				</>
 			)}
 

@@ -1,21 +1,55 @@
-// import '../styles/graphStyle.css';
+import { useEffect, useState } from 'react';
+import Chart from 'react-apexcharts';
+import DatePicker from 'react-datepicker';
+import 'react-datepicker/dist/react-datepicker.css';
 
-import { Chart } from 'react-google-charts';
+function Graph({ graphData }) {
+	const [startDate, setStartDate] = useState();
+	const [endDate, setEndDate] = useState();
+	const filteredDates = [];
 
-function Graph({ graphData, graphOptions }) {
-	const data = [['Graph', 'Data'], ...graphData];
+	if (startDate && endDate) {
+		graphData.x.forEach((day) => {
+			if (
+				new Date(day).getTime() >= startDate &&
+				new Date(day).getTime() <= endDate
+			) {
+				filteredDates.push(day);
+			}
+		});
+	}
 
+	useEffect(() => {}, [filteredDates]);
+
+	const series = graphData.values;
+	const options = {
+		dataLabels: {
+			enabled: true,
+		},
+		stroke: {
+			curve: 'smooth',
+		},
+		xaxis: {
+			type: 'datetime',
+			categories: filteredDates.length > 0 ? filteredDates : graphData.x,
+		},
+		tooltip: {
+			x: {
+				format: 'dd/MM/yy',
+			},
+		},
+	};
 	return (
-		<div className="graph">
-			{graphData && (
-				<Chart
-					chartType="PieChart"
-					data={data}
-					options={graphOptions}
-					width={'100%'}
-					height={'400px'}
-				/>
-			)}
+		<div>
+			<DatePicker
+				selected={startDate}
+				onChange={(date) => setStartDate(new Date(date).getTime())}
+			/>
+			<DatePicker
+				selected={endDate}
+				onChange={(date) => setEndDate(new Date(date).getTime())}
+			/>
+			<Chart options={options} series={series} width={800} height={800} />
 		</div>
 	);
 }
